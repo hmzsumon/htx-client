@@ -51,7 +51,7 @@ const Carousel = () => {
 				<img
 					src={coin.image}
 					alt={coin.name}
-					className='w-20 h-20 object-contain mb-2'
+					className='w-8 h-8 object-contain mb-2'
 				/>
 				<span>
 					{coin.symbol}&nbsp;

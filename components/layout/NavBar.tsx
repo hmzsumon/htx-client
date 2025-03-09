@@ -12,7 +12,7 @@ const NavBar = () => {
 	const router = useRouter();
 
 	return (
-		<div className='sticky top-0 border border-b-primary/10 header z-50 '>
+		<div className='sticky top-0 border-b border-b-primary/10 header z-50 bg-gray-800'>
 			<Container>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>
@@ -39,7 +39,9 @@ const NavBar = () => {
 							</SheetContent>
 						</Sheet> */}
 
-						<div>HTX Trade</div>
+						<div>
+							<h1 className='font-bold text-xl text-white'>HTX Trade</h1>
+						</div>
 					</div>
 					{/* <div>
 						<div className='hidden md:flex gap-3'>

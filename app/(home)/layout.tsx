@@ -10,7 +10,7 @@ const HomeLayout = ({
 	return (
 		<div>
 			<NavBar />
-			<div className='flex flex-col min-h-screen px-4'>
+			<div className='flex flex-col min-h-screen'>
 				<CryptoContext>{children}</CryptoContext>
 			</div>
 			<Footer />

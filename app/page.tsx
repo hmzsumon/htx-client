@@ -4,6 +4,7 @@ import HeroSection from '@/components/home/HeroSection';
 import SimpleSlider from '@/components/home/Carousel';
 import Notice from '@/components/home/Notice';
 import CryptoSection from '@/components/home/CryptoSection';
+import TradeVolume from '@/components/home/TradeVolume';
 
 export default function Home() {
 	return (
@@ -11,6 +12,7 @@ export default function Home() {
 			<div>
 				<HeroSection />
 				<CryptoSection />
+				<TradeVolume />
 			</div>
 		</HomeLayout>
 	);

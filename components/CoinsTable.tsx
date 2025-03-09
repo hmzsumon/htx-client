@@ -59,28 +59,21 @@ export default function CoinsTable() {
 	};
 
 	return (
-		<div className='container mx-auto p-4'>
-			<h1 className='text-4xl font-bold text-center mb-6'>
+		<div className=' mx-auto px-2 my-10'>
+			<h1 className=' md:text-4xl font-bold text-center mb-6 text-gray-800'>
 				Cryptocurrency Prices by Market Cap
 			</h1>
 
-			<input
-				type='text'
-				placeholder='Search For a Cryptocurrency...'
-				className='w-full p-2 mb-6 border border-gray-500 rounded bg-gray-900 text-white'
-				onChange={(e) => setSearch(e.target.value)}
-			/>
-
 			<div className='overflow-x-auto'>
 				{loading ? (
-					<div className='w-full h-2 bg-gray-200 rounded-full'>
+					<div className='w-full h-2  rounded-full'>
 						<div className='h-2 bg-yellow-500 rounded-full animate-pulse' />
 					</div>
 				) : (
-					<table className='w-full text-sm text-left text-gray-500'>
-						<thead className='text-xs uppercase bg-yellow-500 text-black'>
+					<table className='w-full text-sm  text-left text-gray-500'>
+						<thead className='text-xs text-gray-400'>
 							<tr>
-								{['Coin', 'Price', '24h Change', 'Market Cap'].map((head) => (
+								{['Coin', 'Price', 'Change'].map((head) => (
 									<th
 										key={head}
 										className='px-6 py-3 font-bold'
@@ -100,22 +93,21 @@ export default function CoinsTable() {
 										<tr
 											key={row.id}
 											onClick={() => router.push(`/coins/${row.id}`)}
-											className='cursor-pointer bg-gray-800 hover:bg-gray-700 transition-all'
+											className='cursor-pointer  hover:bg-gray-50 transition-all'
 										>
 											<td className='flex items-center px-6 py-4 whitespace-nowrap'>
 												<img
 													src={row.image}
 													alt={row.name}
-													className='w-10 h-10 mr-4'
+													className='w-8 h-8 mr-2'
 												/>
 												<div className='flex flex-col'>
-													<span className='uppercase font-bold text-white'>
+													<span className='uppercase font-bold text-gray-800'>
 														{row.symbol}
 													</span>
-													<span className='text-gray-400'>{row.name}</span>
 												</div>
 											</td>
-											<td className='px-6 py-4 text-right text-white'>
+											<td className='px-4 py-4 text-right font-semibold text-gray-800'>
 												{symbol}{' '}
 												{numberWithCommas(row.current_price.toFixed(2))}
 											</td>
@@ -127,13 +119,6 @@ export default function CoinsTable() {
 												{profit && '+'}
 												{row.price_change_percentage_24h.toFixed(2)}%
 											</td>
-											<td className='px-6 py-4 text-right text-white'>
-												{symbol}{' '}
-												{numberWithCommas(
-													row.market_cap.toString().slice(0, -6)
-												)}
-												M
-											</td>
 										</tr>
 									);
 								})}
@@ -142,7 +127,7 @@ export default function CoinsTable() {
 				)}
 			</div>
 
-			<div className='flex justify-center mt-6'>
+			{/* <div className='flex justify-center mt-6'>
 				<div className='flex space-x-2'>
 					{Array.from(
 						{ length: Math.ceil(handleSearch().length / 10) },
@@ -161,7 +146,7 @@ export default function CoinsTable() {
 						)
 					)}
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
