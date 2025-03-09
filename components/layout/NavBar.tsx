@@ -3,7 +3,7 @@ import React from 'react';
 import Container from './Container';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Logo from '@/public/pyc-logo.png';
+import Logo from '@/public/images/logos/logo_1.png';
 import localFont from 'next/font/local';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const NavBar = () => {
 
 	return (
 		<div className='sticky top-0 border-b border-b-primary/10 header z-50 bg-gray-800'>
-			<Container>
+			<div className='max-w-[1920px] w-full mx-auto xl:px-20 px-2 py-3'>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>
 						{/* <Sheet>
@@ -40,7 +40,12 @@ const NavBar = () => {
 						</Sheet> */}
 
 						<div>
-							<h1 className='font-bold text-xl text-white'>HTX Trade</h1>
+							<Image
+								src={Logo}
+								alt='logo'
+								className='w-28'
+								onClick={() => router.push('/')}
+							/>
 						</div>
 					</div>
 					{/* <div>
@@ -72,7 +77,7 @@ const NavBar = () => {
 						</div>
 					</div>
 				</div>
-			</Container>
+			</div>
 		</div>
 	);
 };
