@@ -1,17 +1,17 @@
 import React from 'react';
-import Logo2 from '@/public/pyc-logo_2.png';
+import Logo2 from '@/public/images/logos/logo_2.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Footer = () => {
 	return (
-		<div className=' pt-10 border-t border-[#cca354]'>
+		<div className=' pt-10 border-t border-t-primary/10 bg-htx-blue'>
 			<div className=' px-4'>
 				<div className=' grid grid-cols-2 items-center '>
 					<div className=' space-y-3 '>
 						<Image src={Logo2} alt='logo' className=' w-28 ' />
 						<div>
-							<p className=' text-sm'>
+							<p className=' text-xs font-semibold text-gray-100'>
 								26/1, Sofiyskaya Embankment, 117997, Moscow, Russian Federation
 							</p>
 						</div>
@@ -19,22 +19,28 @@ const Footer = () => {
 
 					<div className=' justify-self-end'>
 						<ul className=' space-y-1 '>
-							<h2 className=' font-semibold'>
-								Quick <span className='text-[#cca354]'> Links</span>
+							<h2 className='font-semibold'>
+								Quick <span className='text-gray-50'> Links</span>
 							</h2>
-							<li className=' text-sm'>
-								<Link href='/' className='text-sm hover:text-[#cca354]'>
-									Home
+							<li className='text-xs font-bold'>
+								<Link href='/about-us' className='hover:text-white'>
+									About Us
 								</Link>
 							</li>
-							<li className=' text-sm'>
-								<Link href='/privacy' className='text-sm hover:text-[#cca354]'>
+							<li className=' text-xs font-bold'>
+								<Link href='/privacy-policy' className='hover:text-white'>
 									Privacy & Policy
 								</Link>
 							</li>
-							<li className=' text-sm'>
-								<Link href='/terms' className='text-sm hover:text-[#cca354]'>
+							<li className=' text-xs font-bold'>
+								<Link href='/terms-conditions' className='hover:text-white'>
 									Terms & Conditions
+								</Link>
+							</li>
+
+							<li className=' text-xs font-bold'>
+								<Link href='/faq' className='hover:text-white'>
+									FAQ
 								</Link>
 							</li>
 						</ul>
@@ -43,8 +49,8 @@ const Footer = () => {
 			</div>
 
 			<div className=' py-4 bg-slate-950 mt-6'>
-				<p className=' text-center text-xs'>
-					© 2024 Pyc Trade. All Rights Reserved.
+				<p className=' text-center text-white text-xs'>
+					© 2025 HTX Trade. All Rights Reserved.
 				</p>
 			</div>
 		</div>
