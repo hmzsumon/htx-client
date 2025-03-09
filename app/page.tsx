@@ -5,6 +5,9 @@ import SimpleSlider from '@/components/home/Carousel';
 import Notice from '@/components/home/Notice';
 import CryptoSection from '@/components/home/CryptoSection';
 import TradeVolume from '@/components/home/TradeVolume';
+import OurProduct from '@/components/home/Overview';
+import Overview from '@/components/home/Overview';
+import SageAndTrust from '@/components/home/SageAndTrust';
 
 export default function Home() {
 	return (
@@ -13,6 +16,8 @@ export default function Home() {
 				<HeroSection />
 				<CryptoSection />
 				<TradeVolume />
+				<Overview />
+				<SageAndTrust />
 			</div>
 		</HomeLayout>
 	);
