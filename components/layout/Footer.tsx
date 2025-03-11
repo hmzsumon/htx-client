@@ -10,10 +10,12 @@ const Footer = () => {
 				<div className=' grid grid-cols-2 items-center '>
 					<div className=' space-y-3 '>
 						<Image src={Logo2} alt='logo' className=' w-28 ' />
-						<div>
-							<p className=' text-xs font-semibold text-gray-100'>
-								26/1, Sofiyskaya Embankment, 117997, Moscow, Russian Federation
+						<div className=' text-xs font-semibold text-gray-100 space-y-1'>
+							<p>
+								26/1, Sofiyskaya Embankment, 117997, <br /> Moscow, Russian
+								Federation.
 							</p>
+							<p> Portsdown,#12-01, Singapore 138507</p>
 						</div>
 					</div>
 

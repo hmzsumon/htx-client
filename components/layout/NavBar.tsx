@@ -12,7 +12,7 @@ const NavBar = () => {
 	const router = useRouter();
 
 	return (
-		<div className='sticky top-0 border-b border-b-primary/10 header z-50 bg-gray-800'>
+		<div className='sticky top-0 border-b border-b-primary/10 header z-50 bg-slate-950'>
 			<div className='max-w-[1920px] w-full mx-auto xl:px-20 px-2 py-3'>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>
@@ -69,7 +69,7 @@ const NavBar = () => {
 									<span className='button__title text-white'> Log in </span>
 								</Button>
 							</Link>
-							<Link href='/sign-up'>
+							<Link href='/register-email'>
 								<Button className='bg-htx-blue'>
 									<span className=''>Sign up</span>
 								</Button>

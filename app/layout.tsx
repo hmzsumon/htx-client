@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import { clsx } from 'clsx';
-import { ClerkProvider } from '@clerk/nextjs';
-import NavBar from '@/components/layout/NavBar2';
-import Container from '@/components/layout/Container';
-import SocketProvider from '@/providers/SocketProvider';
+import { Toaster } from 'react-hot-toast';
+import StoreProvider from './StoreProvider';
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -32,8 +29,13 @@ export default function RootLayout({
 		<html lang='en' className='light'>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				suppressHydrationWarning={true}
 			>
-				<main className='flex flex-col min-h-screen '>{children}</main>
+				<StoreProvider>
+					<div className='main'></div>
+					<main className='flex flex-col min-h-screen '>{children}</main>
+					<Toaster />
+				</StoreProvider>
 			</body>
 		</html>
 	);
