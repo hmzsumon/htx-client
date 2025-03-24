@@ -3,8 +3,7 @@ import React from 'react';
 import TradeImg1 from '@/public/images/icons/trade_1.png';
 import TradeImg2 from '@/public/images/icons/trade_2.png';
 import TradeImg3 from '@/public/images/icons/trade_3.png';
-import DashboardMenuCard from './DashboardMenuCard';
-import { link } from 'fs';
+import DashboardMenuCard from '../dashboard/DashboardMenuCard';
 
 const items = [
 	{
