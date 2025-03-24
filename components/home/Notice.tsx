@@ -5,18 +5,18 @@ const Notice = () => {
 	return (
 		<>
 			{/* Notice */}
-			<div className='flex items-center gap-1 p-2 mx-2 md:mx-5'>
+			<div className='flex items-center gap-1 mt-1 md:mx-5'>
 				<div>
-					<AiOutlineNotification className='text-2xl text-yellow-700' />
+					<AiOutlineNotification className='text-2xl text-htx-blue' />
 				</div>
 				<div className='flex-1'>
 					<Marquee
 						speed={50}
 						gradientWidth={0}
 						gradientColor='white'
-						className='text-sm text-gray-500'
+						className='text-xs text-gray-700'
 					>
-						<p className='text-sm font-semibold text-gray-500'>
+						<p className='text-sm font-semibold '>
 							🚀 Welcome to Glomax, your ultimate gaming and trading
 							destination! 🎮💹 We are thrilled to introduce you to a
 							revolutionary experience, as we proudly stand as the first-ever

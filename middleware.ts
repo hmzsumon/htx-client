@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 		path === '/404' ||
 		path === '/500' ||
 		path === '/';
-	const token = request.cookies.get('icm-token')?.value || '';
+	const token = request.cookies.get('htx-token')?.value || '';
 	// const token = true;
 
 	if (isPublicPath && token) {

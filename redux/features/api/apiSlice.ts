@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import baseUrl from '@/config/baseUrl';
 
 const url = `${baseUrl}/api/v1`;
-console.log('url', url);
+// console.log('url', url);
 export const apiSlice = createApi({
 	reducerPath: 'api',
 
@@ -34,6 +34,7 @@ export const apiSlice = createApi({
 		'Notifications',
 		'Package',
 		'Transaction',
+		'Trade',
 	],
 	endpoints: (builder) => ({}),
 });

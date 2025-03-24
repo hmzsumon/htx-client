@@ -19,6 +19,7 @@ import signUpData from './signupDataSlice';
 import stepperSlice from './stepperSlice';
 import resetPassSlice from './resetPassSlice';
 import verificationSlice from './verificationSlice';
+import tradeReducer from './features/trade/tradeSlice';
 
 const persistConfig = {
 	key: 'root',
@@ -35,6 +36,7 @@ export const rootReducer = combineReducers({
 	stepper: stepperSlice,
 	resetPass: resetPassSlice,
 	verification: verificationSlice,
+	trade: tradeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

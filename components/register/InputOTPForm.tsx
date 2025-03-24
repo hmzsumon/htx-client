@@ -119,7 +119,7 @@ export function InputOTPForm() {
 					name='pin'
 					render={({ field }) => (
 						<FormItem className='flex flex-col items-center justify-center'>
-							<FormLabel className='text-lg font-bold'>
+							<FormLabel className='text-lg font-bold text-htx-blue'>
 								Enter the verification code
 							</FormLabel>
 							<FormDescription className='text-sm text-gray-500'>

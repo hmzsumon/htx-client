@@ -15,8 +15,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { useGetVerifyCodeForRegisterMutation } from '@/redux/features/auth/authApi';
-import { useEffect } from 'react';
+import {
+	useCheckEmailExistOrNotMutation,
+	useGetVerifyCodeForRegisterMutation,
+} from '@/redux/features/auth/authApi';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const FormSchema = z.object({
@@ -28,6 +31,13 @@ export function InputForm() {
 	const [getVerifyCodeForRegister, { isLoading, isSuccess, isError, error }] =
 		useGetVerifyCodeForRegisterMutation();
 
+	const [checkEmailExistOrNot, { data, isLoading: checkingEmail }] =
+		useCheckEmailExistOrNotMutation();
+	const { isExist } = data || {};
+
+	const [emailError, setEmailError] = useState(false);
+	const [emailErrorText, setEmailErrorText] = useState('');
+
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
@@ -35,7 +45,24 @@ export function InputForm() {
 		},
 	});
 
+	// Check if email exists when user stops typing
+	const handleEmailCheck = async (email: string) => {
+		if (email) {
+			const result = await checkEmailExistOrNot({ email });
+			if ('data' in result && result.data?.isExist) {
+				setEmailError(true);
+				setEmailErrorText('Email already exists');
+			} else {
+				setEmailError(false);
+				setEmailErrorText('');
+			}
+		}
+	};
+
 	function onSubmit(data: z.infer<typeof FormSchema>) {
+		if (emailError) {
+			return;
+		}
 		getVerifyCodeForRegister({ email: data.email });
 		toast.success(`You submitted: ${data.email}`);
 	}
@@ -66,8 +93,14 @@ export function InputForm() {
 									{...field}
 									type='email'
 									className='placeholder:text-xs'
+									onBlur={() => handleEmailCheck(field.value)} // Check email existence when user leaves the input field
 								/>
 							</FormControl>
+							{emailError && (
+								<p className='text-xs text-red-500 font-semibold ml-1'>
+									{emailErrorText}
+								</p>
+							)}
 							<FormMessage className='text-xs' />
 						</FormItem>
 					)}
@@ -75,7 +108,7 @@ export function InputForm() {
 				<Button
 					type='submit'
 					className='bg-htx-blue hover:bg-blue-400 w-full'
-					disabled={isLoading}
+					disabled={isLoading || checkingEmail}
 				>
 					{isLoading ? 'Processing...' : 'Next'}
 				</Button>

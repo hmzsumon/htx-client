@@ -19,7 +19,7 @@ export const authSlice = createSlice({
 			state.user = action.payload.user;
 			state.token = action.payload.token;
 			state.isAuthenticated = true;
-			Cookies.set('icm-token', action.payload.token, { expires: 1 });
+			Cookies.set('htx-token', action.payload.token, { expires: 1 });
 		},
 		loadUser: (state, action) => {
 			state.user = action.payload.user;
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
 			state.user = null;
 			state.token = null;
 			state.isAuthenticated = false;
-			Cookies.remove('icm-token');
+			Cookies.remove('htx-token');
 		},
 	},
 });

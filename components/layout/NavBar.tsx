@@ -65,12 +65,12 @@ const NavBar = () => {
 					<div className=' flex items-center gap-3'>
 						<div className='flex gap-2'>
 							<Link href='/login'>
-								<Button className=' button bg-htx-blue'>
+								<Button className='bg-green-500 hover:bg-htx-blue'>
 									<span className='button__title text-white'> Log in </span>
 								</Button>
 							</Link>
 							<Link href='/register-email'>
-								<Button className='bg-htx-blue'>
+								<Button className='bg-green-500 hover:bg-htx-blue'>
 									<span className=''>Sign up</span>
 								</Button>
 							</Link>

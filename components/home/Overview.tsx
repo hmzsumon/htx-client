@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from '../layout/Container';
-import { clsx } from 'clsx';
 import {
 	ChartCandlestick,
 	HandHeart,

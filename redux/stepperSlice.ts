@@ -30,13 +30,6 @@ const initialState = {
 			active: false,
 			completed: false,
 		},
-		{
-			id: 5,
-			label: 'Complete',
-			number: 5,
-			active: false,
-			completed: false,
-		},
 	],
 
 	activeStep: 1,
@@ -46,7 +39,7 @@ const initialState = {
 		name: '',
 		else: '',
 		mobile: '',
-		partnerCode: '202001',
+		referralCode: 'U202506',
 	},
 	moreAboutData: {
 		date_of_birth: null,

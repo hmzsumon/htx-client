@@ -33,7 +33,9 @@ export default function RootLayout({
 			>
 				<StoreProvider>
 					<div className='main'></div>
-					<main className='flex flex-col min-h-screen '>{children}</main>
+					<main className='flex flex-col min-h-screen bg-wrapper '>
+						{children}
+					</main>
 					<Toaster />
 				</StoreProvider>
 			</body>
