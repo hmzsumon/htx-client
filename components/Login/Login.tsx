@@ -12,15 +12,18 @@ import { Card } from '../ui/card';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { useSocket } from '@/context/SocketContext'; // ✅ Import your socket context
 
 const Login = () => {
-	const [loginUser, { isLoading, isError, error, isSuccess }] =
+	const [loginUser, { isLoading, isError, error, isSuccess, data }] =
 		useLoginUserMutation();
 	const [email, setEmail] = useState('');
 	const [emailError, setEmailError] = useState(false);
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
+
+	const { socket } = useSocket(); // ✅ Access socket instance from context
 	// handle login
 	const handleLogin = async (e: any) => {
 		e.preventDefault();
@@ -37,6 +40,11 @@ const Login = () => {
 		if (isSuccess) {
 			toast.success('Login successful');
 			router.push('/dashboard');
+
+			// ✅ Authenticate socket after login
+			if (socket) {
+				socket.emit('authenticate', data.token);
+			}
 		}
 
 		if (isError) {

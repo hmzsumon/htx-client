@@ -32,6 +32,22 @@ export const tradeApi = apiSlice.injectEndpoints({
 			query: () => '/my/trades',
 			providesTags: ['Trade'],
 		}),
+
+		// get trade round history
+		getTradeRoundHistory: builder.query({
+			query: () => '/trade-round-history',
+			providesTags: ['Trade'],
+		}),
+
+		// place prediction
+		placePrediction: builder.mutation<void, any>({
+			query: (body) => ({
+				url: '/place-prediction',
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['Trade', 'User'],
+		}),
 	}),
 });
 
@@ -40,4 +56,6 @@ export const {
 	useCreateTradeMutation,
 	useUpdateTradeMutation,
 	useMyTradesQuery,
+	useGetTradeRoundHistoryQuery,
+	usePlacePredictionMutation,
 } = tradeApi;

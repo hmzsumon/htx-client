@@ -53,7 +53,7 @@ const faqData = [
 		id: 6,
 		question: 'Is there a minimum investment amount required?',
 		answer: [
-			'Yes, the minimum investment amount varies depending on the asset class. Typically, you can start trading with as low as $40. Please check specific trade requirements on the platform for detailed information.',
+			'Yes, the minimum investment amount varies depending on the asset class. Typically, you can start trading with as low as $30. Please check specific trade requirements on the platform for detailed information.',
 		],
 	},
 	{
@@ -88,14 +88,14 @@ const faqData = [
 		id: 11,
 		question: 'What is the minimum deposit and withdrawal amount on HTX Trade?',
 		answer: [
-			'The minimum deposit and withdrawal amount on HTX Trade is 40 USDT. This ensures accessibility while maintaining platform efficiency. Please ensure that network fees are considered when initiating transactions to avoid delays or errors.',
+			'The minimum deposit and withdrawal amount on HTX Trade is 30 USDT. This ensures accessibility while maintaining platform efficiency. Please ensure that network fees are considered when initiating transactions to avoid delays or errors.',
 		],
 	},
 	{
 		id: 12,
 		question: 'Can I withdraw my capital from HTX Trade?',
 		answer: [
-			'Yes, you can withdraw your capital at any time on HTX Trade. Our platform allows hassle-free withdrawals, ensuring you have access to your funds whenever needed. Please note that the minimum withdrawal amount is 40 USDT, and ensure your account meets all verification requirements for smooth transactions.',
+			'Yes, you can withdraw your capital at any time on HTX Trade. Our platform allows hassle-free withdrawals, ensuring you have access to your funds whenever needed. Please note that the minimum withdrawal amount is 30 USDT, and ensure your account meets all verification requirements for smooth transactions.',
 		],
 	},
 ];

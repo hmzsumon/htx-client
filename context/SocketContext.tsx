@@ -1,9 +1,17 @@
+'use client';
+
+import baseUrl from '@/config/baseUrl';
+import { useLoadUserQuery } from '@/redux/features/auth/authApi';
 import { SocketUser } from '@/types';
-import { useUser } from '@clerk/nextjs';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { io, Socket } from 'socket.io-client';
 
-interface iSocketContextType {}
+interface iSocketContextType {
+	socket: Socket | null;
+	isSocketConnected: boolean;
+	onlineUsers: SocketUser[];
+}
 
 export const SocketContext = createContext<iSocketContextType | null>(null);
 
@@ -12,46 +20,40 @@ export const SocketContextProvider = ({
 }: {
 	children: React.ReactNode;
 }) => {
-	const user = {
-		id: '1',
-		profile: {
-			firstName: 'John',
-			lastName: 'Doe',
-			profileImageUrl: 'https://placeimg.com/200/200/tech',
-		},
-	};
+	useLoadUserQuery();
+	const { user, token } = useSelector((state: any) => state.auth);
 	const [socket, setSocket] = useState<Socket | null>(null);
 	const [isSocketConnected, setIsSocketConnected] = useState(false);
-	const [onlineUsers, setOnlineUsers] = useState<SocketUser[] | null>(null);
+	const [onlineUsers, setOnlineUsers] = useState<SocketUser[]>([]);
 
-	console.log('isSocketConnected>>', onlineUsers);
-
-	// initialize socket
 	useEffect(() => {
-		if (!user) return;
-		const newSocket = io();
+		console.log('SocketContextProvider user:', user);
+		console.log('SocketContextProvider user token:', token);
+		if (!token) return;
+
+		const newSocket = io(baseUrl, {
+			transports: ['websocket'],
+			auth: { token: user.token },
+		});
+
+		newSocket.on('connect', () => {
+			console.log('✅ Socket connected:', newSocket.id);
+			newSocket.emit('authenticate', token);
+		});
+
 		setSocket(newSocket);
 
 		return () => {
+			newSocket.off();
 			newSocket.disconnect();
 		};
-	}, [user]);
+	}, [user?.token]);
 
-	// set socket connection status
 	useEffect(() => {
 		if (!socket) return;
 
-		if (socket.connected) {
-			onConnect();
-		}
-
-		function onConnect() {
-			setIsSocketConnected(true);
-		}
-
-		function onDisconnect() {
-			setIsSocketConnected(false);
-		}
+		const onConnect = () => setIsSocketConnected(true);
+		const onDisconnect = () => setIsSocketConnected(false);
 
 		socket.on('connect', onConnect);
 		socket.on('disconnect', onDisconnect);
@@ -62,27 +64,32 @@ export const SocketContextProvider = ({
 		};
 	}, [socket]);
 
-	//set online users
 	useEffect(() => {
-		if (!socket || !isSocketConnected) return;
+		if (!socket || !isSocketConnected || !user) return;
+
 		socket.emit('addNewUser', user);
-		socket.on('getUsers', (res) => {
+
+		const handleGetUsers = (res: SocketUser[]) => {
 			setOnlineUsers(res);
-		});
+		};
+
+		socket.on('getUsers', handleGetUsers);
 
 		return () => {
-			socket.off('getUsers', (res) => {
-				setOnlineUsers(res);
-			});
+			socket.off('getUsers', handleGetUsers);
 		};
 	}, [socket, isSocketConnected, user]);
 
-	return <SocketContext.Provider value={{}}>{children}</SocketContext.Provider>;
+	return (
+		<SocketContext.Provider value={{ socket, isSocketConnected, onlineUsers }}>
+			{children}
+		</SocketContext.Provider>
+	);
 };
 
 export const useSocket = () => {
 	const context = useContext(SocketContext);
-	if (context === undefined) {
+	if (!context) {
 		throw new Error('useSocket must be used within a SocketProvider');
 	}
 	return context;

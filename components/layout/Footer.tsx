@@ -1,15 +1,15 @@
 import React from 'react';
-import Logo2 from '@/public/images/logos/logo_2.png';
+import Logo2 from '@/public/logo_1.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Footer = () => {
 	return (
-		<div className=' pt-10 border-t border-t-primary/10 bg-htx-blue'>
+		<div className='footer-wrapper pt-10 border-t border-t-primary/10 bg-htx-blue'>
 			<div className=' px-4'>
-				<div className=' grid grid-cols-2 items-center '>
+				<div className=' flex gap-4 items-center justify-between '>
 					<div className=' space-y-3 '>
-						<Image src={Logo2} alt='logo' className=' w-28 ' />
+						<Image src={Logo2} alt='logo' className=' w-32 ' />
 						<div className=' text-xs font-semibold text-gray-100 space-y-1'>
 							<p>
 								26/1, Sofiyskaya Embankment, 117997, <br /> Moscow, Russian
@@ -19,9 +19,9 @@ const Footer = () => {
 						</div>
 					</div>
 
-					<div className=' justify-self-end'>
-						<ul className=' space-y-1 '>
-							<h2 className='font-semibold'>
+					<div className=' justify-self-end '>
+						<ul className=' space-y-1 text-gray-800 '>
+							<h2 className='font-bold text-gray-100'>
 								Quick <span className='text-gray-50'> Links</span>
 							</h2>
 							<li className='text-xs font-bold'>

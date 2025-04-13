@@ -10,6 +10,7 @@ import Overview from '@/components/home/Overview';
 import SageAndTrust from '@/components/home/SageAndTrust';
 import TradeAnytime from '@/components/home/TradeAnytime';
 import SocialMedia from '@/components/home/SocialMedia';
+import StartWithHTX from '@/components/home/StartWithHTX';
 
 export default function Home() {
 	return (
@@ -18,6 +19,7 @@ export default function Home() {
 				<HeroSection />
 				<CryptoSection />
 				<TradeVolume />
+				<StartWithHTX />
 				<Overview />
 				<SageAndTrust />
 				<TradeAnytime />

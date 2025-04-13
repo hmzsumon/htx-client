@@ -48,7 +48,7 @@ export const TickerProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		// Create a Socket.IO connection
-		const socket = io('http://localhost:5000'); // Update this with your server URL
+		const socket = io('http://localhost:8000'); // Update this with your server URL
 
 		// Subscribe to the selected symbol
 		socket.emit('subscribe', symbol);

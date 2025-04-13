@@ -4,7 +4,6 @@ import React from 'react';
 const SignalTradePage = () => {
 	return (
 		<div>
-			<h2>Signal Trade Page</h2>
 			<TradeHome />
 		</div>
 	);

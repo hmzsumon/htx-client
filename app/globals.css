@@ -217,15 +217,15 @@ body {
 }
 /* End Profile Css */
 
-/* Start Promotion Css */
-.promotion-wrapper {
+/* Start Footer Css */
+.footer-wrapper {
 	background-image: url('/images/bg/promotion-bg.png'),
-		linear-gradient(90deg, #2239f9 0%, #8ca8ac 100%);
+		linear-gradient(90deg, #f80d63 0%, #908cac 100%);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover, 100% 100%;
 }
-/* End Promotion Css */
+/* End Footer Css */
 
 /* Start Earner Rank css */
 .earner-wrapper {
@@ -236,3 +236,22 @@ body {
 	background-size: cover, 100% 100%;
 }
 /* EndEarner Rank css */
+
+/* Start Promotion Css */
+.promotion-wrapper {
+	background-image: url('/images/bg/promotion-bg.png'),
+		linear-gradient(90deg, #2239f9 0%, #8ca8ac 100%);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover, 100% 100%;
+}
+/* End Promotion Css */
+
+/*Start Drawer Css */
+.drawer-wrapper {
+	background-image: url('/images/bg/model_bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover, 100% 100%;
+}
+/*End Drawer Css */

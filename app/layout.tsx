@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import StoreProvider from './StoreProvider';
+import SocketProvider from '@/providers/SocketProvider';
 
 const geistSans = localFont({
 	src: './fonts/GeistVF.woff',
@@ -32,11 +33,13 @@ export default function RootLayout({
 				suppressHydrationWarning={true}
 			>
 				<StoreProvider>
-					<div className='main'></div>
-					<main className='flex flex-col min-h-screen bg-wrapper '>
-						{children}
-					</main>
-					<Toaster />
+					<SocketProvider>
+						<div className='main'></div>
+						<main className='flex flex-col min-h-screen bg-wrapper '>
+							{children}
+						</main>
+						<Toaster />
+					</SocketProvider>
 				</StoreProvider>
 			</body>
 		</html>
