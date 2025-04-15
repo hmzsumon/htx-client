@@ -16,24 +16,27 @@ import Countdown from './Countdown';
 import ActiveRound from './ActiveRound';
 import { preconnect } from 'react-dom';
 import { CirclePlus } from 'lucide-react';
-import { useSelector } from 'react-redux';
 import { formatBalance } from '@/lib/functions';
-import { set } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTradeDrawerOpen } from '@/redux/features/trade/tradeSlice';
 import { usePlacePredictionMutation } from '@/redux/features/trade/tradeApi';
 
-interface TradeDrawerProps {
-	open: boolean;
-	setOpen: (open: boolean) => void;
-	round: any;
-	predict: string;
-}
+const TradeDrawer = () => {
+	const dispatch = useDispatch();
+	const { isTradeDrawerOpen } = useSelector((state: any) => state.trade);
 
-const TradeDrawer = ({ open, setOpen, round, predict }: TradeDrawerProps) => {
+	const handleClose = () => {
+		dispatch(setTradeDrawerOpen(false));
+	};
 	const [placePrediction, { isLoading, isError, isSuccess, error }] =
 		usePlacePredictionMutation();
 
-	const { symbol } = useSelector((state: any) => state.trade);
+	const { symbol, currentRound, predict } = useSelector(
+		(state: any) => state.trade
+	);
+
 	const { user } = useSelector((state: any) => state.auth);
+
 	const [amount, setAmount] = useState('');
 
 	const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,22 +61,22 @@ const TradeDrawer = ({ open, setOpen, round, predict }: TradeDrawerProps) => {
 
 		const body = {
 			body: {
-				trade_id: round?.trade_id,
+				trade_id: currentRound?.trade_id,
 				symbol,
-				issue_id: round?.issueId,
-				buy_price: round?.buyPrice,
-				time_period: round?.timePeriod,
+				issue_id: currentRound?.issueId,
+				buy_price: currentRound?.buyPrice,
+				time_period: currentRound?.timePeriod,
 				trade_type: predict,
 				amount: Number(amount), // ensure number type
 			},
 		};
 
-		console.log('Prediction Body:', body);
+		// console.log('Prediction Body:', body);
 
 		try {
 			await placePrediction(body).unwrap();
 			toast.success('Prediction placed successfully');
-			setOpen(false);
+			handleClose();
 			setAmount('');
 		} catch (error: any) {
 			toast.error(error?.data?.message || 'Something went wrong');
@@ -81,7 +84,7 @@ const TradeDrawer = ({ open, setOpen, round, predict }: TradeDrawerProps) => {
 	};
 
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
+		<Drawer open={isTradeDrawerOpen} onOpenChange={handleClose}>
 			<DrawerContent
 				className='max-h-[85vh] rounded-t-3xl drawer-wrapper py-3'
 				aria-describedby='trade-drawer-desc'
@@ -89,12 +92,10 @@ const TradeDrawer = ({ open, setOpen, round, predict }: TradeDrawerProps) => {
 				<div>
 					<DrawerHeader>
 						<DrawerTitle className='text-lg font-bold text-gray-700'>
-							<p id='trade-drawer-desc' className='sr-only'>
-								{symbol}
-							</p>
+							<p>{symbol}</p>
 						</DrawerTitle>
 						<div>
-							<ActiveRound activeRound={round} />
+							<ActiveRound activeRound={currentRound} />
 						</div>
 					</DrawerHeader>
 

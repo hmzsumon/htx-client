@@ -1,14 +1,17 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { createChart, UTCTimestamp } from 'lightweight-charts';
-import { useSelector } from 'react-redux';
-import { PropagateLoader } from 'react-spinners';
+import { useDispatch, useSelector } from 'react-redux';
+import { PropagateLoader, ScaleLoader } from 'react-spinners';
+import { setTradeLoading } from '@/redux/features/trade/tradeSlice';
 
-const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
-	const { symbol } = useSelector((state: any) => state.trade);
+const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
+	const dispatch = useDispatch();
+	const { symbol, tradeDuration, tradeLoading } = useSelector(
+		(state: any) => state.trade
+	);
 	const chartContainerRef = useRef<HTMLDivElement | null>(null);
 	const chartRef = useRef<any>(null);
-	let latestTime = 0;
 
 	useEffect(() => {
 		if (!chartContainerRef.current) return;
@@ -76,7 +79,7 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 		async function getNewData() {
 			try {
 				const response = await fetch(
-					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${time}`
+					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${tradeDuration}`
 				);
 
 				if (!response.ok) {
@@ -84,7 +87,7 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 				}
 
 				const data = await response.json();
-				setIsLoading(false);
+				dispatch(setTradeLoading(false));
 				return data.map((d: any) => ({
 					time: d[0] / 1000,
 					open: parseFloat(d[1]),
@@ -95,7 +98,7 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 				}));
 			} catch (error) {
 				console.error('Fetch error:', error);
-				setIsLoading(false);
+				dispatch(setTradeLoading(false));
 			}
 		}
 
@@ -152,13 +155,13 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 			observer.disconnect();
 			chart.remove();
 		};
-	}, [symbol, time]);
+	}, [symbol, tradeDuration]);
 
 	return (
 		<div ref={chartContainerRef} className='relative w-full '>
-			{isLoading && (
+			{tradeLoading && (
 				<div className='absolute top-[49%] left-[46%]'>
-					<PropagateLoader color='#008000' size={18} />
+					<ScaleLoader color='#05eb4a' height={30} width={5} />
 				</div>
 			)}
 		</div>

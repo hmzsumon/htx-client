@@ -8,6 +8,7 @@ import { BeatLoader } from 'react-spinners';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { SymbolDrawer } from './SymbolDrawer';
+import TradeDuration from './TradeDuration';
 
 const TradeHeader = ({ setOpen, open }: any) => {
 	const router = useRouter();
@@ -42,10 +43,10 @@ const TradeHeader = ({ setOpen, open }: any) => {
 			: 'text-blue-gray-100';
 
 	return (
-		<div className=''>
+		<div className='fixed top-0 left-0 right-0 bg-white  z-50 py-2'>
 			<div className='flex items-center justify-between px-4 '>
 				<HiArrowSmLeft
-					className='text-2xl text-gray-300 cursor-pointer hover:text-blue-700'
+					className='text-2xl text-gray-600 cursor-pointer hover:text-blue-700'
 					onClick={() => router.back()}
 				/>
 				<div className='flex items-center justify-center gap-2'>
@@ -57,7 +58,6 @@ const TradeHeader = ({ setOpen, open }: any) => {
 				</div>
 				<div></div>
 			</div>
-
 			<div className='flex items-center justify-between px-4 pt-2'>
 				{/* Last Price */}
 				<div>
@@ -110,6 +110,9 @@ const TradeHeader = ({ setOpen, open }: any) => {
 					</div>
 				</div>
 			</div>
+			{/* Start Trade Duration */}
+			<TradeDuration />
+			{/* End Trade Duration */}
 			<SymbolDrawer open={open} setOpen={setOpen} />
 		</div>
 	);
