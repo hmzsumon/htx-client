@@ -31,71 +31,71 @@ const TradeHome: React.FC = (props) => {
 	};
 
 	return (
-		<div className='py-4 bg-gray-100 pb-20'>
-			<div>
-				<div className='w-full px-4 mx-auto '>
-					<TradeHeader setOpen={setOpen} open={open} ticker={ticker} />
+		<div className=' bg-gray-100 mt-1 '>
+			<div className='w-full  mx-auto '>
+				<TradeHeader setOpen={setOpen} open={open} ticker={ticker} />
 
-					<div className='relative flex flex-col items-center justify-between z-50 space-y-3 '>
-						<div className='absolute top-[35%]'>
-							<Image src={Logo} alt='logo' className='w-72' />
-						</div>
-						<div className='w-full mx-auto md:h-[300px]'>
-							<div className='flex items-center justify-around p-1 text-xs list-none text-blue-gray-300 bg-blue-gray-900 md:text-md bg-slate-300'>
-								<li
-									className={`cursor-pointer ${
-										time === '1m' ? 'text-green-500 font-bold' : ''
-									}`}
-									onClick={() => handleSetTime('1m')}
-								>
-									1m
-								</li>
-								<li
-									className={`cursor-pointer ${
-										time === '3m' ? 'text-green-500 font-bold' : ''
-									}`}
-									onClick={() => handleSetTime('3m')}
-								>
-									3m
-								</li>
-								<li
-									className={`
+				<div className='relative flex flex-col items-center justify-between z-50 space-y-3 '>
+					{/* Start Logo */}
+					<div className='absolute top-[35%]'>
+						<Image src={Logo} alt='logo' className='w-72' />
+					</div>
+					{/* End Logo */}
+					<div className='w-full mx-auto md:h-[300px]'>
+						<div className='flex items-center justify-around p-1 text-xs list-none text-blue-gray-300 bg-blue-gray-900 md:text-md bg-slate-300'>
+							<li
+								className={`cursor-pointer ${
+									time === '1m' ? 'text-green-500 font-bold' : ''
+								}`}
+								onClick={() => handleSetTime('1m')}
+							>
+								1m
+							</li>
+							<li
+								className={`cursor-pointer ${
+									time === '3m' ? 'text-green-500 font-bold' : ''
+								}`}
+								onClick={() => handleSetTime('3m')}
+							>
+								3m
+							</li>
+							<li
+								className={`
 								cursor-pointer ${time === '5m' ? 'text-green-500 font-bold' : ''}
 							`}
-									onClick={() => setTime('5m')}
-								>
-									5m
-								</li>
-								<li
-									className={`
+								onClick={() => setTime('5m')}
+							>
+								5m
+							</li>
+							<li
+								className={`
 								cursor-pointer ${time === '15m' ? 'text-green-500 font-bold' : ''}
 							`}
-									onClick={() => setTime('15m')}
-								>
-									15m
-								</li>
-								<li
-									className={`
+								onClick={() => setTime('15m')}
+							>
+								15m
+							</li>
+							<li
+								className={`
 								cursor-pointer ${time === '30m' ? 'text-green-500 font-bold' : ''}
 							`}
-									onClick={() => setTime('30m')}
-								>
-									30m
-								</li>
-								<li
-									className='text-yellow-700 cursor-pointer text-md'
-									onClick={handleKlineChange}
-								>
-									{!k_line ? <AiOutlineLineChart /> : <MdCandlestickChart />}
-								</li>
-							</div>
-							<RealtimeEmulation
-								kline={k_line}
-								time={time}
-								isLoading={isLoading}
-								setIsLoading={setIsLoading}
-							/>
+								onClick={() => setTime('30m')}
+							>
+								30m
+							</li>
+							<li
+								className='text-yellow-700 cursor-pointer text-md'
+								onClick={handleKlineChange}
+							>
+								{!k_line ? <AiOutlineLineChart /> : <MdCandlestickChart />}
+							</li>
 						</div>
+						<RealtimeEmulation
+							kline={k_line}
+							time={time}
+							isLoading={isLoading}
+							setIsLoading={setIsLoading}
+						/>
 					</div>
 				</div>
 			</div>

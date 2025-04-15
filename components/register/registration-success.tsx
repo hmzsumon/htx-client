@@ -36,7 +36,7 @@ const RegistrationSuccess = () => {
 				<p className='text-gray-600 text-center mb-4'>
 					Your account has been created.
 				</p>
-				<Link href='/'>
+				<Link href='/login'>
 					<Button className='w-full bg-htx-blue hover:bg-blue-700 text-gray-100 font-semibold'>
 						Login
 					</Button>

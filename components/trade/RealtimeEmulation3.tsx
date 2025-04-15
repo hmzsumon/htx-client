@@ -15,9 +15,9 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 
 		const chart = createChart(chartContainerRef.current, {
 			width: chartContainerRef.current.clientWidth,
-			height: 280,
+			height: 400,
 			layout: {
-				background: { color: 'transparent' },
+				background: { color: '#ffffff' },
 				textColor: '#c2bcbc',
 			},
 			grid: {
@@ -27,8 +27,7 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 			timeScale: {
 				timeVisible: true,
 				secondsVisible: false,
-				barSpacing: 10,
-				rightOffset: 2,
+				barSpacing: 15,
 				borderColor: '#f2f0f0',
 				tickMarkFormatter: (time: number) => {
 					const date = new Date(time * 1000);
@@ -57,88 +56,60 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 
 		chartRef.current = chart;
 
-		const areaSeries = chart.addAreaSeries({
-			topColor: 'rgba(38,198,218, 0.56)',
-			bottomColor: 'rgba(38,198,218, 0.04)',
-			lineColor: 'rgba(38,198,218, 1)',
-			lineWidth: 2,
-		});
-
-		const volumeSeries = chart.addHistogramSeries({
-			color: '#26a69a',
-			priceFormat: {
-				type: 'volume',
-			},
-
-			priceScaleId: '',
-		});
-
-		async function getNewData() {
+		const fetchInitialData = async () => {
 			try {
-				const response = await fetch(
-					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${time}`
+				const res = await fetch(
+					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${time}&limit=100`
 				);
-
-				if (!response.ok) {
-					throw new Error('Failed to fetch data');
-				}
-
-				const data = await response.json();
-				setIsLoading(false);
-				return data.map((d: any) => ({
-					time: d[0] / 1000,
+				const raw = await res.json();
+				const data = raw.map((d: any) => ({
+					time: (d[0] / 1000) as UTCTimestamp,
 					open: parseFloat(d[1]),
 					high: parseFloat(d[2]),
 					low: parseFloat(d[3]),
 					close: parseFloat(d[4]),
-					value: parseFloat(d[5]),
 				}));
-			} catch (error) {
-				console.error('Fetch error:', error);
+				candleSeries.setData(data);
+				if (data.length) latestTime = data[data.length - 1].time;
+				setIsLoading(false);
+			} catch (err) {
+				console.error('Initial fetch failed:', err);
 				setIsLoading(false);
 			}
-		}
+		};
 
-		async function updateData() {
+		const fetchNewCandle = async () => {
 			try {
-				const newData = await getNewData();
-
-				if (kline) {
-					candleSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							open: d.open,
-							high: d.high,
-							low: d.low,
-							close: d.close,
-						}))
-					);
-				} else {
-					areaSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							value: d.close,
-						}))
-					);
-				}
-			} catch (error) {
-				console.error('Update data error:', error);
-				// Fallback to demo data
-				const newData = await getNewData();
-
-				candleSeries.setData(
-					newData.map((d: any) => ({
-						time: d.time,
-						open: d.open,
-						high: d.high,
-						low: d.low,
-						close: d.close,
-					}))
+				const res = await fetch(
+					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${time}&limit=2`
 				);
-			}
-		}
+				const raw = await res.json();
+				const d = raw[raw.length - 1];
 
-		const interval = setInterval(updateData, 5000);
+				const newCandle = {
+					time: (d[0] / 1000) as UTCTimestamp,
+					open: parseFloat(d[1]),
+					high: parseFloat(d[2]),
+					low: parseFloat(d[3]),
+					close: parseFloat(d[4]),
+				};
+
+				const isFlat =
+					newCandle.open === newCandle.close &&
+					newCandle.open === newCandle.high &&
+					newCandle.open === newCandle.low;
+
+				if (newCandle.time > latestTime && !isFlat) {
+					candleSeries.update(newCandle);
+					latestTime = newCandle.time;
+				}
+			} catch (err) {
+				console.error('Realtime update error:', err);
+			}
+		};
+
+		fetchInitialData();
+		const interval = setInterval(fetchNewCandle, 5000);
 
 		const observer = new ResizeObserver(() => {
 			if (chartContainerRef.current) {
@@ -155,7 +126,7 @@ const RealtimeEmulation = ({ kline, time, isLoading, setIsLoading }: any) => {
 	}, [symbol, time]);
 
 	return (
-		<div ref={chartContainerRef} className='relative w-full '>
+		<div ref={chartContainerRef} className='relative w-full h-[400px]'>
 			{isLoading && (
 				<div className='absolute top-[49%] left-[46%]'>
 					<PropagateLoader color='#008000' size={18} />

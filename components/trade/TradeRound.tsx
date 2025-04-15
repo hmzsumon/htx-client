@@ -78,7 +78,7 @@ const TradeRound = () => {
 
 	return (
 		<div className='w-full mx-auto px-1 py-2'>
-			<div className='grid grid-cols-3 gap-1 mb-4'>
+			{/* <div className='grid grid-cols-3 gap-1 mb-4'>
 				<button
 					onClick={() => handlePredict('Up')}
 					className='bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-sm'
@@ -97,11 +97,11 @@ const TradeRound = () => {
 				>
 					Sideways
 				</button>
-			</div>
+			</div> */}
 
-			<div className='bg-white shadow px-1 py-4 rounded-xl'>
+			<div className='bg-white shadow px-1 py-2 rounded'>
 				<div>
-					<h2 className='text-sm font-semibold mb-4 text-center'>
+					<h2 className='text-xs font-semibold mb-1  text-center'>
 						Balance: {formatBalance(user?.m_balance) || 0} USDT
 					</h2>
 				</div>
@@ -112,7 +112,7 @@ const TradeRound = () => {
 							onClick={() => handleActiveHistory(1)}
 							className={`${
 								activeHistory === 1 ? 'text-green-500 font-bold' : ''
-							} text-sm`}
+							} text-xs`}
 						>
 							Trade Records
 						</button>
@@ -120,7 +120,7 @@ const TradeRound = () => {
 							onClick={() => handleActiveHistory(2)}
 							className={`${
 								activeHistory === 2 ? 'text-green-500 font-bold' : ''
-							} text-sm`}
+							} text-xs`}
 						>
 							My Trades
 						</button>

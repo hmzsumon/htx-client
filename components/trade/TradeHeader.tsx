@@ -42,8 +42,8 @@ const TradeHeader = ({ setOpen, open }: any) => {
 			: 'text-blue-gray-100';
 
 	return (
-		<div className='bg-black_2 py-2'>
-			<div className='flex items-center justify-between px-4 mb-4'>
+		<div className=''>
+			<div className='flex items-center justify-between px-4 '>
 				<HiArrowSmLeft
 					className='text-2xl text-gray-300 cursor-pointer hover:text-blue-700'
 					onClick={() => router.back()}
@@ -58,10 +58,9 @@ const TradeHeader = ({ setOpen, open }: any) => {
 				<div></div>
 			</div>
 
-			<div className='flex items-center justify-between px-4'>
+			<div className='flex items-center justify-between px-4 pt-2'>
 				{/* Last Price */}
 				<div>
-					<p className='my-2 text-xs'>Last Price</p>
 					{ticker?.c && ticker.s === symbol ? (
 						<div className='space-y-1'>
 							<h2 className={`text-2xl md:text-3xl ${priceColor}`}>
@@ -92,19 +91,19 @@ const TradeHeader = ({ setOpen, open }: any) => {
 				</div>
 
 				{/* 24h High / Low */}
-				<div className='flex flex-col md:flex-row items-center gap-1 text-xs md:gap-6'>
+				<div className='flex flex-row items-center gap-x-6 text-xs md:gap-6'>
 					<div className='space-y-1 md:space-y-2'>
 						<p className='text-blue-gray-300'>24h High</p>
 						{ticker?.h && ticker.s === symbol ? (
-							<p className='text-blue-gray-100'>{formatPrice(ticker.h)}</p>
+							<p className='text-gray-800 font-bold'>{formatPrice(ticker.h)}</p>
 						) : (
 							renderLoader()
 						)}
 					</div>
 					<div className='space-y-1 md:space-y-2'>
-						<p className='text-blue-gray-300'>24h Low</p>
+						<p className=''>24h Low</p>
 						{ticker?.l && ticker.s === symbol ? (
-							<p className='text-blue-gray-100'>{formatPrice(ticker.l)}</p>
+							<p className='text-gray-800 font-bold'>{formatPrice(ticker.l)}</p>
 						) : (
 							renderLoader()
 						)}
