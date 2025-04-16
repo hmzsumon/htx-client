@@ -11,21 +11,21 @@ const items = [
 		title: 'Trade Max',
 		icon: null,
 		iconImg: TradeMax,
-		link: '/trade/trade-max',
+		link: '/trade-max',
 	},
 	{
 		id: 5,
 		title: 'Trade Master',
 		icon: null,
 		iconImg: TradeMaster,
-		link: '/trade/trade-master',
+		link: '/trade-master',
 	},
 	{
 		id: 6,
 		title: 'Trade Infinity',
 		icon: null,
 		iconImg: TradeInfinity,
-		link: '/trade/trade-infinity',
+		link: '/trade-infinity',
 	},
 ];
 

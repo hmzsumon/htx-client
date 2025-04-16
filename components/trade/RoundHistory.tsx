@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { use, useEffect } from 'react';
 import {
 	Table,
 	TableBody,
@@ -10,27 +11,26 @@ import {
 } from '@/components/ui/table';
 import { formatBalance } from '@/lib/functions';
 import { useSelector } from 'react-redux';
+import {
+	useGetTradeRoundHistoryBySymbolQuery,
+	useGetTradeRoundHistoryQuery,
+} from '@/redux/features/trade/tradeApi';
 
-interface RoundHistoryProps {
-	records: {
-		buyPrice: number;
-		sellPrice: number;
-		result: string;
-		issueId: string;
-		symbol: string;
-	}[];
-}
+const RoundHistory = () => {
+	const { symbol, tradeDuration } = useSelector((state: any) => state.trade);
+	const { data, isLoading, isError, isSuccess, error, refetch } =
+		useGetTradeRoundHistoryBySymbolQuery({
+			symbol,
+			timePeriod: tradeDuration,
+			page: 1, // optional, default = 1
+			limit: 10, // optional, default = 10
+		});
+	const { rounds: records } = data || [];
 
-const RoundHistory = ({ records }: RoundHistoryProps) => {
-	// console.log('RoundHistory records:', records);
-	const { symbol } = useSelector((state: any) => state.trade);
-
-	// filter records by symbol
-	const filteredRecords = records?.filter((record) => record.symbol === symbol);
 	return (
 		<Table className='text-xs '>
 			<TableBody>
-				{filteredRecords?.map((record, index) => (
+				{records?.map((record: any, index: number) => (
 					<TableRow
 						key={index}
 						className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}

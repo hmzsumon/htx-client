@@ -1,46 +1,39 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Countdown from './Countdown';
+import { useSelector } from 'react-redux';
 
 interface RoundData {
 	endTime: string;
 	issueId: string;
 }
 
-const ActiveRound = ({ activeRound }: { activeRound: RoundData | null }) => {
-	const [storedRound, setStoredRound] = useState<RoundData | null>(null);
+const ActiveRound = () => {
+	const [activeRound, setActiveRound] = useState<RoundData | null>(null);
+
+	const { symbol, tradeDuration, currentRounds } = useSelector(
+		(state: any) => state.trade
+	);
 
 	useEffect(() => {
-		// Save round to localStorage when it updates
+		//find active round from currentRounds by tradeDuration and symbol
+		const activeRound = currentRounds[tradeDuration]?.[symbol];
 		if (activeRound) {
-			localStorage.setItem('activeRound', JSON.stringify(activeRound));
-			setStoredRound(activeRound);
+			setActiveRound(activeRound);
 		} else {
-			// Try to restore from localStorage
-			const saved = localStorage.getItem('activeRound');
-			if (saved) {
-				const parsed = JSON.parse(saved);
-				// validate time
-				const now = new Date().getTime();
-				const end = new Date(parsed.endTime).getTime();
-				if (end > now) {
-					setStoredRound(parsed);
-				} else {
-					localStorage.removeItem('activeRound');
-				}
-			}
+			setActiveRound(null);
 		}
-	}, [activeRound]);
+	}, [currentRounds, symbol, tradeDuration]);
 
 	return (
 		<div className='text-xs font-bold bg-gray-100 px-1 py-2 text-gray-800 rounded'>
-			{storedRound ? (
+			{activeRound ? (
 				<div className='flex items-center justify-between'>
 					<p>
 						This Round:{' '}
-						<span className='text-green-500'>{storedRound.issueId}</span>
+						<span className='text-green-500'>{activeRound.issueId}</span>
 					</p>
-					<Countdown endTime={storedRound.endTime} />
+					<Countdown endTime={activeRound.endTime} />
 				</div>
 			) : (
 				<p>Waiting for round info...</p>

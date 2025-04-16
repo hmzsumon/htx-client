@@ -1,9 +1,7 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { BiTransferAlt } from 'react-icons/bi';
 import { HiArrowSmLeft } from 'react-icons/hi';
-import { HistoryIcon } from '@/global/icons/CommonIcons';
 import { BeatLoader } from 'react-spinners';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -111,7 +109,9 @@ const TradeHeader = ({ setOpen, open }: any) => {
 				</div>
 			</div>
 			{/* Start Trade Duration */}
-			<TradeDuration />
+			<div className='mt-1'>
+				<TradeDuration />
+			</div>
 			{/* End Trade Duration */}
 			<SymbolDrawer open={open} setOpen={setOpen} />
 		</div>

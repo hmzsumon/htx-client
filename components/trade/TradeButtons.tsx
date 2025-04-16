@@ -8,10 +8,8 @@ import { useDispatch } from 'react-redux';
 
 const TradeButtons = () => {
 	const dispatch = useDispatch();
-
 	const handlePredict = (prediction: string) => {
 		// Handle the prediction logic here
-
 		dispatch(setPredict(prediction)); // Update the Redux state with the prediction
 		console.log(`Predicted: ${prediction}`);
 		dispatch(setTradeDrawerOpen(true)); // Open the trade drawer

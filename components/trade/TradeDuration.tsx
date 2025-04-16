@@ -1,4 +1,5 @@
 import {
+	setKline,
 	setTradeDuration,
 	setTradeLoading,
 } from '@/redux/features/trade/tradeSlice';
@@ -9,15 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const TradeDuration = () => {
 	const dispatch = useDispatch();
-	const { tradeDuration } = useSelector((state: any) => state.trade);
-	const [k_line, setK_line] = useState<boolean>(true);
+	const { tradeDuration, kline } = useSelector((state: any) => state.trade);
 
-	const [isLoading, setIsLoading] = useState(true);
-	const [ticker, setTicker] = useState<any>({});
 	// handle kline change
 	const handleKlineChange = () => {
-		setK_line(!k_line);
-		setIsLoading(true);
+		// Set loading state to true
+		dispatch(setKline());
+		dispatch(setTradeLoading(true)); // Set loading state to true
 	};
 
 	// handle set time
@@ -72,7 +71,7 @@ const TradeDuration = () => {
 					className='text-yellow-700 cursor-pointer text-md'
 					onClick={handleKlineChange}
 				>
-					{!k_line ? <AiOutlineLineChart /> : <MdCandlestickChart />}
+					{!kline ? <AiOutlineLineChart /> : <MdCandlestickChart />}
 				</li>
 			</div>
 		</div>

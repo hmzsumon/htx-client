@@ -48,6 +48,26 @@ export const tradeApi = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['Trade', 'User'],
 		}),
+
+		// get trade round history by symbol and time period
+		getTradeRoundHistoryBySymbol: builder.query({
+			query: ({ symbol, timePeriod, page = 1, limit = 10 }) =>
+				`/trade-round-history-by-symbol?symbol=${symbol}&timePeriod=${timePeriod}&page=${page}&limit=${limit}`,
+			providesTags: ['Trades'],
+		}),
+
+		// get active trade round by symbol and time period
+		getActiveTradeRoundBySymbol: builder.query({
+			query: ({ symbol, timePeriod }) =>
+				`/active-trade-round?symbol=${symbol}&timePeriod=${timePeriod}`,
+			providesTags: ['Trade'],
+		}),
+
+		// get my trade round history by symbol and time period
+		getMyTradeRoundHistory: builder.query({
+			query: () => `/my-trade-history`,
+			providesTags: ['Trade'],
+		}),
 	}),
 });
 
@@ -58,4 +78,7 @@ export const {
 	useMyTradesQuery,
 	useGetTradeRoundHistoryQuery,
 	usePlacePredictionMutation,
+	useGetTradeRoundHistoryBySymbolQuery,
+	useGetActiveTradeRoundBySymbolQuery,
+	useGetMyTradeRoundHistoryQuery,
 } = tradeApi;

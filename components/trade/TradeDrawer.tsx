@@ -19,21 +19,25 @@ import { CirclePlus } from 'lucide-react';
 import { formatBalance } from '@/lib/functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTradeDrawerOpen } from '@/redux/features/trade/tradeSlice';
-import { usePlacePredictionMutation } from '@/redux/features/trade/tradeApi';
+import {
+	useGetActiveTradeRoundBySymbolQuery,
+	usePlacePredictionMutation,
+} from '@/redux/features/trade/tradeApi';
 
 const TradeDrawer = () => {
 	const dispatch = useDispatch();
 	const { isTradeDrawerOpen } = useSelector((state: any) => state.trade);
+	const { symbol, currentRounds, predict, tradeDuration } = useSelector(
+		(state: any) => state.trade
+	);
 
+	const activeRound = currentRounds[tradeDuration]?.[symbol];
+	// console.log('Active Round:', activeRound);
 	const handleClose = () => {
 		dispatch(setTradeDrawerOpen(false));
 	};
 	const [placePrediction, { isLoading, isError, isSuccess, error }] =
 		usePlacePredictionMutation();
-
-	const { symbol, currentRound, predict } = useSelector(
-		(state: any) => state.trade
-	);
 
 	const { user } = useSelector((state: any) => state.auth);
 
@@ -45,7 +49,17 @@ const TradeDrawer = () => {
 
 	const handleAmountBlur = () => {
 		// set user all balance
-		setAmount(user.m_balance.toString());
+		setAmount(user.m_balance);
+	};
+
+	// handle all amount
+	const handleAllAmount = () => {
+		// check if amount is empty or not
+		if (user.m_balance > 0) {
+			setAmount(user.m_balance);
+		} else {
+			toast.error('You have no balance to use');
+		}
 	};
 
 	// confirm purchase
@@ -61,11 +75,11 @@ const TradeDrawer = () => {
 
 		const body = {
 			body: {
-				trade_id: currentRound?.trade_id,
+				trade_id: activeRound?.trade_id,
 				symbol,
-				issue_id: currentRound?.issueId,
-				buy_price: currentRound?.buyPrice,
-				time_period: currentRound?.timePeriod,
+				issue_id: activeRound?.issueId,
+				buy_price: activeRound?.buyPrice,
+				time_period: activeRound?.timePeriod,
 				trade_type: predict,
 				amount: Number(amount), // ensure number type
 			},
@@ -95,7 +109,7 @@ const TradeDrawer = () => {
 							<p>{symbol}</p>
 						</DrawerTitle>
 						<div>
-							<ActiveRound activeRound={currentRound} />
+							<ActiveRound />
 						</div>
 					</DrawerHeader>
 
@@ -149,7 +163,7 @@ const TradeDrawer = () => {
 								/>
 								<span
 									className=' text-sm absolute top-[25%] right-8 text-gray-500 cursor-pointer'
-									onClick={() => setAmount('100')}
+									onClick={() => handleAllAmount()}
 								>
 									All
 								</span>

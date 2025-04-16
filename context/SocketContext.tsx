@@ -4,8 +4,14 @@ import baseUrl from '@/config/baseUrl';
 import { useLoadUserQuery } from '@/redux/features/auth/authApi';
 import { SocketUser } from '@/types';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { io, Socket } from 'socket.io-client';
+import { setCurrentRoundByTimeAndSymbol } from '@/redux/features/trade/tradeSlice';
+import {
+	useGetMyTradeRoundHistoryQuery,
+	useGetTradeRoundHistoryBySymbolQuery,
+} from '@/redux/features/trade/tradeApi';
+import toast from 'react-hot-toast';
 
 interface iSocketContextType {
 	socket: Socket | null;
@@ -20,15 +26,24 @@ export const SocketContextProvider = ({
 }: {
 	children: React.ReactNode;
 }) => {
-	useLoadUserQuery();
+	const { refetch: userRefetch } = useLoadUserQuery();
+	const { symbol, tradeDuration } = useSelector((state: any) => state.trade);
+	const { refetch: historyRefetch } = useGetTradeRoundHistoryBySymbolQuery({
+		symbol,
+		timePeriod: tradeDuration,
+		page: 1, // optional, default = 1
+		limit: 10, // optional, default = 10
+	});
+	const { refetch: myHistoryRefetch } =
+		useGetMyTradeRoundHistoryQuery(undefined);
+
+	const dispatch = useDispatch();
 	const { user, token } = useSelector((state: any) => state.auth);
 	const [socket, setSocket] = useState<Socket | null>(null);
 	const [isSocketConnected, setIsSocketConnected] = useState(false);
 	const [onlineUsers, setOnlineUsers] = useState<SocketUser[]>([]);
 
 	useEffect(() => {
-		console.log('SocketContextProvider user:', user);
-		console.log('SocketContextProvider user token:', token);
 		if (!token) return;
 
 		const newSocket = io(baseUrl, {
@@ -47,7 +62,7 @@ export const SocketContextProvider = ({
 			newSocket.off();
 			newSocket.disconnect();
 		};
-	}, [user?.token]);
+	}, [token]);
 
 	useEffect(() => {
 		if (!socket) return;
@@ -67,18 +82,46 @@ export const SocketContextProvider = ({
 	useEffect(() => {
 		if (!socket || !isSocketConnected || !user) return;
 
-		socket.emit('addNewUser', user);
-
 		const handleGetUsers = (res: SocketUser[]) => {
 			setOnlineUsers(res);
 		};
 
-		socket.on('getUsers', handleGetUsers);
+		const handleNewRound = (rounds: any[]) => {
+			historyRefetch();
+			rounds.forEach((round: any) => {
+				dispatch(
+					setCurrentRoundByTimeAndSymbol({
+						timePeriod: round.timePeriod,
+						symbol: round.symbol,
+						round,
+					})
+				);
+			});
+		};
+
+		const handleResult = (result: any) => {
+			if (result.status === 'Succeed') {
+				toast.success(`Trade result: ${result.status}`);
+			} else if (result.status === 'Equal') {
+				toast(`😐 Trade result: ${result.status}`, { icon: '🤝' });
+			} else {
+				toast.error(`Trade result: ${result.status}`);
+			}
+			userRefetch();
+			myHistoryRefetch();
+		};
+
+		// Clean previous listeners before setting new ones
+		socket.off('getUsers').on('getUsers', handleGetUsers);
+		socket.off('new-round').on('new-round', handleNewRound);
+		socket.off('trade-result').on('trade-result', handleResult);
 
 		return () => {
-			socket.off('getUsers', handleGetUsers);
+			socket.off('getUsers');
+			socket.off('new-round');
+			socket.off('trade-result');
 		};
-	}, [socket, isSocketConnected, user]);
+	}, [socket, isSocketConnected, user, symbol, tradeDuration]);
 
 	return (
 		<SocketContext.Provider value={{ socket, isSocketConnected, onlineUsers }}>

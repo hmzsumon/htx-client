@@ -2,18 +2,23 @@
 import { useEffect, useRef } from 'react';
 import { createChart, UTCTimestamp } from 'lightweight-charts';
 import { useDispatch, useSelector } from 'react-redux';
-import { PropagateLoader, ScaleLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 import { setTradeLoading } from '@/redux/features/trade/tradeSlice';
 
-const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
+const RealtimeEmulation = () => {
 	const dispatch = useDispatch();
-	const { symbol, tradeDuration, tradeLoading } = useSelector(
+	const { symbol, tradeDuration, tradeLoading, kline } = useSelector(
 		(state: any) => state.trade
 	);
+
 	const chartContainerRef = useRef<HTMLDivElement | null>(null);
 	const chartRef = useRef<any>(null);
+	const candleSeriesRef = useRef<any>(null);
+	const areaSeriesRef = useRef<any>(null);
 
 	useEffect(() => {
+		dispatch(setTradeLoading(true)); // Start loading on render
+
 		if (!chartContainerRef.current) return;
 
 		const chart = createChart(chartContainerRef.current, {
@@ -57,8 +62,7 @@ const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
 			wickUpColor: '#26a69a',
 			wickDownColor: '#ef5350',
 		});
-
-		chartRef.current = chart;
+		candleSeriesRef.current = candleSeries;
 
 		const areaSeries = chart.addAreaSeries({
 			topColor: 'rgba(38,198,218, 0.56)',
@@ -66,25 +70,16 @@ const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
 			lineColor: 'rgba(38,198,218, 1)',
 			lineWidth: 2,
 		});
+		areaSeriesRef.current = areaSeries;
 
-		const volumeSeries = chart.addHistogramSeries({
-			color: '#26a69a',
-			priceFormat: {
-				type: 'volume',
-			},
-
-			priceScaleId: '',
-		});
+		chartRef.current = chart;
 
 		async function getNewData() {
 			try {
 				const response = await fetch(
 					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${tradeDuration}`
 				);
-
-				if (!response.ok) {
-					throw new Error('Failed to fetch data');
-				}
+				if (!response.ok) throw new Error('Failed to fetch data');
 
 				const data = await response.json();
 				dispatch(setTradeLoading(false));
@@ -99,37 +94,16 @@ const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
 			} catch (error) {
 				console.error('Fetch error:', error);
 				dispatch(setTradeLoading(false));
+				return [];
 			}
 		}
 
 		async function updateData() {
-			try {
-				const newData = await getNewData();
+			const newData = await getNewData();
+			if (!newData || newData.length === 0) return;
 
-				if (kline) {
-					candleSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							open: d.open,
-							high: d.high,
-							low: d.low,
-							close: d.close,
-						}))
-					);
-				} else {
-					areaSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							value: d.close,
-						}))
-					);
-				}
-			} catch (error) {
-				console.error('Update data error:', error);
-				// Fallback to demo data
-				const newData = await getNewData();
-
-				candleSeries.setData(
+			if (kline && candleSeriesRef.current) {
+				candleSeriesRef.current.setData(
 					newData.map((d: any) => ({
 						time: d.time,
 						open: d.open,
@@ -138,9 +112,17 @@ const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
 						close: d.close,
 					}))
 				);
+			} else if (areaSeriesRef.current) {
+				areaSeriesRef.current.setData(
+					newData.map((d: any) => ({
+						time: d.time,
+						value: d.close,
+					}))
+				);
 			}
 		}
 
+		updateData();
 		const interval = setInterval(updateData, 5000);
 
 		const observer = new ResizeObserver(() => {
@@ -153,12 +135,16 @@ const RealtimeEmulation = ({ kline, isLoading, setIsLoading }: any) => {
 		return () => {
 			clearInterval(interval);
 			observer.disconnect();
-			chart.remove();
+			if (chartRef.current) {
+				chartRef.current.remove();
+			}
+			candleSeriesRef.current = null;
+			areaSeriesRef.current = null;
 		};
 	}, [symbol, tradeDuration]);
 
 	return (
-		<div ref={chartContainerRef} className='relative w-full '>
+		<div ref={chartContainerRef} className='relative w-full'>
 			{tradeLoading && (
 				<div className='absolute top-[49%] left-[46%]'>
 					<ScaleLoader color='#05eb4a' height={30} width={5} />

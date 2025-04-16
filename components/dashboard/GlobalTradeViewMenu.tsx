@@ -11,21 +11,21 @@ const items = [
 		title: 'Trade Lite',
 		icon: null,
 		iconImg: TradeLite,
-		link: '/trade/trade-lite',
+		link: '/trade-lite',
 	},
 	{
 		id: 2,
 		title: 'Trade Elite',
 		icon: null,
 		iconImg: TradeElite,
-		link: '/trade/trade-elite',
+		link: '/trade-elite',
 	},
 	{
 		id: 3,
 		title: 'Trade Pro',
 		icon: null,
 		iconImg: TradePro,
-		link: '/trade/trade-pro',
+		link: '/trade-pro',
 	},
 ];
 
