@@ -5,7 +5,7 @@ export const depositApi = apiSlice.injectEndpoints({
 		// create deposit request
 		createDepositRequest: builder.mutation<any, any>({
 			query: (body) => ({
-				url: '/new/deposit',
+				url: '/create-new-deposit',
 				method: 'POST',
 				body,
 			}),

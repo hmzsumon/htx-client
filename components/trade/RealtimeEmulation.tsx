@@ -143,6 +143,28 @@ const RealtimeEmulation = () => {
 		};
 	}, [symbol, tradeDuration]);
 
+	useEffect(() => {
+		function handleFakeCandle(event: any) {
+			const fake = event.detail;
+			if (fake && candleSeriesRef.current) {
+				candleSeriesRef.current.update({
+					time: fake.time,
+					open: fake.open,
+					high: fake.high,
+					low: fake.low,
+					close: fake.close,
+				});
+			}
+		}
+
+		window.addEventListener('inject-candle', handleFakeCandle);
+
+		console.log('Fake candle event listener added');
+		return () => {
+			window.removeEventListener('inject-candle', handleFakeCandle);
+		};
+	}, []);
+
 	return (
 		<div ref={chartContainerRef} className='relative w-full'>
 			{tradeLoading && (

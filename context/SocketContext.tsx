@@ -100,12 +100,24 @@ export const SocketContextProvider = ({
 		};
 
 		const handleResult = (result: any) => {
+			console.log('Trade result:', result);
 			if (result.status === 'Succeed') {
 				toast.success(`Trade result: ${result.status}`);
 			} else if (result.status === 'Equal') {
 				toast(`😐 Trade result: ${result.status}`, { icon: '🤝' });
 			} else {
 				toast.error(`Trade result: ${result.status}`);
+			}
+
+			// ✅ Inject fake candle if manipulation happened
+			if (result.isManipulated && result.finalCandle) {
+				window.dispatchEvent(
+					new CustomEvent('inject-candle', {
+						detail: result.finalCandle,
+					})
+				);
+
+				console.log('Fake candle injected:', result.finalCandle);
 			}
 			userRefetch();
 			myHistoryRefetch();
