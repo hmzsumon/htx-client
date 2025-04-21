@@ -1,8 +1,7 @@
 import Container from '@/components/layout/Container';
 import React from 'react';
-import Icon from '@/public/images/logos/icon.png';
+import Icon from '@/public/logo_3.png';
 import Image from 'next/image';
-import { clsx } from 'clsx';
 import WhyHtx from '@/components/about-us/WhyHtx';
 import Contact from '@/components/about-us/Contact';
 
@@ -53,7 +52,7 @@ const AboutUsPage = () => {
 						</div>
 					</div>
 					<div className='order-1 md:order-2'>
-						<Image src={Icon} alt='icon' className='w-36 mx-auto' />
+						<Image src={Icon} alt='icon' className='w-40 mx-auto' />
 					</div>
 				</div>
 				<div className='mt-10'>

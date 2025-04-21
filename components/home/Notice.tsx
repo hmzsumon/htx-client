@@ -16,7 +16,7 @@ const Notice = () => {
 						gradientColor='white'
 						className='text-xs text-gray-700'
 					>
-						<p className='text-sm font-semibold '>
+						<p className='text-xs font-semibold '>
 							🚀 Welcome to Glomax, your ultimate gaming and trading
 							destination! 🎮💹 We are thrilled to introduce you to a
 							revolutionary experience, as we proudly stand as the first-ever

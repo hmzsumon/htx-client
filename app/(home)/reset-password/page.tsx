@@ -25,11 +25,11 @@ const RestPassword = () => {
 	const { email } = useSelector((state: any) => state.resetPass);
 	const router = useRouter();
 	// check if email is in the store
-	useEffect(() => {
-		if (!email) {
-			router.push('/forgot-password');
-		}
-	}, [email]);
+	// useEffect(() => {
+	// 	if (!email) {
+	// 		router.push('/forgot-password');
+	// 	}
+	// }, [email]);
 
 	// call reset password api
 	const [resetPassword, { isLoading, isSuccess, isError, error }] =
@@ -253,7 +253,11 @@ const RestPassword = () => {
 								type='submit'
 								className='w-full bg-htx-blue hover:bg-blue-700'
 							>
-								Submit
+								{isLoading ? (
+									<PulseLoader color='#fff' size={8} margin={2} />
+								) : (
+									'Submit'
+								)}
 							</Button>
 						</div>
 					</form>

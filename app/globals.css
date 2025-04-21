@@ -220,7 +220,7 @@ body {
 /* Start Footer Css */
 .footer-wrapper {
 	background-image: url('/images/bg/promotion-bg.png'),
-		linear-gradient(90deg, #f80d63 0%, #908cac 100%);
+		linear-gradient(90deg, #0173e5 0%, #0173e5 100%);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover, 100% 100%;

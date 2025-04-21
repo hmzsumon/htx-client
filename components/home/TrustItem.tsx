@@ -1,12 +1,11 @@
-import { Box } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 
 const TrustItem = ({ title, description, icon }: any) => {
 	return (
-		<div className='flex md:flex-col gap-4'>
-			<div className='flex md:items-center justify-center'>
-				<Image src={icon} alt='icon' className='w-16 h-16 md:w-24 md:h-24' />
+		<div className='flex md:flex-col gap-4 items-center'>
+			<div className=''>
+				<Image src={icon} alt='icon' className='  w-32 ' />
 			</div>
 			<div className='space-y-2 text-left'>
 				<h1 className='text-xl md:text-2xl font-bold'>{title}</h1>

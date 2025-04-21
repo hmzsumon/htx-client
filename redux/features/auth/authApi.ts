@@ -282,6 +282,63 @@ export const authApi = apiSlice.injectEndpoints({
 				body,
 			}),
 		}),
+
+		// update mobile number
+		updateMobileNumber: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/update-mobile`,
+				method: 'PUT',
+				body,
+			}),
+			invalidatesTags: ['User'],
+		}),
+
+		// update address
+		updateAddress: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/update-address`,
+				method: 'PUT',
+				body,
+			}),
+			invalidatesTags: ['User'],
+		}),
+
+		// check old password
+		checkOldPassword: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/check-old-password`,
+				method: 'POST',
+				body,
+			}),
+		}),
+
+		// check old pin
+		checkOldPin: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/check-old-pass-code`,
+				method: 'POST',
+				body,
+			}),
+		}),
+
+		// update pin
+		updatePin: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/update-pass-code`,
+				method: 'PATCH',
+				body,
+			}),
+			invalidatesTags: ['User'],
+		}),
+
+		// send new pin email
+		sendNewPinEmail: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/send-pass-code`,
+				method: 'POST',
+				body,
+			}),
+		}),
 	}),
 });
 
@@ -314,4 +371,10 @@ export const {
 	useGetDashboardQuery,
 	useSecurityVerify2Mutation,
 	useCheckAgentNameMutation,
+	useUpdateMobileNumberMutation,
+	useUpdateAddressMutation,
+	useCheckOldPasswordMutation,
+	useCheckOldPinMutation,
+	useUpdatePinMutation,
+	useSendNewPinEmailMutation,
 } = authApi;

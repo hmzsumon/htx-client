@@ -20,7 +20,7 @@ const Footer = () => {
 					</div>
 
 					<div className=' justify-self-end '>
-						<ul className=' space-y-1 text-gray-800 '>
+						<ul className=' space-y-1 text-gray-300 '>
 							<h2 className='font-bold text-gray-100'>
 								Quick <span className='text-gray-50'> Links</span>
 							</h2>
@@ -50,7 +50,7 @@ const Footer = () => {
 				</div>
 			</div>
 
-			<div className=' py-4 bg-slate-950 mt-6'>
+			<div className=' py-4 bg-slate-900 mt-6'>
 				<p className=' text-center text-white text-xs'>
 					© 2025 HTX Trade. All Rights Reserved.
 				</p>

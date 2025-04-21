@@ -24,7 +24,7 @@ import tradeReducer from './features/trade/tradeSlice';
 const persistConfig = {
 	key: 'root',
 	storage: storage,
-	whitelist: ['auth', 'trade'],
+	whitelist: ['auth', 'trade', 'resetPass'],
 };
 
 export const rootReducer = combineReducers({

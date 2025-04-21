@@ -118,7 +118,7 @@ const ForgotPassword = () => {
 		}
 	}, [isVerifySuccess, verifyError, isVerifyError]);
 	return (
-		<div className=' bg-white p-4 '>
+		<div className=' bg-white p-4 mt-20'>
 			{send ? (
 				<Card className='max-w-sm mx-auto p-4'>
 					<div className=' space-y-1'>
@@ -168,7 +168,11 @@ const ForgotPassword = () => {
 						</div>
 
 						<Button type='submit' className=' bg-htx-blue hover:bg-blue-700'>
-							Submit
+							{isResendLoading || isVerifyLoading ? (
+								<PulseLoader color='#fff' size={8} margin={2} />
+							) : (
+								'Submit'
+							)}
 						</Button>
 					</form>
 				</Card>
@@ -206,7 +210,7 @@ const ForgotPassword = () => {
 						</div>
 
 						<Button type='submit' className=' bg-htx-blue hover:bg-blue-700'>
-							{isResendLoading ? (
+							{isResendLoading || isVerifyLoading ? (
 								<PulseLoader color='#fff' size={8} margin={2} />
 							) : (
 								'Continue'

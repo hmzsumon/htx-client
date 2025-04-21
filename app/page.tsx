@@ -11,6 +11,8 @@ import SageAndTrust from '@/components/home/SageAndTrust';
 import TradeAnytime from '@/components/home/TradeAnytime';
 import SocialMedia from '@/components/home/SocialMedia';
 import StartWithHTX from '@/components/home/StartWithHTX';
+import PowerUpSection from '@/components/home/PowerUpSection';
+import DepositAndTrade from '@/components/home/DepositAndTrade';
 
 export default function Home() {
 	return (
@@ -21,7 +23,9 @@ export default function Home() {
 				<TradeVolume />
 				<StartWithHTX />
 				<Overview />
+				<PowerUpSection />
 				<SageAndTrust />
+				<DepositAndTrade />
 				<TradeAnytime />
 				<SocialMedia />
 			</div>

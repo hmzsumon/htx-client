@@ -33,7 +33,7 @@ const GlobalTradeViewMenu2 = () => {
 	return (
 		<>
 			<DashboardMenuCard
-				title='Global Trade View'
+				title='Live Trade View'
 				items={items}
 				bgColor={'bg-[#efebc3]'}
 			/>

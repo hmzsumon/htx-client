@@ -9,7 +9,7 @@ import { link } from 'fs';
 const items = [
 	{
 		id: 1,
-		title: 'Personal Trade',
+		title: 'Reserve Trade',
 		icon: null,
 		iconImg: TradeImg1,
 		link: '/trade/personal-trade',

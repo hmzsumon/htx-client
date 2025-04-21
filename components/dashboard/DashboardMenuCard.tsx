@@ -8,7 +8,7 @@ import Link from 'next/link';
 const DashboardMenuCard = ({ bgColor, title, items }: any) => {
 	return (
 		<div className='px-2 md:px-4'>
-			<Card className={`p-3 ${bgColor}`}>
+			<Card className={`p-2 ${bgColor}`}>
 				<div className='border-b border-gray-200 pb-4'>
 					<div className='flex gap-1 items-center'>
 						<div className=''>
@@ -32,7 +32,9 @@ const DashboardMenuCard = ({ bgColor, title, items }: any) => {
 								) : item.icon ? (
 									<item.icon size={20} /> // ✅ Ensure this is a component, not a function
 								) : null}
-								<p className='text-xs font-bold text-blue-900'>{item.title}</p>
+								<p className='text-[.70rem] font-semibold text-blue-900'>
+									{item.title}
+								</p>
 							</li>
 						</Link>
 					))}

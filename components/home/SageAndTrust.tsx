@@ -1,9 +1,9 @@
 import React from 'react';
 import Container from '../layout/Container';
 import TrustItem from './TrustItem';
-import Icon_1 from '@/public/images/icons/icon_1.png';
-import Icon_3 from '@/public/images/icons/icon_3.png';
-import Icon_4 from '@/public/images/icons/icon_4.png';
+import Icon_1 from '@/public/images/icons/cyber-security.png';
+import Icon_3 from '@/public/images/icons/strong_security.png';
+import Icon_4 from '@/public/images/icons/trust.png';
 
 const SageAndTrust = () => {
 	return (

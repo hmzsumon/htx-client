@@ -178,11 +178,13 @@ const MoreAbout = () => {
 									onBlur={() => setAddressError(address === '')}
 									className='w-full px-3 py-2 border rounded-md text-xs mt-1 placeholder:text-xs'
 								/>
-								<>
+								<div className='mt-1 ml-1'>
 									{addressError && (
-										<span className='text-xs'>Please enter your address</span>
+										<span className='text-xs text-red-500 '>
+											Please enter your address
+										</span>
 									)}
-								</>
+								</div>
 							</div>
 						</div>
 						{/* End Address */}

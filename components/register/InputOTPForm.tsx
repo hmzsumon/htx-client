@@ -22,11 +22,11 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { Card } from '@/components/ui/card';
 import {
 	useVerifyCodeForRegisterMutation,
 	useGetVerifyCodeForRegisterMutation,
 } from '@/redux/features/auth/authApi';
+import { PulseLoader } from 'react-spinners';
 
 const FormSchema = z.object({
 	pin: z.string().min(6, {
@@ -37,13 +37,13 @@ const FormSchema = z.object({
 export function InputOTPForm() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const email = searchParams.get('email'); // Get email from URL
+	const email = searchParams.get('email');
 
 	const [verifyCodeForRegister, { isLoading }] =
 		useVerifyCodeForRegisterMutation();
 	const [getVerifyCodeForRegister] = useGetVerifyCodeForRegisterMutation();
 
-	const [timer, setTimer] = useState(60); // 60 seconds countdown
+	const [timer, setTimer] = useState(0);
 	const [canResend, setCanResend] = useState(false);
 
 	const form = useForm<z.infer<typeof FormSchema>>({
@@ -53,7 +53,25 @@ export function InputOTPForm() {
 		},
 	});
 
-	// Countdown Timer Logic
+	// Load timer state from localStorage on first load
+	useEffect(() => {
+		const savedExpiry = localStorage.getItem('otp_timer_expires');
+		if (savedExpiry) {
+			const expires = parseInt(savedExpiry);
+			const now = Date.now();
+			if (expires > now) {
+				const remaining = Math.floor((expires - now) / 1000);
+				setTimer(remaining);
+				setCanResend(false);
+			} else {
+				setCanResend(true);
+			}
+		} else {
+			startTimer();
+		}
+	}, []);
+
+	// Countdown logic
 	useEffect(() => {
 		if (timer > 0) {
 			const interval = setInterval(() => {
@@ -65,49 +83,44 @@ export function InputOTPForm() {
 		}
 	}, [timer]);
 
-	// Function to handle form submission
-	async function onSubmit(data: z.infer<typeof FormSchema>) {
-		if (!email) {
-			toast.error('Email is missing from the URL.');
-			return;
-		}
+	const startTimer = () => {
+		const expiresAt = Date.now() + 60000; // 60 seconds
+		localStorage.setItem('otp_timer_expires', expiresAt.toString());
+		setTimer(60);
+		setCanResend(false);
+	};
 
+	// Form Submit
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
+		if (!email) return toast.error('Email is missing from the URL.');
 		try {
 			const response = await verifyCodeForRegister({
 				email,
 				verify_code: data.pin,
 			}).unwrap();
-
-			toast.success(response.message || 'Verification successful!');
-
-			// Redirect user (Change to your route)
 			router.push(`/register?email=${email}`);
+			toast.success(response.message || 'Verification successful!');
 		} catch (error) {
 			const errorMessage = (error as fetchBaseQueryError).data?.message;
 			if (!form.formState.errors.pin) {
-				// Only show toast if there's no existing form error
 				toast.error(errorMessage);
 			}
-
-			form.setError('pin', { type: 'manual', message: errorMessage }); // Set error manually
+			form.setError('pin', { type: 'manual', message: errorMessage });
 		}
 	}
 
-	// Function to handle resending OTP
+	// Resend code
 	const handleResendCode = async (e: any) => {
 		e.preventDefault();
-		if (!email) {
-			toast.error('Email is missing from the URL.');
-			return;
-		}
-
+		if (!email) return toast.error('Email is missing from the URL.');
 		try {
 			await getVerifyCodeForRegister({ email }).unwrap();
 			toast.success('New verification code sent.');
-			setTimer(60); // Reset timer
-			setCanResend(false); // Disable resend button again
+			startTimer();
 		} catch (error) {
-			toast.error(toast.error((error as fetchBaseQueryError).data?.message));
+			toast.error(
+				(error as fetchBaseQueryError).data?.message || 'Error occurred'
+			);
 		}
 	};
 
@@ -147,7 +160,6 @@ export function InputOTPForm() {
 						<button
 							onClick={handleResendCode}
 							className='text-blue-500 hover:underline'
-							onAuxClick={handleResendCode}
 						>
 							Resend
 						</button>
@@ -162,7 +174,11 @@ export function InputOTPForm() {
 					onClick={form.handleSubmit(onSubmit)}
 					disabled={isLoading || form.watch('pin').length !== 6}
 				>
-					{isLoading ? 'Verifying...' : 'Confirm'}
+					{isLoading ? (
+						<PulseLoader color='#fff' size={8} margin={2} />
+					) : (
+						<span>Confirm</span>
+					)}
 				</Button>
 			</form>
 		</Form>

@@ -21,6 +21,7 @@ import {
 } from '@/redux/features/auth/authApi';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { PulseLoader } from 'react-spinners';
 
 const FormSchema = z.object({
 	email: z.string().email('Please enter a valid email address.'),
@@ -110,7 +111,11 @@ export function InputForm() {
 					className='bg-htx-blue hover:bg-blue-400 w-full'
 					disabled={isLoading || checkingEmail}
 				>
-					{isLoading ? 'Processing...' : 'Next'}
+					{isLoading ? (
+						<PulseLoader color='#fff' size={8} margin={2} />
+					) : (
+						<span>Next</span>
+					)}
 				</Button>
 			</form>
 		</Form>

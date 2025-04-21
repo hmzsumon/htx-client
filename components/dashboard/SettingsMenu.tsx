@@ -12,21 +12,21 @@ const items = [
 		title: 'Personal Info',
 		icon: null,
 		iconImg: PersonalInfo,
-		link: '/settings/personal-info',
+		link: '/personal-info',
 	},
 	{
 		id: 2,
-		title: 'Reset Password',
+		title: 'Password',
 		icon: null,
 		iconImg: Password,
-		link: '/settings/reset-password',
+		link: '/reset-password-inner',
 	},
 	{
 		id: 3,
 		title: 'Reset Pin',
 		icon: null,
 		iconImg: Pin,
-		link: '/settings/reset-pin',
+		link: '/reset-pin',
 	},
 ];
 

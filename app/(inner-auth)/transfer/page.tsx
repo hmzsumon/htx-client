@@ -11,6 +11,20 @@ import {
 } from '@/redux/features/send/sendApi';
 import { Card } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
+import RechargeInstructions from '@/components/RechargeInstructions';
+import { TransferDrawer } from '@/components/transfer/TransferDrawer';
+import { set } from 'react-hook-form';
+
+const transferData = [
+	'Minimum transfer amount is $10.',
+	'You can transfer balance only to valid registered users of this platform.',
+	'Once transferred, the balance cannot be reversed or refunded.',
+	'Please double-check the Receiver’s User ID before confirming the transfer.',
+	'A small transaction fee (if any) may be deducted from the transferred amount.',
+	'You must have sufficient balance in your account before initiating the transfer.',
+	'Suspicious or fraudulent transfers may result in temporary suspension of your account.',
+	'Do not use this feature for money laundering or illegal purposes — your account may be permanently blocked.',
+];
 
 const TransferPage = () => {
 	const router = useRouter();
@@ -24,7 +38,7 @@ const TransferPage = () => {
 	const [recipientError, setRecipientError] = React.useState('');
 	const [isVerify, setIsVerify] = useState(false);
 
-	const [openModal, setOpenModal] = useState(false);
+	const [openDrawer, setOpenDrawer] = useState(false);
 
 	const [findUserByCustomerId, { data, isLoading, isError, error, isSuccess }] =
 		useFindUserByCustomerIdMutation();
@@ -32,7 +46,7 @@ const TransferPage = () => {
 	// calculate fee by 5%
 	useEffect(() => {
 		if (Number(amount) >= 10) {
-			const fee = (Number(amount) * 0.5) / 100;
+			const fee = (Number(amount) * 0.3) / 100;
 			setFee(fee);
 			setReceiveAmount(Number(amount) - fee);
 		}
@@ -85,20 +99,15 @@ const TransferPage = () => {
 		},
 	] = useSendMutation();
 
-	// handle verify
-	const handleVerify = () => {
-		setIsVerify(true);
-	};
-
 	// handle submit
 	const handleSubmit = () => {
 		const data = {
-			recipient_id: recipient?.partner_id,
+			recipient_id: recipient?.customer_id,
 			amount: Number(amount),
 			fee: fee,
 			receive_amount: receiveAmount,
 		};
-		// console.log(data);
+		console.log(data);
 		send(data);
 	};
 
@@ -109,22 +118,24 @@ const TransferPage = () => {
 		}
 		if (s_isSuccess) {
 			toast.success('Send successfully');
+			setOpenDrawer(false);
+			setUserId('');
 			router.push('/transactions');
 		}
 	}, [s_isError, s_error, s_isSuccess]);
 
 	return (
-		<div className='p-4 md:pb-20'>
+		<div className='p-4 pb-24 space-y-4'>
 			<Card className='bg-slate-100'>
 				<div>
 					<div className='space-y-2'>
-						<h2 className='text-2xl font-bold text-center text-blue-gray-300 '>
+						<h2 className='text-xl font-bold text-center text-blue-gray-300 '>
 							Transfer USDT
 						</h2>
 					</div>
 					<hr className='my-2 border border-blue-gray-800 ' />
 					<p className=' text-center text-xs font-semibold'>User To User</p>
-					<div className='my-4 space-y-3'>
+					<div className='my-4 space-y-3 text-sm'>
 						<div>
 							<label
 								htmlFor=''
@@ -134,7 +145,7 @@ const TransferPage = () => {
 							</label>
 							<input
 								type='text'
-								className='w-full px-2 py-2 border rounded-lg border-blue-gray-800 bg-black_2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent'
+								className='w-full px-2 py-2 border rounded-lg border-blue-gray-800 bg-black_2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm placeholder:text-sm'
 								placeholder='Enter User ID'
 								value={userId}
 								onChange={(e) => handleChangeUserId(e)}
@@ -155,7 +166,7 @@ const TransferPage = () => {
 							</label>
 							<input
 								type='number'
-								className='w-full px-2 py-2 border rounded-lg border-blue-gray-800 bg-black_2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent'
+								className='w-full px-2 py-2 border rounded-lg border-blue-gray-800 bg-black_2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm placeholder:text-sm'
 								placeholder='Enter Amount'
 								value={amount}
 								onChange={(e) => handleChangeAmount(e)}
@@ -165,10 +176,10 @@ const TransferPage = () => {
 								<small className='text-xs text-green-500'>
 									{fee > 0 ? (
 										<span>
-											5% fee: {fee} USDT, Receive Amount: {receiveAmount} USDT
+											3% fee: {fee} USDT, Receive Amount: {receiveAmount} USDT
 										</span>
 									) : (
-										<span>(5% fee will be charged.)</span>
+										<span>(3% fee will be charged.)</span>
 									)}
 								</small>
 								<small>
@@ -238,7 +249,7 @@ const TransferPage = () => {
 										</button>
 									) : (
 										<button
-											onClick={() => setOpenModal(true)}
+											onClick={() => setOpenDrawer(true)}
 											className='w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500'
 										>
 											Security Verify
@@ -260,6 +271,17 @@ const TransferPage = () => {
 					</div>
 				</div>
 			</Card>
+			<RechargeInstructions
+				data={transferData}
+				title='Balance Transfer Instructions
+'
+			/>
+			{/* Modal */}
+			<TransferDrawer
+				open={openDrawer}
+				setOpen={setOpenDrawer}
+				handleConfirm={handleSubmit}
+			/>
 		</div>
 	);
 };

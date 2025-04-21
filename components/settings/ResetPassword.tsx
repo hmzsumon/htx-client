@@ -4,7 +4,10 @@ import toast from 'react-hot-toast';
 import { fetchBaseQueryError } from '@/redux/services/helpers';
 import PulseLoader from 'react-spinners/PulseLoader';
 
-import { useResetPasswordMutation } from '@/redux/features/auth/authApi';
+import {
+	useCheckOldPasswordMutation,
+	useResetPasswordMutation,
+} from '@/redux/features/auth/authApi';
 import { removeEmail } from '@/redux/resetPassSlice';
 import {
 	FaCheckCircle,
@@ -19,16 +22,58 @@ import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { set } from 'react-hook-form';
 
 const ResetPassword2 = () => {
 	const dispatch = useDispatch();
-	const { email } = useSelector((state: any) => state.resetPass);
+
+	const { user } = useSelector((state: any) => state.auth);
 	const router = useRouter();
+
+	// check old password
+	const [
+		checkOldPassword,
+		{
+			isLoading: check_isLoading,
+			isError: checkIsError,
+			isSuccess: checkIsSuccess,
+			error: checkError,
+			data: checkData,
+		},
+	] = useCheckOldPasswordMutation();
+
+	const { isPasswordMatched } = checkData || {};
+
+	// handle check old password
+	const handleCheckOldPassword = () => {
+		if (oldPassword) {
+			checkOldPassword({ oldPassword });
+		}
+	};
+
+	// useEffect to handle success and error
+	useEffect(() => {
+		if (checkIsSuccess) {
+			if (isPasswordMatched) {
+				toast.success('Old password is correct');
+			}
+		}
+
+		if (checkIsError) {
+			toast.error((checkError as fetchBaseQueryError).data?.message);
+			setOldPasswordError(true);
+			setOldPasswordErrorText('Old password is incorrect');
+		}
+	}, [checkIsSuccess, checkIsError, checkError]);
 
 	// call reset password api
 	const [resetPassword, { isLoading, isSuccess, isError, error }] =
 		useResetPasswordMutation();
 
+	const [oldPassword, setOldPassword] = useState('');
+	const [showOldPassword, setShowOldPassword] = useState(false);
+	const [oldPasswordError, setOldPasswordError] = useState(false);
+	const [oldPasswordErrorText, setOldPasswordErrorText] = useState('');
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 	const [passwordCriteria, setPasswordCriteria] = useState({
@@ -42,8 +87,6 @@ const ResetPassword2 = () => {
 	const [passwordErrorText, setPasswordErrorText] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-	const [passCode, setPassCode] = useState('');
-	const [passCodeError, setPassCodeError] = useState(false);
 
 	const updatePasswordCriteria = (pass: any) => {
 		const lengthCriteria = pass.length >= 8 && pass.length <= 15;
@@ -59,6 +102,14 @@ const ResetPassword2 = () => {
 		});
 	};
 
+	// handle old password change
+	const handleOldPasswordChange = (e: any) => {
+		setOldPasswordError(false);
+		setOldPasswordErrorText('');
+		const newPass = e.target.value;
+		setOldPassword(newPass);
+	};
+
 	const handlePasswordChange = (e: any) => {
 		const newPass = e.target.value;
 		setPassword(newPass);
@@ -69,7 +120,7 @@ const ResetPassword2 = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		const data = {
-			email,
+			email: user?.email,
 			password,
 		};
 
@@ -109,32 +160,38 @@ const ResetPassword2 = () => {
 							<div className='mb-2 block relative'>
 								<Input
 									id='password1'
-									type={showPassword ? 'text' : 'password'}
+									type={showOldPassword ? 'text' : 'password'}
 									required
 									color={passwordError ? 'failure' : ''}
-									value={password}
-									onChange={handlePasswordChange}
+									value={oldPassword}
+									onChange={(e) => handleOldPasswordChange(e)}
 									onBlur={() => {
-										if (password.length < 8) {
-											setPasswordError(true);
-											setPasswordErrorText(
-												'Password must be at least 8 characters'
+										if (oldPassword.length < 8) {
+											setOldPasswordError(true);
+											setOldPasswordErrorText(
+												'Old password must be at least 8 characters'
 											);
 										} else {
-											setPasswordError(false);
-											setPasswordErrorText('');
+											setOldPasswordError(false);
+											setOldPasswordErrorText('');
+											handleCheckOldPassword();
 										}
 									}}
 									className='w-full px-3 py-2 border rounded-md text-xs mt-1 placeholder:text-xs'
 								/>
 								<button
 									type='button'
-									onClick={() => setShowPassword(!showPassword)}
+									onClick={() => setShowOldPassword(!showOldPassword)}
 									className='absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5'
 								>
-									{showPassword ? <FaEyeSlash /> : <FaEye />}
+									{showOldPassword ? <FaEyeSlash /> : <FaEye />}
 								</button>
 							</div>
+							{oldPasswordError && (
+								<span className='text-xs text-red-500 font-bold ml-1'>
+									{oldPasswordErrorText}
+								</span>
+							)}
 						</div>
 						{/* End Old Password */}
 						{/* Start Password */}
@@ -286,9 +343,21 @@ const ResetPassword2 = () => {
 						<div className='gap-4'>
 							<Button
 								type='submit'
-								className='w-full bg-htx-blue hover:bg-blue-700'
+								className='w-full bg-htx-blue hover:bg-blue-700 disabled:cursor-not-allowed'
+								disabled={
+									passwordError ||
+									oldPasswordError ||
+									!passwordCriteria.minLength ||
+									!passwordCriteria.upperAndLowerCase ||
+									!passwordCriteria.number ||
+									!passwordCriteria.specialChar
+								}
 							>
-								Send OTP
+								{isLoading ? (
+									<PulseLoader color='white' size={8} />
+								) : (
+									'Reset Password'
+								)}
 							</Button>
 						</div>
 					</form>

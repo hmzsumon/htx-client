@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -25,9 +26,6 @@ const PersonalDetails = () => {
 	const [nameError, setNameError] = useState(false);
 	const [email, setEmail] = useState('');
 	const [emailError, setEmailError] = useState(false);
-	const [emailErrorText, setEmailErrorText] = useState(
-		'Please enter a valid email address'
-	);
 	const [code, setCode] = useState<string>('us');
 	const [referralCode, setReferralCode] = useState<string>('');
 	const [edit, setEdit] = useState(true);
@@ -68,7 +66,24 @@ const PersonalDetails = () => {
 
 	const nextHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (nameError || emailError || phoneError) return;
+
+		let valid = true;
+		if (!name.trim()) {
+			setNameError(true);
+			valid = false;
+		}
+
+		if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			setEmailError(true);
+			valid = false;
+		}
+
+		if (!phone || phone.length < 6) {
+			setPhoneError(true);
+			valid = false;
+		}
+
+		if (!valid) return;
 
 		dispatch(
 			setPersonalData({
@@ -84,12 +99,11 @@ const PersonalDetails = () => {
 	};
 
 	return (
-		<Card className='p-6 w-[320px] md:m mx-auto text-xs text-gray-600'>
+		<Card className='p-6 w-[320px] mx-auto text-xs text-gray-600'>
 			<h1 className='text-xl text-htx-blue font-bold mb-4'>
 				Fill in your personal details
 			</h1>
 			<form className='space-y-4 text-sx' onSubmit={nextHandler}>
-				{/* Country Select */}
 				<div>
 					<Label htmlFor='countries' className='text-sm font-semibold ml-1'>
 						Select your country
@@ -111,7 +125,6 @@ const PersonalDetails = () => {
 					</select>
 				</div>
 
-				{/* Name Input */}
 				<div>
 					<Label htmlFor='name' className='text-sm font-semibold ml-1'>
 						Your Name
@@ -122,8 +135,11 @@ const PersonalDetails = () => {
 						placeholder='Enter your name'
 						required
 						value={name}
-						onChange={(e) => setName(e.target.value)}
-						onBlur={() => setNameError(name.length === 0)}
+						onChange={(e) => {
+							setName(e.target.value);
+							setNameError(false);
+						}}
+						onBlur={() => setNameError(!name.trim())}
 						className='w-full px-3 py-2 border rounded-md text-xs mt-1 placeholder:text-xs'
 					/>
 					{nameError && (
@@ -131,7 +147,31 @@ const PersonalDetails = () => {
 					)}
 				</div>
 
-				{/* Phone Input */}
+				<div>
+					<Label htmlFor='email' className='text-sm font-semibold ml-1'>
+						Email
+					</Label>
+					<Input
+						id='email'
+						type='email'
+						value={email}
+						placeholder='Enter your email'
+						required
+						onChange={(e) => {
+							setEmail(e.target.value);
+							setEmailError(false);
+						}}
+						onBlur={() =>
+							setEmailError(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+						}
+						className='w-full px-3 py-2 border rounded-md text-xs mt-1 placeholder:text-xs'
+						disabled
+					/>
+					{emailError && (
+						<p className='text-xs text-red-500'>Please enter a valid email</p>
+					)}
+				</div>
+
 				<div className='space-y-1'>
 					<Label htmlFor='phone' className='text-sm font-semibold ml-1'>
 						Phone Number
@@ -158,7 +198,6 @@ const PersonalDetails = () => {
 					)}
 				</div>
 
-				{/* Partner Code Input */}
 				<div className='space-y-1'>
 					<Label htmlFor='referralCode' className='text-sm font-semibold ml-1 '>
 						Partner Code (Optional)
@@ -174,7 +213,6 @@ const PersonalDetails = () => {
 					/>
 				</div>
 
-				{/* Submit Button */}
 				<Button
 					type='submit'
 					className='w-full bg-htx-blue hover:bg-blue-700 text-white font-bold'

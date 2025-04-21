@@ -7,7 +7,7 @@ const Register = () => {
 			className='flex flex-col items-center justify-center px-2'
 			// style={{ height: 'calc(100vh - 20px)' }}
 		>
-			<div className='mt-10'>
+			<div className='mt-4 pb-4'>
 				<RegisterPage />
 			</div>
 		</div>
