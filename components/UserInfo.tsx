@@ -17,7 +17,7 @@ const UserInfo = () => {
 					className=' w-16 h-16 rounded-full object-cover'
 				/>
 				<div className='text-center bg-green-500 text-white p-1 text-xs font-bold rounded-md min-w-[60px]'>
-					<h2>{user.rank}</h2>
+					<h2>{user?.rank}</h2>
 				</div>
 			</div>
 			<div className='mt-4 list-none space-y-1 '>

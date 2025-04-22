@@ -3,7 +3,7 @@ import React from 'react';
 import Container from './Container';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Logo from '@/public/images/logos/logo_1.png';
+import Logo from '@/public/images/logos/logo-blue-01.png';
 import localFont from 'next/font/local';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ const AuthNavBar = () => {
 							<Image
 								src={Logo}
 								alt='logo'
-								className='w-28'
+								className='w-32'
 								onClick={() => router.push('/')}
 							/>
 						</div>

@@ -10,8 +10,8 @@ const TradeHome: React.FC = (props) => {
 			<div className='w-full  mx-auto '>
 				<div className='relative flex flex-col items-center justify-between z-40 space-y-3 '>
 					{/* Start Logo */}
-					<div className='absolute top-[35%]'>
-						<Image src={Logo} alt='logo' className='w-72' />
+					<div className='absolute top-[50%] md:top-[50%]'>
+						<Image src={Logo} alt='logo' className='w-40 md:w-72' />
 					</div>
 					{/* End Logo */}
 					<div className='w-full mx-auto md:h-[300px]'>

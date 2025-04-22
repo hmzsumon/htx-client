@@ -1,10 +1,8 @@
 'use client';
 import React from 'react';
-import Container from './Container';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Logo from '@/public/logo_1.png';
-import localFont from 'next/font/local';
+import Logo from '@/public/images/logos/logo-blue-01.png';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
