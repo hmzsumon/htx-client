@@ -91,8 +91,8 @@ const DepositForm = () => {
 			{!isLoading && deposit && (
 				<div className='mt-4 p-3 bg-white rounded'>
 					<div className='flex items-center justify-between mb-2'>
-						<p>Supported Currency</p>
-						<div className='flex items-center gap-2'>
+						<p className=' font-semibold'>Supported Currency</p>
+						<div className='flex items-center gap-2 '>
 							<Image
 								src={UsdtIcon}
 								alt='USDT'
@@ -100,7 +100,7 @@ const DepositForm = () => {
 								height={24}
 								className='object-contain'
 							/>
-							<p className='font-bold'>USDT</p>
+							<p className='font-bold text-sm'>USDT</p>
 						</div>
 					</div>
 

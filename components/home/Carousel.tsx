@@ -16,10 +16,11 @@ export default class SimpleSlider extends Component {
 			autoplaySpeed: 4000,
 		};
 		const sliderItems = [
-			'./images/carousel/ai-grid.png',
-			'./images/carousel/b2.jpg',
-			'./images/carousel/trading.png',
-			'./images/carousel/b1.jpg',
+			'./images/carousel/b5.jpg',
+			'./images/carousel/b6.jpg',
+			'./images/carousel/b7.jpg',
+			'./images/carousel/b8.jpg',
+			'./images/carousel/b9.jpg',
 		];
 		return (
 			<div className=' bg-gray-900 p-2 w-[100%] mx-auto'>
