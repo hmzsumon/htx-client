@@ -122,7 +122,7 @@ const DepositForm = () => {
 
 						{/* ✅ Copyable address */}
 						<div className='mt-2 flex items-center justify-between bg-slate-200 p-2 rounded'>
-							<p className='text-xs font-bold break-all'>
+							<p className='text-[.70rem] font-bold break-all'>
 								{deposit.destinationAddress}
 							</p>
 							<CopyToClipboard text={deposit.destinationAddress} />
