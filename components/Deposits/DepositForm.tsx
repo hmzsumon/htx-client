@@ -10,6 +10,22 @@ import { useCreateDepositRequestMutation } from '@/redux/features/deposit/deposi
 import { useSocket } from '@/context/SocketContext';
 import CopyToClipboard from '@/lib/CopyToClipboard';
 import UsdtIcon from '@/public/images/icons/usdt_icon.png';
+import RechargeInstructions from '../RechargeInstructions';
+
+const depositInstructions = [
+	'Minimum deposit: Any amount in BNB Smart Chain (BEP20).',
+
+	'However, deposits less than 30 USDT will not be eligible for trading.',
+
+	" Sign-up bonus: $2, usable only if you're on the Minimum Trade Lite package.",
+
+	"KYC Bonus: Once you successfully complete your KYC verification, you will receive a $2 bonus. However, to use this bonus, you must be on at least the 'Trade Lite'package.",
+	"Trade Lite Package: Trade Lite is our minimum trading package. To qualify for it, your account balance must be at least $30. Once your balance reaches $30 or more, you'll be automatically eligible for the Trade Lite package, and your $2 bonus will be available for use.",
+
+	'Do not deposit non-currency assets to the above address — such assets cannot be recovered.',
+
+	'Make sure your device/environment is secure to avoid any risk of information being tampered with or leaked.',
+];
 
 const DepositForm = () => {
 	const router = useRouter();
@@ -60,20 +76,18 @@ const DepositForm = () => {
 	}, [socket]);
 
 	return (
-		<div className='mx-auto bg-gray-200 shadow-md rounded md:w-1/2'>
+		<div className='mx-auto bg-gray-200 shadow-md text-sm rounded md:w-1/2 '>
 			<div className='flex items-center justify-between bg-white p-4 rounded'>
 				<p className='font-bold'>Network</p>
 				<p>BNB Smart Chain (BEP20)</p>
 			</div>
 
-			{isLoading && (
+			{isLoading ? (
 				<div className='flex items-center justify-center h-[50vh] p-4 bg-white'>
 					<RingLoader color='#36d7b7' loading size={100} />
 				</div>
-			)}
-
-			{deposit && (
-				<div className='mt-4 p-4 bg-white rounded'>
+			) : (
+				<div className='mt-4 p-3 bg-white rounded'>
 					<div className='flex items-center justify-between mb-2'>
 						<p>Supported Currency</p>
 						<div className='flex items-center gap-2'>
@@ -114,6 +128,14 @@ const DepositForm = () => {
 					</div>
 				</div>
 			)}
+
+			<div className='mt-4  '>
+				<RechargeInstructions
+					data={depositInstructions}
+					title='Deposit Instructions
+'
+				/>
+			</div>
 		</div>
 	);
 };

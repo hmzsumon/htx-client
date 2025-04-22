@@ -10,7 +10,7 @@ import { MdKeyboardDoubleArrowLeft } from 'react-icons/md';
 const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	const router = useRouter();
 	return (
-		<div className=''>
+		<div className='bg-gray-200'>
 			<div className='fixed top-0 left-0 w-full z-50 bg-gray-200'>
 				<div className='flex items-center justify-between px-4 py-2 bg-white '>
 					<button type='button' onClick={() => router.back()}>
@@ -20,8 +20,8 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 					<div></div>
 				</div>
 			</div>
-			<div className='py-[0.09rem] min-h-screen mt-6'>
-				<div>{children}</div>
+			<div className='py-[0.09rem] mt-10'>
+				<div className='pb-20'>{children}</div>
 			</div>
 			<AuthFooter />
 		</div>
