@@ -82,11 +82,13 @@ const DepositForm = () => {
 				<p>BNB Smart Chain (BEP20)</p>
 			</div>
 
-			{isLoading ? (
+			{isLoading && (
 				<div className='flex items-center justify-center h-[50vh] p-4 bg-white'>
 					<RingLoader color='#36d7b7' loading size={100} />
 				</div>
-			) : (
+			)}
+
+			{!isLoading && deposit && (
 				<div className='mt-4 p-3 bg-white rounded'>
 					<div className='flex items-center justify-between mb-2'>
 						<p>Supported Currency</p>
