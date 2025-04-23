@@ -47,5 +47,6 @@ export const config = {
 		'/investment',
 		'/partnership',
 		'/send',
+		'/transfer',
 	],
 };

@@ -18,7 +18,20 @@ export const sendApi = apiSlice.injectEndpoints({
 				method: 'PUT',
 			}),
 		}),
+
+		// get my all transfer
+		getMyTransfer: builder.query<any, any>({
+			query: () => ({
+				url: `/my-transfers`,
+				method: 'GET',
+			}),
+			providesTags: ['Transfer'],
+		}),
 	}),
 });
 
-export const { useSendMutation, useFindUserByCustomerIdMutation } = sendApi;
+export const {
+	useSendMutation,
+	useFindUserByCustomerIdMutation,
+	useGetMyTransferQuery,
+} = sendApi;

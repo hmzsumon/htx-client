@@ -23,7 +23,7 @@ export default class SimpleSlider extends Component {
 			'./images/carousel/b9.jpg',
 		];
 		return (
-			<div className=' bg-gray-900 p-2 w-[100%] mx-auto'>
+			<div className='  w-[100%] mx-auto'>
 				<Slider {...settings}>
 					{sliderItems.map((item, index) => (
 						<div className={`px-1`} key={index}>

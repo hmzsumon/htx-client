@@ -19,7 +19,12 @@ export const authSlice = createSlice({
 			state.user = action.payload.user;
 			state.token = action.payload.token;
 			state.isAuthenticated = true;
-			Cookies.set('htx-token', action.payload.token, { expires: 1 });
+			Cookies.set('htx-token', action.payload.token, {
+				expires: 1, // 1 day
+				path: '/',
+				secure: true,
+				sameSite: 'strict',
+			});
 		},
 		loadUser: (state, action) => {
 			state.user = action.payload.user;

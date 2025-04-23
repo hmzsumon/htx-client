@@ -14,9 +14,9 @@ const LinkCard = () => {
 	// create referral link wit user customer_id
 	let referralLink = '';
 	if (process.env.NODE_ENV === 'development') {
-		referralLink = `http://${host}/register?partner_code=${user?.customer_id}`;
+		referralLink = `http://${host}/register-email?partner_code=${user?.customer_id}`;
 	} else {
-		referralLink = `https://${host}/register?partner_code=${user?.customer_id}`;
+		referralLink = `https://${host}/register-email?partner_code=${user?.customer_id}`;
 	}
 	const [showLink, setShowLink] = useState(1);
 	return (

@@ -2,7 +2,7 @@
 import { FaBookOpen } from 'react-icons/fa';
 
 interface RechargeInstructionsProps {
-	data: string[]; // Assuming 'data' is an array of strings
+	data: React.ReactNode[];
 	title: string;
 }
 
@@ -25,7 +25,7 @@ const RechargeInstructions = ({ data, title }: RechargeInstructionsProps) => {
 			</div>
 
 			<ul className='space-y-2 text-xs text-gray-700'>
-				{data.map((item: string, index: number) => (
+				{data.map((item: React.ReactNode, index: number) => (
 					<li key={index} className='flex items-start gap-2'>
 						<span className='text-red-500 mt-1'>◆</span>
 						<span>{item}</span>

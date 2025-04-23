@@ -11,21 +11,21 @@ const items = [
 		title: 'Deposit',
 		icon: null,
 		iconImg: Deposit,
-		link: '/dashboard',
+		link: '/deposit-history',
 	},
 	{
 		id: 2,
 		title: 'Withdrawal',
 		icon: null,
 		iconImg: Withdraw,
-		link: '/dashboard',
+		link: '/withdraw-history',
 	},
 	{
 		id: 3,
 		title: 'Transfer',
 		icon: null,
 		iconImg: Transfer,
-		link: '/dashboard',
+		link: '/transfer-history',
 	},
 ];
 

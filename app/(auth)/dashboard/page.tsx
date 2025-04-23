@@ -1,3 +1,4 @@
+'use client';
 import ContactMenu from '@/components/dashboard/ContactMenu';
 import GlobalTradeViewMenu from '@/components/dashboard/GlobalTradeViewMenu';
 import GlobalTradeViewMenu2 from '@/components/dashboard/GlobalTradeViewMenu2';

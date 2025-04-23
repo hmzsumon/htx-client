@@ -339,6 +339,14 @@ export const authApi = apiSlice.injectEndpoints({
 				body,
 			}),
 		}),
+
+		// check user by custom id
+		checkUserByCustomId: builder.query<any, any>({
+			query: (id) => ({
+				url: `/check-user-by-customer-id/${id}`,
+				method: 'GET',
+			}),
+		}),
 	}),
 });
 
@@ -377,4 +385,5 @@ export const {
 	useCheckOldPinMutation,
 	useUpdatePinMutation,
 	useSendNewPinEmailMutation,
+	useLazyCheckUserByCustomIdQuery,
 } = authApi;

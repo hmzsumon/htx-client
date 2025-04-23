@@ -39,7 +39,9 @@ const initialState = {
 		name: '',
 		else: '',
 		mobile: '',
-		referralCode: 'U202506',
+		referralCode: '',
+		referralValidation: false,
+		email: '',
 	},
 	moreAboutData: {
 		date_of_birth: null,

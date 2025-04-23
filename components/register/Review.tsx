@@ -34,6 +34,7 @@ const Review = () => {
 		personalData?.referralCode
 	);
 	const { user } = data || {};
+	console.log(user);
 
 	const [confirmDetails, setConfirmDetails] = useState(false);
 	const [confirmDetailsError, setConfirmDetailsError] = useState(false);
@@ -131,16 +132,18 @@ const Review = () => {
 							<p className='text-gray-800 font-bold '>{moreAboutData.city}</p>
 						</div>
 
-						<div>
-							<p className='text-gray-600  '>Refer By:</p>
-							<p className='text-gray-800 font-bold '>
-								{isLoadingUser ? (
-									<PulseLoader size={8} color={'#36d7b7'} />
-								) : (
-									user?.name
-								)}
-							</p>
-						</div>
+						{user && (
+							<div>
+								<p className='text-gray-600  '>Refer By:</p>
+								<p className='text-gray-800 font-bold '>
+									{isLoadingUser ? (
+										<PulseLoader size={8} color={'#36d7b7'} />
+									) : (
+										user?.name
+									)}
+								</p>
+							</div>
+						)}
 					</div>
 				</Card>
 				{/* End More Details */}

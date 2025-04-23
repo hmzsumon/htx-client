@@ -1,10 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import UsdtIcon from '@/public/images/icons/usdt_icon.png';
 import toast from 'react-hot-toast';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { fetchBaseQueryError } from '@/redux/services/helpers';
 import { useSelector } from 'react-redux';
-import { useGetUserByPartnerIdQuery } from '@/redux/features/auth/authApi';
 import {
 	useFindUserByCustomerIdMutation,
 	useSendMutation,
@@ -13,44 +14,45 @@ import { Card } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import RechargeInstructions from '@/components/RechargeInstructions';
 import { TransferDrawer } from '@/components/transfer/TransferDrawer';
-import { set } from 'react-hook-form';
-
-const transferData = [
-	'Minimum transfer amount is $10.',
-	'You can transfer balance only to valid registered users of this platform.',
-	'Once transferred, the balance cannot be reversed or refunded.',
-	'Please double-check the Receiver’s User ID before confirming the transfer.',
-	'A small transaction fee (if any) may be deducted from the transferred amount.',
-	'You must have sufficient balance in your account before initiating the transfer.',
-	'Suspicious or fraudulent transfers may result in temporary suspension of your account.',
-	'Do not use this feature for money laundering or illegal purposes — your account may be permanently blocked.',
-];
+import { formatBalance } from '@/lib/functions';
 
 const TransferPage = () => {
 	const router = useRouter();
 	const { user } = useSelector((state: any) => state.auth);
+
+	const transferData = [
+		<>
+			You must reach a trade volume of{' '}
+			<span className='text-red-500 font-bold'>{user?.trade_volume}$</span> to
+			be eligible for transfer. (This value reflects your personal trade
+			volume).
+		</>,
+		'Minimum transfer amount is $10.',
+		'You can transfer balance only to valid registered users of this platform.',
+		'Once transferred, the balance cannot be reversed or refunded.',
+		'Please double-check the Receiver’s User ID before confirming the transfer.',
+		'A small transaction fee (if any) may be deducted from the transferred amount.',
+		'You must have sufficient balance in your account before initiating the transfer.',
+		'Suspicious or fraudulent transfers may result in temporary suspension of your account.',
+		'Do not use this feature for money laundering or illegal purposes — your account may be permanently blocked.',
+	];
+
 	const [userId, setUserId] = React.useState('');
 	const [amount, setAmount] = React.useState('');
 	const [fee, setFee] = React.useState(0);
 	const [receiveAmount, setReceiveAmount] = React.useState(0);
-	const [amountError, setAmountError] = React.useState('');
+	const [amountError, setAmountError] = React.useState(false);
+	const [amountErrorMessage, setAmountErrorMessage] = React.useState('');
 	const [recipient, setRecipient] = useState<any>(null);
 	const [recipientError, setRecipientError] = React.useState('');
 	const [isVerify, setIsVerify] = useState(false);
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
+	const availableBalance = user?.m_balance - user?.trade_volume;
+
 	const [findUserByCustomerId, { data, isLoading, isError, error, isSuccess }] =
 		useFindUserByCustomerIdMutation();
-
-	// calculate fee by 5%
-	useEffect(() => {
-		if (Number(amount) >= 10) {
-			const fee = (Number(amount) * 0.3) / 100;
-			setFee(fee);
-			setReceiveAmount(Number(amount) - fee);
-		}
-	}, [amount]);
 
 	const handleChangeUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setRecipientError('');
@@ -59,17 +61,42 @@ const TransferPage = () => {
 
 	// handle change amount & check amount > user e_balance
 	const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setAmountError('');
-		setAmount(e.target.value);
+		const value = e.target.value;
+		setAmount(value);
+		setAmountError(false);
+		setAmountErrorMessage('');
 
-		// check min amount
-		if (Number(e.target.value) < 10) {
-			setAmountError('Minimum amount is 10 USDT');
+		const num = Number(value);
+
+		if (num < 10) {
+			setAmountError(true);
+			setAmountErrorMessage('Minimum transfer amount is 10 USDT');
+			return;
+		}
+		if (num <= 0) {
+			setAmountError(true);
+			setAmountErrorMessage('Amount must be greater than zero');
+			return;
+		}
+		if (num > availableBalance) {
+			setAmountError(true);
+			setAmountErrorMessage('Amount exceeds your available balance');
+			return;
 		}
 
-		if (Number(e.target.value) > user?.m_balance) {
-			setAmountError('Amount is greater than your balance');
+		if (num <= 0) {
+			setAmountError(true);
+			setAmountErrorMessage('Amount must be greater than zero');
+			return;
 		}
+		if (num < 10) {
+			setAmountError(true);
+			setAmountErrorMessage('Minimum transfer amount is 10 USDT');
+			return;
+		}
+		const calculatedFee = num * 0.03;
+		setFee(calculatedFee);
+		setReceiveAmount(num - calculatedFee);
 	};
 
 	// handle find user by customer id
@@ -84,7 +111,7 @@ const TransferPage = () => {
 			}
 		} catch (error) {
 			console.log(error);
-			setRecipientError((error as fetchBaseQueryError).data.message);
+			setRecipientError((error as fetchBaseQueryError).data?.message);
 		}
 	};
 
@@ -125,7 +152,7 @@ const TransferPage = () => {
 	}, [s_isError, s_error, s_isSuccess]);
 
 	return (
-		<div className='p-4 pb-24 space-y-4'>
+		<div className='md:w-1/2 mx-auto  space-y-4'>
 			<Card className='bg-slate-100'>
 				<div>
 					<div className='space-y-2'>
@@ -173,19 +200,23 @@ const TransferPage = () => {
 							/>
 							{/* Show 5% fee */}
 							<div className=' flex flex-col gap-1 mt-1 ml-1'>
-								<small className='text-xs text-green-500'>
-									{fee > 0 ? (
-										<span>
-											3% fee: {fee} USDT, Receive Amount: {receiveAmount} USDT
-										</span>
-									) : (
-										<span>(3% fee will be charged.)</span>
-									)}
-								</small>
+								<div className='flex justify-between'>
+									<small className='text-xs text-green-500'>
+										{fee > 0 ? (
+											<span>3% fee: {formatBalance(fee || 0)} USDT</span>
+										) : (
+											<span>(3% fee will be charged.)</span>
+										)}
+									</small>
+									<small className='text-xs flex items-center gap-1 text-green-500'>
+										<Image src={UsdtIcon} alt='usdt' width={12} height={12} />{' '}
+										<span>{formatBalance(availableBalance || 0)} USDT</span>
+									</small>
+								</div>
 								<small>
 									{amountError && (
 										<span className='text-xs text-red-500 font-bold'>
-											{amountError}
+											{amountErrorMessage}
 										</span>
 									)}
 								</small>
@@ -218,12 +249,12 @@ const TransferPage = () => {
 
 										<li className='flex items-center justify-between list-none '>
 											<span className='font-bold'>Charge:</span>{' '}
-											<span>{fee} USDT</span>
+											<span>{formatBalance(fee || 0)} USDT</span>
 										</li>
 
 										<li className='flex items-center justify-between list-none '>
 											<span className='font-bold'>Receive Amount:</span>{' '}
-											<span>{receiveAmount} USDT</span>
+											<span>{formatBalance(receiveAmount || 0)} USDT</span>
 										</li>
 
 										<li className='flex items-center justify-between list-none '>
@@ -261,7 +292,11 @@ const TransferPage = () => {
 									onClick={handleFindUserByCustomerId}
 									className='w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed'
 									disabled={
-										!userId || !amount || Number(amount) > user?.m_balance
+										!userId ||
+										!amount ||
+										Number(amount) > user?.m_balance ||
+										isLoading ||
+										amountError
 									}
 								>
 									Find Recipient

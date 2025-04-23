@@ -20,7 +20,7 @@ import {
 	useGetVerifyCodeForRegisterMutation,
 } from '@/redux/features/auth/authApi';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { PulseLoader } from 'react-spinners';
 
 const FormSchema = z.object({
@@ -28,6 +28,9 @@ const FormSchema = z.object({
 });
 
 export function InputForm() {
+	const searchParams = useSearchParams();
+	const code = searchParams.get('partner_code');
+
 	const router = useRouter();
 	const [getVerifyCodeForRegister, { isLoading, isSuccess, isError, error }] =
 		useGetVerifyCodeForRegisterMutation();
@@ -70,7 +73,16 @@ export function InputForm() {
 
 	useEffect(() => {
 		if (isSuccess) {
-			router.push('/verify-email?email=' + form.getValues('email'));
+			if (code) {
+				router.push(
+					'/verify-email?email=' +
+						form.getValues('email') +
+						'&partner_code=' +
+						code
+				);
+			} else {
+				router.push('/verify-email?email=' + form.getValues('email'));
+			}
 		}
 		if (isError && error) {
 			toast.error((error as fetchBaseQueryError).data?.message);

@@ -38,7 +38,7 @@ export function InputOTPForm() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const email = searchParams.get('email');
-
+	const partnerCode = searchParams.get('partner_code');
 	const [verifyCodeForRegister, { isLoading }] =
 		useVerifyCodeForRegisterMutation();
 	const [getVerifyCodeForRegister] = useGetVerifyCodeForRegisterMutation();
@@ -98,7 +98,12 @@ export function InputOTPForm() {
 				email,
 				verify_code: data.pin,
 			}).unwrap();
-			router.push(`/register?email=${email}`);
+			if (!partnerCode) {
+				router.push(`/register?email=${email}`);
+			} else {
+				router.push(`/register?email=${email}&referral_code=${partnerCode}`);
+			}
+
 			toast.success(response.message || 'Verification successful!');
 		} catch (error) {
 			const errorMessage = (error as fetchBaseQueryError).data?.message;
