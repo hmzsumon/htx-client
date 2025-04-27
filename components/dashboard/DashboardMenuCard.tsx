@@ -21,8 +21,17 @@ const DashboardMenuCard = ({ bgColor, title, items }: any) => {
 				<div className='grid grid-cols-3 gap-4 mt-4'>
 					{items.map((item: any) => (
 						<Link key={item.id} href={item?.link}>
-							<li className='list-none flex flex-col items-center gap-1 bg-white p-2 rounded-md shadow-sm'>
-								{/* Conditionally render either an image or an icon */}
+							<li
+								className={`list-none flex flex-col items-center gap-1  p-2 rounded-md shadow-sm relative ${
+									item.is_active ? ' bg-pink-200' : 'bg-white'
+								}`}
+							>
+								{item.is_active && (
+									<span className=' absolute top-0 right-0 font-semibold text-sm text-green-500'>
+										⚡
+									</span>
+								)}
+
 								{item.iconImg ? (
 									<Image
 										src={item.iconImg}

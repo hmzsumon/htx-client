@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Card } from '@/components/ui/card';
@@ -18,7 +19,7 @@ const GlobalTradeViewTemplate = ({
 	dailyProfit,
 }: GlobalTradeViewTemplateProps) => {
 	return (
-		<div className='p-4 pb-24'>
+		<div className='p-4 '>
 			<div className='w-full mx-auto'>
 				<Image
 					src={tradeImg}

@@ -105,6 +105,7 @@ export const authApi = apiSlice.injectEndpoints({
 				try {
 					const result = await queryFulfilled;
 					dispatch(logoutUser());
+					dispatch(setUser(null));
 				} catch (error) {
 					console.log(error);
 				}
@@ -126,51 +127,6 @@ export const authApi = apiSlice.injectEndpoints({
 				url: '/check-user-by-email',
 				method: 'POST',
 				body,
-			}),
-		}),
-
-		// change email
-		changeEmail: builder.mutation<IUser, any>({
-			query: (body) => ({
-				url: '/change-email',
-				method: 'PUT',
-				body,
-			}),
-			invalidatesTags: ['User'],
-			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-				try {
-					const result = await queryFulfilled;
-					dispatch(logoutUser());
-				} catch (error) {
-					console.log(error);
-				}
-			},
-		}),
-
-		// verify code for change email
-		verifyCodeForChangeEmail: builder.mutation<IUser, any>({
-			query: (body) => ({
-				url: '/verify-code-for-change-email',
-				method: 'POST',
-				body,
-			}),
-		}),
-
-		// get members by level
-		getMembersByLevel: builder.query<any, string>({
-			query: (level) => `/members-by-level/${level}`,
-		}),
-
-		// get 13 level tree
-		get13LevelTree: builder.query<any, any>({
-			query: () => `/13-level-tree-node`,
-		}),
-
-		// find user by email or username
-		findUserByEmailOrUsername: builder.mutation<any, any>({
-			query: (emailOrUserName) => ({
-				url: `/find-user-by-email-username?emailOrUsername=${emailOrUserName}`,
-				method: 'PUT',
 			}),
 		}),
 
@@ -221,38 +177,6 @@ export const authApi = apiSlice.injectEndpoints({
 		myWallet: builder.query<any, any>({
 			query: () => ({
 				url: `/my-wallet`,
-				method: 'GET',
-			}),
-		}),
-
-		// get 3 level team data
-		get3LevelTeam: builder.query<any, any>({
-			query: () => ({
-				url: `/get-3-level-user`,
-				method: 'GET',
-			}),
-		}),
-
-		/// get 5 level team data
-		get5LevelTeam: builder.query<any, any>({
-			query: () => ({
-				url: `/get-5-level-user`,
-				method: 'GET',
-			}),
-		}),
-
-		// get my tree node by partner id
-		getTreeNode: builder.query<any, any>({
-			query: (id) => ({
-				url: `/get-tree-node/${id}`,
-				method: 'GET',
-			}),
-		}),
-
-		// find descendants
-		findDescendants: builder.query<any, any>({
-			query: () => ({
-				url: `/find-descendants`,
 				method: 'GET',
 			}),
 		}),
@@ -347,6 +271,30 @@ export const authApi = apiSlice.injectEndpoints({
 				method: 'GET',
 			}),
 		}),
+
+		// get my promotion data
+		getMyPromotionData: builder.query<any, any>({
+			query: () => ({
+				url: `/get-my-promotion-data`,
+				method: 'GET',
+			}),
+		}),
+
+		// getActive promotion data
+		getActivePromotionData: builder.query<any, any>({
+			query: () => ({
+				url: `/get-promotion-data-active-users`,
+				method: 'GET',
+			}),
+		}),
+
+		// get my members
+		getMyMembers: builder.query<any, any>({
+			query: () => ({
+				url: `/get-my-members`,
+				method: 'GET',
+			}),
+		}),
 	}),
 });
 
@@ -361,21 +309,14 @@ export const {
 	useResendVerificationEmailMutation,
 	useCheckUserByEmailMutation,
 	useLoadUserQuery,
-	useChangeEmailMutation,
-	useVerifyCodeForChangeEmailMutation,
-	useGetMembersByLevelQuery,
-	useGet13LevelTreeQuery,
-	useFindUserByEmailOrUsernameMutation,
+
 	useGetUserByPartnerIdQuery,
 	useCheckEmailExistOrNotMutation,
 	useMyAddressQuery,
 	useSecurityVerifyMutation,
 	useResetPasswordMutation,
 	useMyWalletQuery,
-	useGet3LevelTeamQuery,
-	useGet5LevelTeamQuery,
-	useGetTreeNodeQuery,
-	useFindDescendantsQuery,
+
 	useGetDashboardQuery,
 	useSecurityVerify2Mutation,
 	useCheckAgentNameMutation,
@@ -386,4 +327,7 @@ export const {
 	useUpdatePinMutation,
 	useSendNewPinEmailMutation,
 	useLazyCheckUserByCustomIdQuery,
+	useGetMyPromotionDataQuery,
+	useGetActivePromotionDataQuery,
+	useGetMyMembersQuery,
 } = authApi;

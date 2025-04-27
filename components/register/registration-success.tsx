@@ -12,6 +12,7 @@ const RegistrationSuccess = () => {
 	// Set active step on component mount
 	useEffect(() => {
 		dispatch(setActiveStep(6));
+		// reset all state
 	}, [dispatch]);
 
 	return (

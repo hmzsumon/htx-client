@@ -3,16 +3,19 @@ import {
 	setTradeDrawerOpen,
 	setPredict,
 } from '@/redux/features/trade/tradeSlice';
+import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const TradeButtons = () => {
+	const pathname = usePathname();
+	const lastSegment = pathname.split('/').pop();
+	console.log('TradeButtons pathname:', lastSegment); // Debugging line
 	const dispatch = useDispatch();
+
 	const handlePredict = (prediction: string) => {
-		// Handle the prediction logic here
-		dispatch(setPredict(prediction)); // Update the Redux state with the prediction
-		console.log(`Predicted: ${prediction}`);
-		dispatch(setTradeDrawerOpen(true)); // Open the trade drawer
+		dispatch(setPredict(prediction));
+		dispatch(setTradeDrawerOpen(true));
 	};
 	return (
 		<div className='fixed bottom-0 left-0 right-0 bg-white px-2 text-xs font-bold py-4 shadow-lg z-50'>

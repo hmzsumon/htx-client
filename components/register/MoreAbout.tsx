@@ -51,7 +51,6 @@ const MoreAbout = () => {
 
 	// handle date of birth change
 	const handleDobChange = (date: Date) => {
-		console.log(date);
 		if (date) {
 			setDobError(false);
 			// Clone the date object to avoid mutating the original date

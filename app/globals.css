@@ -7,10 +7,6 @@
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
 
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface TradeState {
 	symbol: string;
 	isTradeDrawerOpen: boolean;
+	isLiveTradeDrawerOpen?: boolean;
 	currentRound: any | null;
 	predict?: string;
 	tradeDuration: string;
@@ -18,6 +19,7 @@ interface TradeState {
 const initialState: TradeState = {
 	symbol: 'BTCUSDT',
 	isTradeDrawerOpen: false,
+	isLiveTradeDrawerOpen: false,
 	currentRound: null,
 	predict: undefined,
 	tradeDuration: '3m',
@@ -41,6 +43,9 @@ export const tradeSlice = createSlice({
 		},
 		setTradeDrawerOpen: (state, action) => {
 			state.isTradeDrawerOpen = action.payload;
+		},
+		setLiveTradeDrawerOpen: (state, action) => {
+			state.isLiveTradeDrawerOpen = action.payload;
 		},
 		setCurrentRound: (state, action) => {
 			state.currentRound = action.payload;
@@ -82,6 +87,7 @@ export const {
 	setTradeLoading,
 	setKline,
 	setCurrentRoundByTimeAndSymbol, // export new action
+	setLiveTradeDrawerOpen,
 } = tradeSlice.actions;
 
 export default tradeSlice.reducer;

@@ -1,16 +1,15 @@
+'use client';
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
-	TableFooter,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
+import { useGetActivePromotionDataQuery } from '@/redux/features/auth/authApi';
 import { SquareArrowOutUpRight, Users } from 'lucide-react';
 import Link from 'next/link';
-import { link } from 'fs';
 
 const items = [
 	{
@@ -44,6 +43,40 @@ const items = [
 ];
 
 export function TeamViewCard() {
+	const { data, isLoading } = useGetActivePromotionDataQuery(undefined);
+	const { activePromotionData: users } = data || {};
+
+	const items = [
+		{
+			id: 1,
+			team: 'Register',
+			inactive: users?.team_inactive_users,
+			active: users?.team_active_users,
+			link: 'register-users?team=register',
+		},
+		{
+			id: 2,
+			team: 'Team "A"',
+			inactive: users?.level_1_inactive_users,
+			active: users?.level_1_active_users,
+
+			link: 'register-users?team=team_a',
+		},
+		{
+			id: 3,
+			team: 'Team "B"',
+			inactive: users?.level_2_inactive_users,
+			active: users?.level_2_active_users,
+			link: 'register-users?team=team_b',
+		},
+		{
+			id: 4,
+			team: 'Team "C"',
+			inactive: users?.level_3_inactive_users,
+			active: users?.level_3_active_users,
+			link: 'register-users?team=team_c',
+		},
+	];
 	return (
 		<Table>
 			<TableHeader>

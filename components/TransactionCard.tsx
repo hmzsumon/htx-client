@@ -65,9 +65,25 @@ const TransactionCard = ({
 						Complete
 					</span>
 				) : (
-					<span className={`text-sm font-medium capitalize text-${typeColor}`}>
-						{status}
-					</span>
+					<>
+						{type === 'Withdraw' ? (
+							<span
+								className={`text-sm font-medium capitalize ${
+									record?.status === 'approved'
+										? 'text-green-600'
+										: 'text-red-500'
+								}`}
+							>
+								{status}
+							</span>
+						) : (
+							<span
+								className={`text-sm font-medium capitalize text-${typeColor}`}
+							>
+								{status}
+							</span>
+						)}
+					</>
 				)}
 			</div>
 			<hr />
@@ -97,7 +113,7 @@ const TransactionCard = ({
 
 						<div className='flex justify-between'>
 							<span className='text-gray-500'>Address</span>
-							<span className=''>{method?.address}</span>
+							<span className=''>{method?.address.slice(0, 12)}...</span>
 						</div>
 					</>
 				)}
@@ -111,21 +127,23 @@ const TransactionCard = ({
 							</span>
 						</div>
 
-						{is_sender && (
-							<>
-								<div className='flex justify-between'>
-									<span className='text-gray-500'>Sent Amount </span>
-									<span className=''>
-										{(record?.amount - record?.fee).toLocaleString() || 0}{' '}
-										{currency}
-									</span>
-								</div>
-								<div className='flex justify-between'>
-									<span className='text-gray-500'>Sent To </span>
-									<span className=''>{record?.sender.customer_id}</span>
-								</div>
-							</>
-						)}
+						<>
+							<div className='flex justify-between'>
+								<span className='text-gray-500'>Sent Amount </span>
+								<span className=''>
+									{(record?.amount - record?.fee).toLocaleString() || 0}{' '}
+									{currency}
+								</span>
+							</div>
+							<div className='flex justify-between'>
+								<span className='text-gray-500'>Sent UID </span>
+								<span className=''>{record?.sender.customer_id}</span>
+							</div>
+							<div className='flex justify-between'>
+								<span className='text-gray-500'>Receive UID </span>
+								<span className=''>{record?.receiver.customer_id}</span>
+							</div>
+						</>
 					</>
 				)}
 

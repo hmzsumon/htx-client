@@ -7,16 +7,16 @@ import React from 'react';
 
 const PersonalInfoSettings = () => {
 	return (
-		<div className='relative pb-20'>
-			<div className='promotion-wrapper h-[300px] px-4  rounded-b-3xl'>
-				<div className=' p-4'>
+		<div className='relative'>
+			<div className='promotion-wrapper h-[300px] px-4   rounded-b-3xl'>
+				<div className='p-4'>
 					<UserInfo2 />
 				</div>
 				<div className=' top-20 '>
 					<ContactInfoCard />
 				</div>
 			</div>
-			<div className='mt-14  space-y-4 px-4'>
+			<div className='mt-10  space-y-4 px-4'>
 				<AddressInfoCard />
 			</div>
 		</div>

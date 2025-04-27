@@ -30,7 +30,7 @@ const UserInfo = () => {
 						<span className='text-xs font-bold col-span-3'>Email</span>
 						<span className='font-bold col-span-1'>:</span>
 						<span className='text-xs font-bold col-span-8'>
-							{maskEmail('example@email.com')}
+							{maskEmail(user?.email)}
 						</span>
 					</li>
 
@@ -58,9 +58,16 @@ const UserInfo = () => {
 					<li className='grid grid-cols-12  items-center'>
 						<span className='text-xs font-bold col-span-3'>Status</span>
 						<span className='font-bold col-span-1'>:</span>
-						<span className='text-xs font-bold col-span-8 text-red-500 '>
-							<span>Inactive</span> {''}
-							<span className='text-white'> (TradeInfinity)</span>
+						<span
+							className={`text-xs font-bold col-span-8  ${
+								user?.is_active ? 'text-green-400' : 'text-red-500'
+							} `}
+						>
+							<span>{user?.is_active ? 'Active' : 'Inactive'}</span> {''}
+							<span className='text-white'>
+								{' '}
+								({user?.current_trade_package})
+							</span>
 						</span>
 					</li>
 				</div>

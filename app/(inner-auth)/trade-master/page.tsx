@@ -1,41 +1,38 @@
 import React from 'react';
-import TradeMax from '@/public/images/icons/trade_max.webp';
+import TradeMaster from '@/public/images/icons/trade_master.webp';
 import GlobalTradeViewTemplate from '@/components/trade/GlobalTradeViewTemplate';
 import GoBack from '@/components/GoBack';
 
-const TradeMaxPage = () => {
+const TradeMasterPage = () => {
 	return (
-		<div className='relative'>
-			<div className='absolute top-0 -left-2 p-4'>
-				<GoBack color='text-gray-800' />
-			</div>
+		<div className=''>
 			<div>
 				<GlobalTradeViewTemplate
-					tradeImg={TradeMax}
-					title='Trade Max'
-					balance={5000}
+					tradeImg={TradeMaster}
+					title='Trade Master'
+					balance={10000}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/15 User's",
+							value: "0/25 User's",
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/35User's",
+							value: "0/70 User's",
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/50 User's",
+							value: "0/95 User's",
 						},
 					]}
 					dailyProfit={[
 						{
 							title: 'Daily Persona Profit',
-							value: '0 - 12% +',
+							value: '0 - 15% +',
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '16%',
+							value: '18%',
 						},
 						{
 							title: 'Profit Team ("B")',
@@ -43,7 +40,7 @@ const TradeMaxPage = () => {
 						},
 						{
 							title: 'Profit Team ("C")',
-							value: '4%',
+							value: '5%',
 						},
 					]}
 				/>
@@ -52,4 +49,4 @@ const TradeMaxPage = () => {
 	);
 };
 
-export default TradeMaxPage;
+export default TradeMasterPage;

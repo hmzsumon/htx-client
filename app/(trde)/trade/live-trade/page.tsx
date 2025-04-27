@@ -1,9 +1,10 @@
+import LiveTrade from '@/components/trade/LiveTrade';
 import React from 'react';
 
 const LiveTradePage = () => {
 	return (
 		<div>
-			<h2>Live Trade Page</h2>
+			<LiveTrade />
 		</div>
 	);
 };

@@ -1,10 +1,10 @@
-import TradeHome from '@/components/trade';
 import React from 'react';
+import SignalTrade from '@/components/trade/SignalTrade';
 
 const SignalTradePage = () => {
 	return (
 		<div>
-			<TradeHome />
+			<SignalTrade />
 		</div>
 	);
 };

@@ -4,12 +4,18 @@ import { BiTransferAlt } from 'react-icons/bi';
 import { HiArrowSmLeft } from 'react-icons/hi';
 import { BeatLoader } from 'react-spinners';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { SymbolDrawer } from './SymbolDrawer';
 import TradeDuration from './TradeDuration';
+import LiveTradeDuration from './LiveTradeDuration';
 
 const TradeHeader = ({ setOpen, open }: any) => {
 	const router = useRouter();
+	const pathname = usePathname();
+	const lastSegment = pathname.split('/').pop();
+
+	const isLiveTrade = lastSegment === 'live-trade' || lastSegment === 'trade';
+
 	const { symbol } = useSelector((state: any) => state.trade);
 	const [ticker, setTicker] = useState<any>(null);
 
@@ -110,7 +116,7 @@ const TradeHeader = ({ setOpen, open }: any) => {
 			</div>
 			{/* Start Trade Duration */}
 			<div className='mt-1'>
-				<TradeDuration />
+				{isLiveTrade ? <LiveTradeDuration /> : <TradeDuration />}
 			</div>
 			{/* End Trade Duration */}
 			<SymbolDrawer open={open} setOpen={setOpen} />

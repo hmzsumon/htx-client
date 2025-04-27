@@ -4,7 +4,7 @@ import EarnerIcon from '@/lib/icons/BronzeIcon';
 
 const EarnerRankPage = () => {
 	return (
-		<div className='earner-wrapper pb-[7rem] md:pb-60'>
+		<div className='earner-wrapper  '>
 			<RankPageTemplate
 				icon={<EarnerIcon width={150} height={150} />}
 				title='Earner'

@@ -21,6 +21,7 @@ import { Card } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
+import { RingLoader } from 'react-spinners';
 
 const Review = () => {
 	const [registerUser, { isSuccess, isLoading, isError, error }] =
@@ -34,7 +35,6 @@ const Review = () => {
 		personalData?.referralCode
 	);
 	const { user } = data || {};
-	console.log(user);
 
 	const [confirmDetails, setConfirmDetails] = useState(false);
 	const [confirmDetailsError, setConfirmDetailsError] = useState(false);
@@ -147,73 +147,81 @@ const Review = () => {
 					</div>
 				</Card>
 				{/* End More Details */}
-
-				<div className='space-y-2 text-xs font-semibold'>
-					<div className='flex items-center gap-2 ml-2'>
-						<Checkbox
-							id='confirm_details'
-							onCheckedChange={() => {
-								setConfirmDetails(!confirmDetails);
-								setConfirmDetailsError(false);
-							}}
-							checked={confirmDetails}
-						/>
-						<Label
-							htmlFor='confirm_details'
-							className={`text-xs font-semibold ${
-								confirmDetailsError ? 'text-red-500' : ''
-							}`}
-						>
-							I confirm that the details above are correct.
-						</Label>
+				{isLoading ? (
+					<div className='flex flex-col gap-2 items-center justify-center'>
+						<RingLoader color='#0f04f9' />
+						<span className='text-xs'>Please wait ...</span>
 					</div>
-					{confirmDetailsError && (
-						<p className='text-red-500 text-xs ml-4 font-bold'>
-							You must confirm that the details above are correct!
-						</p>
-					)}
+				) : (
+					<div className='space-y-3'>
+						<div className='space-y-2 text-xs font-semibold'>
+							<div className='flex items-center gap-2 ml-2'>
+								<Checkbox
+									id='confirm_details'
+									onCheckedChange={() => {
+										setConfirmDetails(!confirmDetails);
+										setConfirmDetailsError(false);
+									}}
+									checked={confirmDetails}
+								/>
+								<Label
+									htmlFor='confirm_details'
+									className={`text-xs font-semibold ${
+										confirmDetailsError ? 'text-red-500' : ''
+									}`}
+								>
+									I confirm that the details above are correct.
+								</Label>
+							</div>
+							{confirmDetailsError && (
+								<p className='text-red-500 text-xs ml-4 font-bold'>
+									You must confirm that the details above are correct!
+								</p>
+							)}
 
-					<div className='flex items-center gap-2 ml-2'>
-						<Checkbox
-							id='agree_to_terms'
-							onCheckedChange={() => {
-								setAgreeToTerms(!agreeToTerms);
-								setAgreeToTermsError(false);
-							}}
-							checked={agreeToTerms}
-						/>
-						<Label
-							htmlFor='agree_to_terms'
-							className={`text-xs font-semibold ${
-								agreeToTermsError ? 'text-red-500' : ''
-							}`}
-						>
-							I agree to the terms and conditions.
-						</Label>
+							<div className='flex items-center gap-2 ml-2'>
+								<Checkbox
+									id='agree_to_terms'
+									onCheckedChange={() => {
+										setAgreeToTerms(!agreeToTerms);
+										setAgreeToTermsError(false);
+									}}
+									checked={agreeToTerms}
+								/>
+								<Label
+									htmlFor='agree_to_terms'
+									className={`text-xs font-semibold ${
+										agreeToTermsError ? 'text-red-500' : ''
+									}`}
+								>
+									I agree to the terms and conditions.
+								</Label>
+							</div>
+							{agreeToTermsError && (
+								<p className='text-red-500 text-xs ml-4 font-bold '>
+									You must agree to the terms and conditions!
+								</p>
+							)}
+						</div>
+
+						{/* Buttons */}
+						<div className=' grid grid-cols-2 gap-4'>
+							<Button
+								type='submit'
+								className='w-full bg-gray-400 hover:bg-icm-green-700 text-gray-800 font-semibold'
+								onClick={() => dispatch(handlePrevious(5))}
+							>
+								Back
+							</Button>
+							<Button
+								onClick={nextHandler}
+								className='w-full bg-htx-blue hover:bg-icm-green-700 text-gray-100 font-semibold'
+							>
+								Submit
+							</Button>
+						</div>
 					</div>
-					{agreeToTermsError && (
-						<p className='text-red-500 text-xs ml-4 font-bold '>
-							You must agree to the terms and conditions!
-						</p>
-					)}
-				</div>
-
-				{/* Buttons */}
-				<div className=' grid grid-cols-2 gap-4'>
-					<Button
-						type='submit'
-						className='w-full bg-gray-400 hover:bg-icm-green-700 text-gray-800 font-semibold'
-						onClick={() => dispatch(handlePrevious(5))}
-					>
-						Back
-					</Button>
-					<Button
-						onClick={nextHandler}
-						className='w-full bg-htx-blue hover:bg-icm-green-700 text-gray-100 font-semibold'
-					>
-						Submit
-					</Button>
-				</div>
+				)}
 			</div>
 		</div>
 	);

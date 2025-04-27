@@ -18,3 +18,19 @@ const StarIcon = ({ width = 50, height = 50 }) => (
 );
 
 export default StarIcon;
+
+{
+	/* <span>🏆</span>; */
+}
+{
+	/* <span>📢</span> */
+}
+{
+	/* <span>💰</span> */
+}
+{
+	/* <span>💵</span> */
+}
+{
+	/* <span>🧑‍🤝‍🧑</span> */
+}

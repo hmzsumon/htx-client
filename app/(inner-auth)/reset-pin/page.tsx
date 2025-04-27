@@ -4,14 +4,12 @@ import React from 'react';
 
 const RestPin = () => {
 	return (
-		<div className='relative pb-[400px]'>
+		<div className='relative pb-[100px]'>
 			<div className='promotion-wrapper h-[300px] px-4 rounded-b-3xl'>
-				<div className=' p-4'>
-					<div className=' p-4'>
-						<UserInfo2 />
-					</div>
+				<div className='p-4'>
+					<UserInfo2 />
 				</div>
-				<div className='  '>
+				<div className=''>
 					<ResetPin />
 				</div>
 			</div>

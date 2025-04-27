@@ -215,7 +215,7 @@ const ResetPin = () => {
 		}
 	}, [isSuccess, isError, error]);
 	return (
-		<div className='py-6'>
+		<div>
 			<div className=' w-full mx-auto'>
 				<Card className='w-full p-4 bg-stone-100'>
 					<h2 className=' text-htx-blue font-semibold text-center my-2'>

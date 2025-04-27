@@ -35,17 +35,14 @@ const RankPageTemplate = ({
 }: RankProps) => {
 	const is_active = false;
 	return (
-		<div className=' p-4 h-screen'>
-			<div>
-				<GoBack color='text-gray-100' />
-			</div>
+		<div className=' py-4 px-1 '>
 			<div className=' flex flex-col items-center w-full gap-1 mx-auto'>
 				<Card className='p-4  mx-auto flex items-center justify-center'>
 					{icon}
 				</Card>
 				<h2 className=' text-3xl font-bold'>{title}</h2>
 			</div>
-			<div className='my-4 space-y-4'>
+			<div className='my-4 space-y-4 text-sm'>
 				<Card className='p-4 space-y-2 bg-zinc-100'>
 					<h2 className=' font-bold'>Monthly Salary</h2>
 					<hr className=' border-gray-500' />
@@ -59,8 +56,8 @@ const RankPageTemplate = ({
 					</div>
 				</Card>
 
-				<Card className='p-4 space-y-2'>
-					<h2 className=' font-bold'>Earner Rank Reward Receive Conditions</h2>
+				<Card className='p-4 space-y-2 text-sm'>
+					<h2 className=' font-bold'>{title} Rank Reward Receive Conditions</h2>
 					<hr className=' border-gray-500' />
 					<div className=' list-none text-xs font-semibold space-y-1'>
 						{conditions.map((condition: any, index: number) => (

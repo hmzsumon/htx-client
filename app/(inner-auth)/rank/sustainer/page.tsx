@@ -1,16 +1,16 @@
 import RankPageTemplate from '@/components/rank-rewards/RankPageTemplate';
 import React from 'react';
-import Achiever from '@/lib/icons/GoldIcon';
+import Sustainer from '@/lib/icons/RoyaltyIcon';
 
-const AchieverRankPage = () => {
+const SustainerRankPage = () => {
 	return (
-		<div className='earner-wrapper pb-[7rem] md:pb-60'>
+		<div className='earner-wrapper'>
 			<RankPageTemplate
-				icon={<Achiever width={150} height={150} />}
-				title='Achiever'
+				icon={<Sustainer width={150} height={150} />}
+				title='Sustainer'
 				conditions={[
 					{
-						title: 'Three members of Team "A" must achieve the "Earner" rank.',
+						title: 'Three (3) members must attain the "Gainer" rank.',
 						value: 3,
 						achieve: 0,
 						symbol: '👥',
@@ -19,7 +19,7 @@ const AchieverRankPage = () => {
 				conditions2={[
 					{
 						title: 'Team "A" New Sales',
-						value: 3000,
+						value: 12000,
 						achieve: 0,
 						symbol: '$',
 						progressBarColor: 'green',
@@ -27,17 +27,17 @@ const AchieverRankPage = () => {
 					},
 					{
 						title: 'Team Total New Sales',
-						value: 9000,
+						value: 40000,
 						achieve: 0,
 						symbol: '$',
 						progressBarColor: 'orange',
 						progressBar: 10,
 					},
 				]}
-				salary={750}
+				salary={8000}
 			/>
 		</div>
 	);
 };
 
-export default AchieverRankPage;
+export default SustainerRankPage;

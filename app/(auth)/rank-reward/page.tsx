@@ -18,42 +18,42 @@ const ranks = [
 		icon: <BronzeIcon width={30} height={30} />,
 		name: 'Earner',
 		salary: 350,
-		link: '/rank-reward/earner',
+		link: '/rank/earner',
 	},
 	{
 		id: 2,
 		icon: <GoldIcon width={30} height={30} />,
 		name: 'Achiever',
 		salary: 750,
-		link: '/rank-reward/achiever',
+		link: '/rank/achiever',
 	},
 	{
 		id: 3,
 		icon: <CrownIcon width={30} height={30} />,
 		name: 'Climber',
 		salary: 1600,
-		link: '/rank-reward/climber',
+		link: '/rank/climber',
 	},
 	{
 		id: 4,
 		icon: <RubyIcon width={30} height={30} />,
 		name: 'Gainer',
 		salary: 3500,
-		link: '/rank-reward/gainer',
+		link: '/rank/gainer',
 	},
 	{
 		id: 5,
 		icon: <RoyaltyIcon width={30} height={30} />,
 		name: 'Sustainer',
 		salary: 8000,
-		link: '/rank-reward/sustainer',
+		link: '/rank/sustainer',
 	},
 	{
 		id: 6,
 		icon: <DiamondIcon width={30} height={30} />,
 		name: 'Champion',
 		salary: 20000,
-		link: '/rank-reward/champion',
+		link: '/rank/champion',
 	},
 ];
 
@@ -97,7 +97,7 @@ const RankRewardPage = () => {
 	);
 
 	return (
-		<div className='promotion-wrapper pb-24'>
+		<div className='promotion-wrapper pb-20'>
 			<div className=''>
 				<div className='  p-4 '>
 					<div className='mt-1'>

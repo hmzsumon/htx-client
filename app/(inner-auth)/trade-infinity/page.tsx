@@ -5,27 +5,24 @@ import GoBack from '@/components/GoBack';
 
 const TradeInfinityPage = () => {
 	return (
-		<div className='relative'>
-			<div className='absolute top-0 -left-2 p-4'>
-				<GoBack color='text-gray-800' />
-			</div>
+		<div className=''>
 			<div>
 				<GlobalTradeViewTemplate
 					tradeImg={TradeInfinity}
-					title='Trade Infinity'
+					title='TradeInfinity'
 					balance={30000}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/35 User's",
+							value: "0/40 User's",
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/165 User's",
+							value: "0/170 User's",
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/200 User's",
+							value: "0/210 User's",
 						},
 					]}
 					dailyProfit={[
@@ -35,11 +32,11 @@ const TradeInfinityPage = () => {
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '25%',
+							value: '24%',
 						},
 						{
 							title: 'Profit Team ("B")',
-							value: '12%',
+							value: '10%',
 						},
 						{
 							title: 'Profit Team ("C")',

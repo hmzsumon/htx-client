@@ -65,9 +65,9 @@ const TransactionCard = ({ record }: TradeHistoryCardProps) => {
 						<span className='text-gray-500'>purpose</span>
 						<span>{record.purpose}</span>
 					</div>
-					<div className='flex justify-between'>
+					<div className='flex flex-col justify-between gap-1'>
 						<span className='text-gray-500'>Description</span>
-						<span>{record.description}</span>
+						<span className='text-[.70rem] self-end'>{record.description}</span>
 					</div>
 
 					<div className='flex justify-between'>

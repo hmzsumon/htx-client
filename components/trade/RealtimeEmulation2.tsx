@@ -1,58 +1,68 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import { createChart } from 'lightweight-charts';
-import PropagateLoader from 'react-spinners/PropagateLoader';
-import { demoData } from './demodata';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { createChart, UTCTimestamp } from 'lightweight-charts';
+import { useDispatch, useSelector } from 'react-redux';
+import { ScaleLoader } from 'react-spinners';
+import { setTradeLoading } from '@/redux/features/trade/tradeSlice';
 
-export default function RealtimeEmulation({
-	kline,
-	time,
-	isLoading,
-	setIsLoading,
-}: any) {
-	const { symbol } = useSelector((state: any) => state.trade);
+const RealtimeEmulation2 = () => {
+	const dispatch = useDispatch();
+	const { symbol, tradeDuration, tradeLoading, kline } = useSelector(
+		(state: any) => state.trade
+	);
+
+	const chartContainerRef = useRef<HTMLDivElement | null>(null);
+	const chartRef = useRef<any>(null);
+	const candleSeriesRef = useRef<any>(null);
+	const areaSeriesRef = useRef<any>(null);
 
 	useEffect(() => {
-		const chartContainer = document.createElement('div');
-		chartContainer.id = 'chart-container';
-		document.getElementById('wrapper')?.appendChild(chartContainer);
+		dispatch(setTradeLoading(true)); // Start loading on render
 
-		const handleResize = () => {
-			if (chartContainer && chart) {
-				chart.applyOptions({ width: chartContainer.clientWidth });
-			}
-		};
+		if (!chartContainerRef.current) return;
 
-		const chart = createChart(chartContainer, {
-			width: chartContainer.clientWidth,
+		const chart = createChart(chartContainerRef.current, {
+			width: chartContainerRef.current.clientWidth,
 			height: 280,
+			layout: {
+				background: { color: 'transparent' },
+				textColor: '#c2bcbc',
+			},
+			grid: {
+				vertLines: { color: '#eee' },
+				horzLines: { color: '#eee' },
+			},
 			timeScale: {
 				timeVisible: true,
 				secondsVisible: false,
+				barSpacing: 10,
+				rightOffset: 2,
+				borderColor: '#f2f0f0',
+				tickMarkFormatter: (time: number) => {
+					const date = new Date(time * 1000);
+					return `${String(date.getHours()).padStart(2, '0')}:${String(
+						date.getMinutes()
+					).padStart(2, '0')}`;
+				},
 			},
 			rightPriceScale: {
-				scaleMargins: {
-					top: 0.3,
-					bottom: 0.25,
-				},
-				borderVisible: false,
+				borderColor: '#f2f0f0',
 			},
-			layout: {
-				background: {
-					color: 'transparent',
-				},
-				textColor: '#000000',
-			},
-			grid: {
-				vertLines: {
-					color: 'rgba(200, 200, 200, 0.5)', // Light grid lines
-				},
-				horzLines: {
-					color: 'rgba(200, 200, 200, 0.5)', // Light grid lines
-				},
+			crosshair: {
+				horzLine: { color: '#888', style: 1, visible: true },
+				vertLine: { color: '#888', style: 1, visible: true },
 			},
 		});
+
+		const candleSeries = chart.addCandlestickSeries({
+			upColor: '#26a69a',
+			downColor: '#ef5350',
+			borderUpColor: '#26a69a',
+			borderDownColor: '#ef5350',
+			wickUpColor: '#26a69a',
+			wickDownColor: '#ef5350',
+		});
+		candleSeriesRef.current = candleSeries;
 
 		const areaSeries = chart.addAreaSeries({
 			topColor: 'rgba(38,198,218, 0.56)',
@@ -60,35 +70,19 @@ export default function RealtimeEmulation({
 			lineColor: 'rgba(38,198,218, 1)',
 			lineWidth: 2,
 		});
+		areaSeriesRef.current = areaSeries;
 
-		const volumeSeries = chart.addHistogramSeries({
-			color: '#26a69a',
-			priceFormat: {
-				type: 'volume',
-			},
-
-			priceScaleId: '',
-		});
-
-		chart.priceScale('').applyOptions({
-			scaleMargins: {
-				top: 0.8,
-				bottom: 0,
-			},
-		});
+		chartRef.current = chart;
 
 		async function getNewData() {
 			try {
 				const response = await fetch(
-					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${time}`
+					`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${tradeDuration}`
 				);
-
-				if (!response.ok) {
-					throw new Error('Failed to fetch data');
-				}
+				if (!response.ok) throw new Error('Failed to fetch data');
 
 				const data = await response.json();
-				setIsLoading(false);
+				dispatch(setTradeLoading(false));
 				return data.map((d: any) => ({
 					time: d[0] / 1000,
 					open: parseFloat(d[1]),
@@ -99,57 +93,17 @@ export default function RealtimeEmulation({
 				}));
 			} catch (error) {
 				console.error('Fetch error:', error);
-				setIsLoading(false);
-				return demoData.map((d: any) => ({
-					time: d[0] / 1000,
-					open: parseFloat(d[1]),
-					high: parseFloat(d[2]),
-					low: parseFloat(d[3]),
-					close: parseFloat(d[4]),
-					value: parseFloat(d[5]),
-				}));
+				dispatch(setTradeLoading(false));
+				return [];
 			}
 		}
 
-		const candleSeries = chart.addCandlestickSeries();
-
 		async function updateData() {
-			try {
-				const newData = await getNewData();
+			const newData = await getNewData();
+			if (!newData || newData.length === 0) return;
 
-				if (kline) {
-					candleSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							open: d.open,
-							high: d.high,
-							low: d.low,
-							close: d.close,
-						}))
-					);
-				} else {
-					areaSeries.setData(
-						newData.map((d: any) => ({
-							time: d.time,
-							value: d.close,
-						}))
-					);
-				}
-
-				volumeSeries.setData(
-					newData.map((d: any) => ({
-						time: d.time,
-						value: d.value,
-						// color: d.open - d.close > 0 ? '#26a69a' : '#ef5350',
-						color: d.close > d.open ? '#26a69a' : '#ef5350',
-					}))
-				);
-			} catch (error) {
-				console.error('Update data error:', error);
-				// Fallback to demo data
-				const newData = await getNewData();
-
-				candleSeries.setData(
+			if (kline && candleSeriesRef.current) {
+				candleSeriesRef.current.setData(
 					newData.map((d: any) => ({
 						time: d.time,
 						open: d.open,
@@ -158,39 +112,46 @@ export default function RealtimeEmulation({
 						close: d.close,
 					}))
 				);
-
-				volumeSeries.setData(
+			} else if (areaSeriesRef.current) {
+				areaSeriesRef.current.setData(
 					newData.map((d: any) => ({
 						time: d.time,
-						value: d.value,
-						color: d.open - d.close > 0 ? '#26a69a' : '#ef5350',
+						value: d.close,
 					}))
 				);
 			}
 		}
 
-		const intervalId = setInterval(updateData, 1000);
+		updateData();
+		const interval = setInterval(updateData, 5000);
 
-		window.addEventListener('resize', handleResize);
+		const observer = new ResizeObserver(() => {
+			if (chartContainerRef.current) {
+				chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+			}
+		});
+		observer.observe(chartContainerRef.current);
 
 		return () => {
-			clearInterval(intervalId);
-			const wrapper = document.getElementById('wrapper');
-			if (wrapper && chartContainer.parentNode === wrapper) {
-				wrapper.removeChild(chartContainer);
+			clearInterval(interval);
+			observer.disconnect();
+			if (chartRef.current) {
+				chartRef.current.remove();
 			}
+			candleSeriesRef.current = null;
+			areaSeriesRef.current = null;
 		};
-	}, [kline, time, symbol]);
+	}, [symbol, tradeDuration]);
 
 	return (
-		<>
-			<div className='relative' id='wrapper'>
-				{isLoading ? (
-					<div className=' absolute top-[49%] left-[46%] '>
-						<PropagateLoader color='#008000' size={18} />
-					</div> // Display loading indicator
-				) : null}
-			</div>
-		</>
+		<div ref={chartContainerRef} className='relative w-full'>
+			{tradeLoading && (
+				<div className='absolute top-[49%] left-[46%]'>
+					<ScaleLoader color='#05eb4a' height={30} width={5} />
+				</div>
+			)}
+		</div>
 	);
-}
+};
+
+export default RealtimeEmulation2;
