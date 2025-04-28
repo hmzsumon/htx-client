@@ -70,10 +70,12 @@ export function UserDropdownMenu() {
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={handleLogout}>
+				<DropdownMenuItem
+					onClick={handleLogout}
+					className='cursor-pointer hover:bg-red-500 hover:text-white'
+				>
 					<LogOut />
 					<span>Log out</span>
-					<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
