@@ -17,6 +17,7 @@ const TradeButtons = () => {
 		dispatch(setPredict(prediction));
 		dispatch(setTradeDrawerOpen(true));
 	};
+
 	return (
 		<div className='fixed bottom-0 left-0 right-0 bg-white px-2 text-xs font-bold py-4 shadow-lg z-50'>
 			<div className='grid grid-cols-3 gap-1'>
