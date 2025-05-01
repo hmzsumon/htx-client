@@ -82,8 +82,8 @@ const ProfilePage = () => {
 								<p>${formatBalance(user?.m_balance)}</p>
 							</div>
 							<div>
-								<p>Demo Balance</p>
-								<p>${formatBalance(user?.m_balance)}</p>
+								<p>Live Trade Balance</p>
+								<p>${formatBalance(user?.live_trade_balance)}</p>
 							</div>
 						</div>
 						<hr />

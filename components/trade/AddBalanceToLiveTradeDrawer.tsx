@@ -13,15 +13,23 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CirclePlus } from 'lucide-react';
 import { formatBalance } from '@/lib/functions';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLiveTradeDrawerOpen } from '@/redux/features/trade/tradeSlice';
+import { useSelector } from 'react-redux';
 import { useBalanceTransferMutation } from '@/redux/features/send/sendApi';
+import { useAddBalanceToLiveTradeMutation } from '@/redux/features/trade/tradeApi';
 
-const LiveTradeDrawer = () => {
-	const [balanceTransfer, { isLoading, isError, isSuccess, error }] =
-		useBalanceTransferMutation();
-	const dispatch = useDispatch();
-	const { isLiveTradeDrawerOpen } = useSelector((state: any) => state.trade);
+interface DrawerProps {
+	isLiveAddBalanceDrawerOpen: boolean;
+	setIsLiveAddBalanceDrawerOpen: (open: boolean) => void;
+}
+
+const AddBalanceToLiveTradeDrawer = ({
+	isLiveAddBalanceDrawerOpen,
+	setIsLiveAddBalanceDrawerOpen,
+}: DrawerProps) => {
+	// call the add balance to live trade mutation
+	const [addBalanceToLiveTrade, { isLoading, isError, isSuccess, error }] =
+		useAddBalanceToLiveTradeMutation();
+
 	const { symbol, currentRounds, predict, tradeDuration } = useSelector(
 		(state: any) => state.trade
 	);
@@ -30,11 +38,9 @@ const LiveTradeDrawer = () => {
 	const [amount, setAmount] = useState('');
 
 	const handleClose = () => {
-		dispatch(setLiveTradeDrawerOpen(false));
+		setIsLiveAddBalanceDrawerOpen(false);
 		setAmount('');
 	};
-
-	const activeRound = currentRounds[tradeDuration]?.[symbol];
 
 	// ✅ validate the amount
 	const validateAmount = (amountStr: string) => {
@@ -60,6 +66,7 @@ const LiveTradeDrawer = () => {
 			toast.error('Insufficient balance');
 			return false;
 		}
+
 		return true;
 	};
 
@@ -92,7 +99,7 @@ const LiveTradeDrawer = () => {
 			amount: Number(amount),
 		};
 
-		await balanceTransfer(body);
+		await addBalanceToLiveTrade(body);
 	};
 
 	// handle success and error
@@ -109,7 +116,7 @@ const LiveTradeDrawer = () => {
 	}, [isSuccess, isError, error]);
 
 	return (
-		<Drawer open={isLiveTradeDrawerOpen} onOpenChange={handleClose}>
+		<Drawer open={isLiveAddBalanceDrawerOpen} onOpenChange={handleClose}>
 			<DrawerContent
 				className='max-h-[85vh] rounded-t-3xl drawer-wrapper py-3'
 				aria-describedby='trade-drawer-desc'
@@ -190,4 +197,4 @@ const LiveTradeDrawer = () => {
 	);
 };
 
-export default LiveTradeDrawer;
+export default AddBalanceToLiveTradeDrawer;

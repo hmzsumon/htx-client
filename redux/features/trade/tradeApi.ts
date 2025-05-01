@@ -68,6 +68,31 @@ export const tradeApi = apiSlice.injectEndpoints({
 			query: () => `/my-trade-history`,
 			providesTags: ['Trade'],
 		}),
+
+		// get upcoming live trade
+		getUpcomingLiveTrade: builder.query({
+			query: () => `/upcoming-live-trade`,
+			providesTags: ['Trade'],
+		}),
+
+		//place live trade
+		placeLiveTrade: builder.mutation<void, any>({
+			query: () => ({
+				url: '/place-live-trade',
+				method: 'POST',
+			}),
+			invalidatesTags: ['Trade', 'User'],
+		}),
+
+		// add balance to live trade
+		addBalanceToLiveTrade: builder.mutation<void, any>({
+			query: (body) => ({
+				url: '/add-balance-to-live-trade',
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['Trade', 'User'],
+		}),
 	}),
 });
 
@@ -81,4 +106,7 @@ export const {
 	useGetTradeRoundHistoryBySymbolQuery,
 	useGetActiveTradeRoundBySymbolQuery,
 	useGetMyTradeRoundHistoryQuery,
+	useGetUpcomingLiveTradeQuery,
+	usePlaceLiveTradeMutation,
+	useAddBalanceToLiveTradeMutation,
 } = tradeApi;

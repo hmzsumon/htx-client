@@ -243,6 +243,22 @@
 }
 /* End Promotion Css */
 
+.btn__bg {
+	background: linear-gradient(to right, #d02ef0, #09cfff);
+	border: none;
+	outline: none;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	transition: 0.3s all;
+	font-weight: bold;
+	color: white;
+}
+
+.btn__bg:hover {
+	background: linear-gradient(to left, #d02ef0, #09cfff);
+}
+
 /*Start Drawer Css */
 .drawer-wrapper {
 	background-image: url('/images/bg/model_bg.png');
@@ -251,3 +267,31 @@
 	background-size: cover, 100% 100%;
 }
 /*End Drawer Css */
+
+@keyframes spin-slow {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-spin-slow {
+	animation: spin-slow 20s linear infinite;
+}
+
+@keyframes firework {
+	0% {
+		transform: scale(0);
+		opacity: 0.8;
+	}
+	100% {
+		transform: scale(10);
+		opacity: 0;
+	}
+}
+
+.animate-firework {
+	animation: firework 2s ease-out forwards;
+}

@@ -8,31 +8,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 export default function RegisterEmail() {
-	const dispatch = useDispatch();
-	const searchParams = useSearchParams();
-	const [partnerCode, setPartnerCode] = useState('');
-
-	const [triggerCheckUser, result] = useLazyCheckUserByCustomIdQuery();
-	const { data, isSuccess } = result;
-
-	useEffect(() => {
-		const code = searchParams.get('partner_code');
-		if (code) {
-			setPartnerCode(code);
-			triggerCheckUser(code);
-		}
-	}, [searchParams]);
-
-	// ✅ Check if user exists and dispatch when data arrives
-	useEffect(() => {
-		if (isSuccess && data?.isUser) {
-			// Dispatch something when user is valid
-			dispatch(
-				setPersonalData({ referralCode: partnerCode, referralValidation: true })
-			);
-		}
-	}, [isSuccess, data, dispatch]);
-
 	return (
 		<div className='w-11/12 md:w-7/12 mx-auto mt-10'>
 			<Card className='p-4'>

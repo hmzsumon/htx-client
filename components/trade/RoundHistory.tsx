@@ -1,20 +1,9 @@
 'use client';
-import React, { use, useEffect } from 'react';
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table';
+import React from 'react';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { formatBalance } from '@/lib/functions';
 import { useSelector } from 'react-redux';
-import {
-	useGetTradeRoundHistoryBySymbolQuery,
-	useGetTradeRoundHistoryQuery,
-} from '@/redux/features/trade/tradeApi';
+import { useGetTradeRoundHistoryBySymbolQuery } from '@/redux/features/trade/tradeApi';
 
 const RoundHistory = () => {
 	const { symbol, tradeDuration } = useSelector((state: any) => state.trade);

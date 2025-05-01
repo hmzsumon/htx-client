@@ -27,6 +27,25 @@ export const sendApi = apiSlice.injectEndpoints({
 			}),
 			providesTags: ['Transfer'],
 		}),
+
+		// balance transfer to trade balance
+		balanceTransfer: builder.mutation({
+			query: (body) => ({
+				url: '/balance-transfer',
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['Trade', 'User'],
+		}),
+
+		// transfer to main balance
+		balanceTransferToMain: builder.mutation({
+			query: () => ({
+				url: '/transfer-to-main-balance',
+				method: 'POST',
+			}),
+			invalidatesTags: ['Trade', 'User'],
+		}),
 	}),
 });
 
@@ -34,4 +53,6 @@ export const {
 	useSendMutation,
 	useFindUserByCustomerIdMutation,
 	useGetMyTransferQuery,
+	useBalanceTransferMutation,
+	useBalanceTransferToMainMutation,
 } = sendApi;

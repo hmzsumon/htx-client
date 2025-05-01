@@ -16,7 +16,6 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
 	// Split the path into parts (e.g. /settings/personal-info → ['settings', 'personal-info'])
 	const segments = pathname.split('/').filter((seg) => seg !== ''); // remove empty strings
-	console.log('Breadcrumb segments:', segments);
 
 	const iconRoutes = ['deposit', 'withdraw', 'transfer'];
 	const isIcon = iconRoutes.includes(segments[0]);

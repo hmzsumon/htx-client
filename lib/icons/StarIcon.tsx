@@ -34,3 +34,23 @@ export default StarIcon;
 {
 	/* <span>🧑‍🤝‍🧑</span> */
 }
+
+{
+	/* <span>💎</span> */
+}
+{
+	/* <span>📈</span> */
+}
+{
+	/* <span>📉</span> */
+}
+{
+	/* <span>💹</span> */
+}
+{
+	/* <span>💳</span> */
+}
+
+{
+	/* <span>📸</span> */
+}

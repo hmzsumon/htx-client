@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '../layout/Container';
-import TradeImg from '@/public/images/trade/trade_img_1.png';
+import TradeImg from '@/public/images/trade/trade_img_2.png';
 import Image from 'next/image';
 
 const TradeAnytime = () => {
@@ -11,7 +11,11 @@ const TradeAnytime = () => {
 					Trade anytime, anywhere
 				</h1>
 				<div>
-					<Image src={TradeImg} alt='trade-img' />
+					<Image
+						src={TradeImg}
+						alt='trade-img'
+						className='w-96 md:mx-auto md:w-[50rem] '
+					/>
 				</div>
 			</div>
 		</Container>

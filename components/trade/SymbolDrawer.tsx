@@ -39,7 +39,6 @@ export function SymbolDrawer({ open, setOpen }: SymbolDrawerProps) {
 
 	const onSelect = (symbol: string) => {
 		dispatch(setSymbol(symbol));
-		console.log('Selected symbol:', symbol);
 	};
 
 	useEffect(() => {

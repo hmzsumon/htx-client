@@ -57,7 +57,7 @@ const Transactions = () => {
 	}, [loadMoreRef.current, isFetching, hasMore]);
 
 	return (
-		<div className='bg-white '>
+		<div className='bg-white min-h-[80vh] '>
 			{records.length > 0 ? (
 				<>
 					{records.map((record: any, index: number) => (

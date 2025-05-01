@@ -6,7 +6,6 @@ import { TickerProvider } from '@/TickerContext';
 import React from 'react';
 
 const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-	useLoadUserQuery();
 	return (
 		<div className=''>
 			<AuthNavBar />

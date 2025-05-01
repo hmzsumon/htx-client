@@ -12,7 +12,7 @@ const items = [
 		title: 'Reserve Trade',
 		icon: null,
 		iconImg: TradeImg1,
-		link: '/trade/personal-trade',
+		link: '/trade/reserve-trade',
 	},
 	{
 		id: 2,

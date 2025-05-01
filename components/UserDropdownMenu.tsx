@@ -35,6 +35,7 @@ import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import { useLogoutUserMutation } from '@/redux/features/auth/authApi';
 import { useRouter } from 'next/navigation';
+import { formatBalance } from '@/lib/functions';
 
 export function UserDropdownMenu() {
 	const router = useRouter();
@@ -65,14 +66,16 @@ export function UserDropdownMenu() {
 					<DropdownMenuItem>
 						<CreditCard />
 						<span>Balance</span>
-						<DropdownMenuShortcut>{user?.m_balance} $</DropdownMenuShortcut>
+						<DropdownMenuShortcut>
+							{formatBalance(user?.m_balance)}$
+						</DropdownMenuShortcut>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					onClick={handleLogout}
-					className='cursor-pointer hover:bg-red-500 hover:text-white'
+					className='cursor-pointer  hover:bg-red-500 hover:text-white'
 				>
 					<LogOut />
 					<span>Log out</span>

@@ -21,7 +21,7 @@ const SocialMedia = () => {
 	return (
 		<div>
 			<Container>
-				<h2 className='text-3xl font-bold text-center text-gray-800'>
+				<h2 className='text-2xl font-bold text-center text-gray-800'>
 					Follow Us on Social Media
 				</h2>
 				<div className='grid grid-cols-6 gap-4 mt-10'>
@@ -30,8 +30,8 @@ const SocialMedia = () => {
 							<Image
 								src={item.icon}
 								alt='social-media'
-								width={40}
-								height={40}
+								width={30}
+								height={30}
 							/>
 						</div>
 					))}
