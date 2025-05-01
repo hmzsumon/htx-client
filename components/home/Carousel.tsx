@@ -1,7 +1,8 @@
 'use client';
 import React, { Component } from 'react';
-import Slider from 'react-slick';
-import Img_1 from './images/carousel/ai-grid.png';
+
+// Use require for compatibility with class components
+const Slider = require('react-slick').default;
 
 export default class SimpleSlider extends Component {
 	render() {
@@ -15,18 +16,20 @@ export default class SimpleSlider extends Component {
 			autoplay: true,
 			autoplaySpeed: 4000,
 		};
+
 		const sliderItems = [
-			'./images/carousel/b5.jpg',
-			'./images/carousel/b6.jpg',
-			'./images/carousel/b7.jpg',
-			'./images/carousel/b8.jpg',
-			'./images/carousel/b9.jpg',
+			'/images/carousel/b5.jpg',
+			'/images/carousel/b6.jpg',
+			'/images/carousel/b7.jpg',
+			'/images/carousel/b8.jpg',
+			'/images/carousel/b9.jpg',
 		];
+
 		return (
-			<div className='  w-[100%] mx-auto'>
+			<div className='w-full mx-auto'>
 				<Slider {...settings}>
 					{sliderItems.map((item, index) => (
-						<div className={`px-1`} key={index}>
+						<div className='px-1' key={index}>
 							<img
 								src={item}
 								alt=''

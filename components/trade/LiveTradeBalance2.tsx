@@ -8,7 +8,7 @@ interface LiveTradeDonutChartProps {
 	initialBalance: number;
 }
 
-const COLORS = ['#00C853', '#FF3D00', '#FFD600', '#2979FF', '#546E7A']; // সুন্দর কালারস
+const COLORS = ['#00C853', '#FF3D00', '#FFD600', '#2979FF', '#546E7A'];
 
 const LiveTradeDonutChart: React.FC<LiveTradeDonutChartProps> = ({
 	initialBalance,
