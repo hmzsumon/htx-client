@@ -10,9 +10,13 @@ import UserInfo from '@/components/UserInfo';
 import { IncomeTable } from '@/components/wallet/IncomeTable';
 import { TeamIncomeTable } from '@/components/wallet/TeamIncomeTable';
 import { IncentiveIncomeTable } from '@/components/wallet/IncentiveIncomeTable';
+import { useMyWalletQuery } from '@/redux/features/auth/authApi';
 
 const WalletPage = () => {
 	const { user } = useSelector((state: any) => state.auth);
+	const { data } = useMyWalletQuery(undefined);
+	const { wallet } = data || {};
+
 	return (
 		<div className='pb-20'>
 			<div className=' relative'>
@@ -28,25 +32,19 @@ const WalletPage = () => {
 				<div className='absolute top-[60%] w-full px-2'>
 					<Card className='p-4 bg-gray-50'>
 						<div className=' flex items-center justify-between my-2 text-sm font-bold'>
-							<div>
-								<p>Total Balance</p>
-								<p>${formatBalance(user?.m_balance)}</p>
-							</div>
-							<div>
-								<p>Demo Balance</p>
-								<p>${formatBalance(user?.m_balance)}</p>
-							</div>
+							<p>Main Balance :</p>
+							<p>${formatBalance(user?.m_balance)}</p>
 						</div>
 						<hr />
 						<div>
-							<IncomeTable />
+							<IncomeTable wallet={wallet} />
 						</div>
 					</Card>
 				</div>
 				{/* End Card Section */}
 			</div>
 
-			<div className='mt-52 space-y-4 px-2'>
+			<div className='mt-40 space-y-4 px-2'>
 				<div className=''>
 					<Card className='p-4 bg-[#bbd4f8]'>
 						<div className=' flex items-center justify-between my-2 text-sm font-bold'>
@@ -56,7 +54,7 @@ const WalletPage = () => {
 						</div>
 						<hr />
 						<div>
-							<TeamIncomeTable />
+							<TeamIncomeTable walletData={wallet} />
 						</div>
 					</Card>
 				</div>

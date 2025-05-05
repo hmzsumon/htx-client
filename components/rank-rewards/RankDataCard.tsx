@@ -15,7 +15,7 @@ const RankDataCard = ({ rankData, rank }: any) => {
 						<h4 className=' col-span-3'>Direct Refer users</h4>
 						<p className=' col-span-1'>:</p>
 						<p className=' col-span-1 flex items-center gap-2'>
-							{rankData?.directReferUsers || 0} <FaUser />
+							{rankData?.direct_refer_users || 0} <FaUser />
 						</p>
 					</div>
 
@@ -23,7 +23,7 @@ const RankDataCard = ({ rankData, rank }: any) => {
 						<h4 className=' col-span-3'>Total team Members</h4>
 						<p className=' col-span-1'>:</p>
 						<p className=' col-span-1 flex items-center gap-2'>
-							{rankData?.teamMembers || 0} <FaUsers />
+							{rankData?.total_team_members || 0} <FaUsers />
 						</p>
 					</div>
 
@@ -31,7 +31,7 @@ const RankDataCard = ({ rankData, rank }: any) => {
 						<h4 className=' col-span-3'>Sales Amount</h4>
 						<p className=' col-span-1'>:</p>
 						<p className=' col-span-1'>
-							{rankData?.salesValue ? `${rankData?.salesValue}$` : '$0'}
+							{rankData?.sales_amount ? `${rankData?.sales_amount}$` : '$0'}
 						</p>
 					</div>
 				</div>

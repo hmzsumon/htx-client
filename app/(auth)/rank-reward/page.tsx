@@ -1,7 +1,10 @@
 'use client';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useGetMyRankRecordQuery } from '@/redux/features/rank/rankApi';
+import {
+	useGetMyRankRecordQuery,
+	useGetRankCardDataQuery,
+} from '@/redux/features/rank/rankApi';
 import RankDataCard from '@/components/rank-rewards/RankDataCard';
 import GridLoader from 'react-spinners/GridLoader';
 import BronzeIcon from '@/lib/icons/BronzeIcon';
@@ -59,8 +62,8 @@ const ranks = [
 
 const RankRewardPage = () => {
 	const { user = {} } = useSelector((state: any) => state.auth);
-	const { data = {}, isLoading } = useGetMyRankRecordQuery(undefined);
-	const { rankData = {} } = data;
+	const { data = {}, isLoading } = useGetRankCardDataQuery(undefined);
+	const { rankCardData: rankData = {} } = data;
 
 	// Titan rank condition
 	const titanCondition = { directRefer: 10, teamMembers: 30, salesValue: 3000 };
@@ -70,30 +73,6 @@ const RankRewardPage = () => {
 			rankData.teamMembers >= titanCondition.teamMembers &&
 			rankData.salesValue >= titanCondition.salesValue,
 		[rankData]
-	);
-
-	// Define rank items
-	const rankItems = useMemo(
-		() => [
-			{
-				id: 1,
-				title: 'Earner',
-				salary: 330,
-				icon: <BronzeIcon width={30} height={30} />,
-				is_active: isTitanCondition,
-				conditions: [
-					{ title: 'Team "A" Sales', value: 1000 },
-					{ title: 'Team Total Sales', value: 9000 },
-					{ title: 'Team "A" Active Users', value: 15 },
-					{ title: 'Team Total Active Users', value: 30 },
-				],
-				conditions2: [
-					{ title: 'Monthly Team "A" New Sales', value: 1000 },
-					{ title: 'Monthly Total Team New Sales', value: 3000 },
-				],
-			},
-		],
-		[isTitanCondition]
 	);
 
 	return (
@@ -112,7 +91,7 @@ const RankRewardPage = () => {
 							<div>
 								<div className=' space-y-2'>
 									{ranks.map((item) => (
-										<RankItemCard item={item} />
+										<RankItemCard key={item.id} item={item} />
 									))}
 								</div>
 							</div>

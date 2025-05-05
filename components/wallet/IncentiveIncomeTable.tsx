@@ -13,19 +13,19 @@ const items = [
 	{
 		id: 1,
 		purpose: 'Rank Reward',
-		total_amount: '$250.00',
+		total_amount: '$0.00',
 	},
 	{
 		id: 2,
 		purpose: 'Offer',
 
-		total_amount: '$250.00',
+		total_amount: '$0.00',
 	},
 	{
 		id: 3,
 		purpose: 'Gift',
 
-		total_amount: '$250.00',
+		total_amount: '$0.00',
 	},
 ];
 
