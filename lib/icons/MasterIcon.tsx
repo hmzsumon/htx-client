@@ -13,16 +13,16 @@ const MasterIcon = ({ width = 50, height = 50 }) => {
 				height={height}
 			>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M85 201.5l88 88.5-44.8-88.5H85z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#D1D1D1'
 				></path>
 				<path d='M85 201.5l29-28.2 14.2 28.2H85z' fill='#D8D8D8'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M173 116l-59 57.3 14.2 28.2H173V116z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#B5B5B5'
 				></path>
 				<path d='M173 290l-44.8-88.5H173V290z' fill='#A9A9A9'></path>
@@ -33,16 +33,16 @@ const MasterIcon = ({ width = 50, height = 50 }) => {
 				<path d='M0 116l85-87 43.5 43.5L85 116H0z' fill='#A9A9A9'></path>
 				<path d='M85 29h88l-44.5 43.5L85 29z' fill='#C6C6C6'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M261 201.5L173 290l44.8-88.5H261z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#D1D1D1'
 				></path>
 				<path d='M261 201.5l-29-28.2-14.2 28.2H261z' fill='#D8D8D8'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M173 116l59 57.3-14.2 28.2H173V116z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#B5B5B5'
 				></path>
 				<path d='M173 290l44.8-88.5H173V290z' fill='#A9A9A9'></path>

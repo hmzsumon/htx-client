@@ -27,7 +27,7 @@ const TradeLitePage = () => {
 					]}
 					dailyProfit={[
 						{
-							title: 'Daily Persona Profit',
+							title: 'Daily Personal Profit',
 							value: '0 - 3% +',
 						},
 						{

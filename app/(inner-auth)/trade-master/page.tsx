@@ -1,9 +1,14 @@
+'use client';
 import React from 'react';
 import TradeMaster from '@/public/images/icons/trade_master.webp';
 import GlobalTradeViewTemplate from '@/components/trade/GlobalTradeViewTemplate';
-import GoBack from '@/components/GoBack';
+
+import { useInnerContext } from '@/context/InnerContext';
 
 const TradeMasterPage = () => {
+	const context = useInnerContext();
+	const { team_a, team_b, team_c, total_team } = context;
+
 	return (
 		<div className=''>
 			<div>
@@ -14,20 +19,20 @@ const TradeMasterPage = () => {
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/25 User's",
+							value: `${team_a}/25 User's`,
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/70 User's",
+							value: `${team_b + team_c}/70 User's`,
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/95 User's",
+							value: `${total_team}/95 User's`,
 						},
 					]}
 					dailyProfit={[
 						{
-							title: 'Daily Persona Profit',
+							title: 'Daily Personal Profit',
 							value: '0 - 15% +',
 						},
 						{

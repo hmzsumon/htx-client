@@ -13,16 +13,16 @@ const DiamondIcon = ({ width = 50, height = 50 }) => {
 				height={height}
 			>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M85 172.5l88 88.5-44.8-88.5H85z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#96D7DA'
 				></path>
 				<path d='M85 172.5l29-28.2 14.2 28.2H85z' fill='#A5DCDF'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M173 87l-59 57.3 14.2 28.2H173V87z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#5ABFC4'
 				></path>
 				<path d='M173 261l-44.8-88.5H173V261z' fill='#50B9C0'></path>
@@ -33,16 +33,16 @@ const DiamondIcon = ({ width = 50, height = 50 }) => {
 				<path d='M0 87L85 0l43.5 43.5L85 87H0z' fill='#50B9C0'></path>
 				<path d='M85 0h88l-44.5 43.5L85 0z' fill='#61C5C9'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M261 172.5L173 261l44.8-88.5H261z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#96D7DA'
 				></path>
 				<path d='M261 172.5l-29-28.2-14.2 28.2H261z' fill='#A5DCDF'></path>
 				<path
-					clip-rule='evenodd'
+					clipRule='evenodd'
 					d='M173 87l59 57.3-14.2 28.2H173V87z'
-					fill-rule='evenodd'
+					fillRule='evenodd'
 					fill='#5ABFC4'
 				></path>
 				<path d='M173 261l44.8-88.5H173V261z' fill='#50B9C0'></path>

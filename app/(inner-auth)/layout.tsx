@@ -10,7 +10,9 @@ import Image from 'next/image';
 import HistoryIcon from '@/public/images/icons/history.png';
 import Link from 'next/link';
 
-const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+import { InnerContextProvider } from '@/context/InnerContext';
+
+const InnerLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -41,11 +43,13 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 				</div>
 			</div>
 			<div className='py-[0.09rem] mt-10'>
-				<div className='pb-20'>{children}</div>
+				<InnerContextProvider>
+					<div className='pb-20'>{children}</div>
+				</InnerContextProvider>
 			</div>
 			<AuthFooter />
 		</div>
 	);
 };
 
-export default AuthLayout;
+export default InnerLayout;

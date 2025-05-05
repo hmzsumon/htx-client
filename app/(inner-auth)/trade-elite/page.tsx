@@ -1,9 +1,14 @@
+'use client';
 import React from 'react';
 import TradeElite from '@/public/images/icons/trade_elite.webp';
 import GlobalTradeViewTemplate from '@/components/trade/GlobalTradeViewTemplate';
 import GoBack from '@/components/GoBack';
+import { useInnerContext } from '@/context/InnerContext';
 
 const TradeElitePage = () => {
+	const context = useInnerContext();
+	const { team_a, team_b, team_c, total_team } = context;
+
 	return (
 		<div className=''>
 			<div>
@@ -14,20 +19,20 @@ const TradeElitePage = () => {
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/3 User's",
+							value: `${team_a}/3 User's`,
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/5 User's",
+							value: `${team_b + team_c} /5 User's`,
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/8 User's",
+							value: `${total_team}/8 User's`,
 						},
 					]}
 					dailyProfit={[
 						{
-							title: 'Daily Persona Profit',
+							title: 'Daily Personal Profit',
 							value: '0 - 6% +',
 						},
 						{

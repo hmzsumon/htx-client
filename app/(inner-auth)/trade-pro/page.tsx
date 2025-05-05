@@ -1,9 +1,12 @@
+'use client';
 import React from 'react';
 import TradePro from '@/public/images/icons/trade_pro.webp';
 import GlobalTradeViewTemplate from '@/components/trade/GlobalTradeViewTemplate';
-import GoBack from '@/components/GoBack';
+import { useInnerContext } from '@/context/InnerContext';
 
 const TradeProPage = () => {
+	const context = useInnerContext();
+	const { team_a, team_b, team_c, total_team } = context;
 	return (
 		<div className=''>
 			<div>
@@ -14,20 +17,20 @@ const TradeProPage = () => {
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/6 User's",
+							value: `${team_a}/20 User's`,
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/20 User's",
+							value: `${team_b + team_c}/6 User's`,
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/26 User's",
+							value: `${total_team}/26 User's`,
 						},
 					]}
 					dailyProfit={[
 						{
-							title: 'Daily Persona Profit',
+							title: 'Daily Personal Profit',
 							value: '0 - 9% +',
 						},
 						{

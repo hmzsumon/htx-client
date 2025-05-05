@@ -23,7 +23,7 @@ const SustainerRankPage = () => {
 						achieve: 0,
 						symbol: '$',
 						progressBarColor: 'green',
-						progressBar: 20,
+						progressBar: 0,
 					},
 					{
 						title: 'Team Total New Sales',
@@ -31,7 +31,7 @@ const SustainerRankPage = () => {
 						achieve: 0,
 						symbol: '$',
 						progressBarColor: 'orange',
-						progressBar: 10,
+						progressBar: 0,
 					},
 				]}
 				salary={8000}

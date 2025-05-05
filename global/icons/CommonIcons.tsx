@@ -17,7 +17,7 @@ export const CloseIcon = ({ h, w, color }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-7.233 0l3.006 3.005-1.768 1.768L12 13.767l-3.005 3.005-1.768-1.768 3.005-3.005-3.005-3.005 1.768-1.767L12 10.23l3.005-3.005 1.768 1.767L13.767 12z'
 				fill={color}
 			></path>
@@ -36,7 +36,7 @@ export const CheckIcon = ({ h, w, color }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-4.934-4.483L10.2 13.383l-2.716-2.716-1.768 1.767 4.484 4.484 7.634-7.634-1.768-1.767z'
 				fill={color}
 			></path>
@@ -140,13 +140,13 @@ export const NotAvailableIcon = ({ h, w }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M12.001 68.043l36 23.957V8h-36v60.043z'
 				fill='url(#security-low-dark_svg__paint0_linear)'
 			></path>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M48.001 8v84l36-24V8h-36z'
 				fill='url(#security-low-dark_svg__paint1_linear)'
 			></path>
@@ -510,8 +510,8 @@ export const DashboardIcon = ({ h, w, color }: Props) => {
 			className={`h-${h} w-${w}`}
 		>
 			<path
-				fill-rule='evenodd'
-				clip-rule='evenodd'
+				fillRule='evenodd'
+				clipRule='evenodd'
 				d='M4 4v7h7V4H4zm9 7V4h7v7h-7zm3.5 9.743L12.257 16.5l4.243-4.243 4.243 4.243-4.243 4.243zM4 13h7v7H4v-7z'
 				fill='currentColor'
 			></path>

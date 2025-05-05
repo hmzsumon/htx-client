@@ -295,6 +295,14 @@ export const authApi = apiSlice.injectEndpoints({
 				method: 'GET',
 			}),
 		}),
+
+		// get my team
+		getMyTeam: builder.query<any, any>({
+			query: () => ({
+				url: `/get-my-team`,
+				method: 'GET',
+			}),
+		}),
 	}),
 });
 
@@ -330,4 +338,5 @@ export const {
 	useGetMyPromotionDataQuery,
 	useGetActivePromotionDataQuery,
 	useGetMyMembersQuery,
+	useGetMyTeamQuery,
 } = authApi;

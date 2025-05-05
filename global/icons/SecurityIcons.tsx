@@ -16,7 +16,7 @@ export const BiometricIcon = ({ h, w }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M3 3h18v18H3V3zm12.128 5.992H8.87a3.383 3.383 0 01-.034-.483c0-1.8 1.416-3.259 3.163-3.259 1.746 0 3.162 1.459 3.162 3.259 0 .164-.011.325-.034.483zM12 11.767c.781 0 1.496-.291 2.048-.775H9.952a3.096 3.096 0 002.048.775z'
 				fill='#76808F'
 			></path>
@@ -170,7 +170,7 @@ export const PasswordIcon = ({ h = 8, w = 8 }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M23 6H1v12h22V6zm-2 2h-2v8h2V8z'
 				fill='#76808F'
 			></path>
@@ -325,7 +325,7 @@ export const User2Icon = ({ h = 8, w = 8 }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M13.5 7.5a4.5 4.5 0 10-9 0 4.5 4.5 0 009 0z'
 				fill='url(#sub-account-g_svg__paint0_linear)'
 			></path>
@@ -362,7 +362,7 @@ export const Check2Icon = ({ h = 8, w = 8 }: Props) => {
 		>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M20 3v19H4V3h16z'
 				fill='url(#whitelist-g_svg__paint0_linear)'
 			></path>
@@ -403,7 +403,7 @@ export const HookIcon = ({ h = 8, w = 8 }: Props) => {
 			></path>
 			<path
 				fillRule='evenodd'
-				clip-rule='evenodd'
+				clipRule='evenodd'
 				d='M11.5 8a3 3 0 114 2.83V14a4.5 4.5 0 11-9 0V9l5 5h-3a2.5 2.5 0 005 0v-3.17a3.001 3.001 0 01-2-2.83zm3-1a1 1 0 100 2 1 1 0 000-2z'
 				fill='#76808F'
 			></path>

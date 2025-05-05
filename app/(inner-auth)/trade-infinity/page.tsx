@@ -1,9 +1,13 @@
+'use client';
 import React from 'react';
 import TradeInfinity from '@/public/images/icons/trade_infinity.webp';
 import GlobalTradeViewTemplate from '@/components/trade/GlobalTradeViewTemplate';
-import GoBack from '@/components/GoBack';
+
+import { useInnerContext } from '@/context/InnerContext';
 
 const TradeInfinityPage = () => {
+	const context = useInnerContext();
+	const { team_a, team_b, team_c, total_team } = context;
 	return (
 		<div className=''>
 			<div>
@@ -14,20 +18,20 @@ const TradeInfinityPage = () => {
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: "0/40 User's",
+							value: `${team_a}/40 User's`,
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: "0/170 User's",
+							value: `${team_b + team_c}/170 User's`,
 						},
 						{
 							title: "Total Team Member's",
-							value: "0/210 User's",
+							value: `${total_team}/210 User's`,
 						},
 					]}
 					dailyProfit={[
 						{
-							title: 'Daily Persona Profit',
+							title: 'Daily Personal Profit',
 							value: '0 - 20% +',
 						},
 						{

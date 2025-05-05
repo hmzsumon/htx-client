@@ -61,11 +61,12 @@ const RankPageTemplate = ({
 					<hr className=' border-gray-500' />
 					<div className=' list-none text-xs font-semibold space-y-1'>
 						{conditions.map((condition: any, index: number) => (
-							<li className='grid grid-cols-12 gap-2'>
+							<li key={index} className='grid grid-cols-12 gap-2'>
 								<span className=' col-span-8'>{condition.title}</span>
 								<span className=' col-span-1'>:</span>
-								<span className=' col-span-3'>
-									{condition.achieve}/{condition.value}
+								<span className=' col-span-3 font-bold'>
+									<span className='text-violet-600'>{condition.achieve}</span>/
+									<span className='text-htx-blue'>{condition.value}</span>
 									{condition.symbol}
 								</span>
 							</li>

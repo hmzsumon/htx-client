@@ -10,11 +10,17 @@ const TradeHistoryCardWithDetail = ({ record }: TradeHistoryCardProps) => {
 	const [showDetail, setShowDetail] = useState(false);
 
 	const isSuccess = record.status === 'Succeed';
-	const resultColor = isSuccess ? 'text-green-600' : 'text-red-500';
-	const profitPrefix = isSuccess ? '+' : '-';
+	const resultColor =
+		record.status === 'Succeed'
+			? 'text-green-600'
+			: record.status === 'Failed'
+			? 'text-red-600'
+			: 'text-violet-600';
+	const profitPrefix =
+		record.status === 'Succeed' ? '+' : record.status === 'Failed' ? '-' : '≈';
 
 	return (
-		<div className='border-b py-3 px-4'>
+		<div className='border-b py-3  px-4'>
 			{/* Summary Header */}
 			<div
 				className='flex justify-between items-center cursor-pointer'
@@ -97,13 +103,7 @@ const TradeHistoryCardWithDetail = ({ record }: TradeHistoryCardProps) => {
 						<span className='font-medium'>{record.trade_type}</span>
 					</div>
 					<div className='flex justify-between'>
-						<span
-							className={`${
-								record.status === 'Pending' ? 'text-gray-500' : resultColor
-							} `}
-						>
-							Status
-						</span>
+						<span className={resultColor}>Status</span>
 						<span className={resultColor}>{record.status}</span>
 					</div>
 					<div className='flex justify-between'>
