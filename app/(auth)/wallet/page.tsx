@@ -1,11 +1,8 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
-import ProfileImg from '@/public/images/profile-avatar/avatar_1.png';
-import { formatBalance, maskEmail } from '@/lib/functions';
+import { formatBalance } from '@/lib/functions';
 import { useSelector } from 'react-redux';
-import CopyToClipboard from '@/lib/CopyToClipboard';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import UserInfo from '@/components/UserInfo';
 import { IncomeTable } from '@/components/wallet/IncomeTable';
 import { TeamIncomeTable } from '@/components/wallet/TeamIncomeTable';
@@ -20,7 +17,7 @@ const WalletPage = () => {
 	return (
 		<div className='pb-20'>
 			<div className=' relative'>
-				<div className='bg-[#00AB66] px-4 space-y-4 h-[40vh] rounded-b-3xl'>
+				<div className='promotion-wrapper  px-4 space-y-4 h-[40vh] rounded-b-3xl'>
 					{/*Start Profile Upper Section */}
 					<div>
 						<UserInfo />

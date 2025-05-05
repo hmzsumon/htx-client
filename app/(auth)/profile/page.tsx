@@ -64,7 +64,7 @@ const ProfilePage = () => {
 
 	return (
 		<div className='pb-20'>
-			<div className=' relative'>
+			<div className='relative'>
 				<div className='promotion-wrapper px-4 space-y-4 h-[40vh] rounded-b-3xl'>
 					{/*Start Profile Upper Section */}
 					<div>
