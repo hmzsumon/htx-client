@@ -46,12 +46,12 @@ export function TeamIncomeTable({ walletData }: TeamIncomeTableProps) {
 		<Table>
 			<TableHeader className='text-xs'>
 				<TableRow>
-					<TableHead className=' text-gray-800 font-bold'>Purpose</TableHead>
-					<TableHead className=' text-gray-800 font-bold text-center'>
-						Daily Income
+					<TableHead className=' text-gray-800 font-bold'>Purpose 🔖</TableHead>
+					<TableHead className=' text-gray-800  font-bold text-center'>
+						Daily Income 💵
 					</TableHead>
 					<TableHead className=' text-gray-800 font-bold text-right'>
-						Total Income
+						Total Income 💰
 					</TableHead>
 				</TableRow>
 			</TableHeader>
@@ -60,10 +60,10 @@ export function TeamIncomeTable({ walletData }: TeamIncomeTableProps) {
 					<TableRow key={item.id}>
 						<TableCell className='font-medium'>{item.purpose}</TableCell>
 						<TableCell className='text-center'>
-							{formatBalance(item.daily_amount)} 💵
+							{formatBalance(item.daily_amount)} $
 						</TableCell>
 						<TableCell className=' text-right'>
-							{formatBalance(item.total_amount)} 💰
+							{formatBalance(item.total_amount)} $
 						</TableCell>
 					</TableRow>
 				))}

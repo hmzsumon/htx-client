@@ -30,8 +30,8 @@ const WalletPage = () => {
 
 				{/* Start Card Section */}
 				<div className='absolute top-[60%] w-full px-2'>
-					<Card className='p-4 bg-gray-50'>
-						<div className=' flex items-center justify-between my-2 text-sm font-bold'>
+					<Card className='px-1 bg-gray-50'>
+						<div className=' px-2 flex items-center justify-between my-2 text-sm font-bold'>
 							<p>Main Balance :</p>
 							<p>${formatBalance(user?.m_balance)}</p>
 						</div>
@@ -44,10 +44,10 @@ const WalletPage = () => {
 				{/* End Card Section */}
 			</div>
 
-			<div className='mt-40 space-y-4 px-2'>
+			<div className='mt-32 space-y-4 px-2'>
 				<div className=''>
-					<Card className='p-4 bg-[#bbd4f8]'>
-						<div className=' flex items-center justify-between my-2 text-sm font-bold'>
+					<Card className='px-1 bg-[#bbd4f8]'>
+						<div className='px-2 flex items-center justify-between my-2 text-sm font-bold'>
 							<div>
 								<p>Team Income</p>
 							</div>
@@ -60,8 +60,8 @@ const WalletPage = () => {
 				</div>
 
 				<div className=''>
-					<Card className='p-4 bg-[#24485E] text-white'>
-						<div className=' flex items-center justify-between my-2 text-sm font-bold'>
+					<Card className='px-1 bg-[#24485E] text-white'>
+						<div className='px-2 flex items-center justify-between my-2 text-sm font-bold'>
 							<div>
 								<p>Incentive Income</p>
 							</div>
