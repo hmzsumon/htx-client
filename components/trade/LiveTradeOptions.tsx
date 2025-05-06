@@ -22,14 +22,24 @@ import { fetchBaseQueryError } from '@/redux/services/helpers';
 import Link from 'next/link';
 import { CirclePlus } from 'lucide-react';
 import AddBalanceToLiveTradeDrawer from './AddBalanceToLiveTradeDrawer';
+import { useLoadUserQuery } from '@/redux/features/auth/authApi';
+import { m } from 'framer-motion';
 
 const LiveTradeOptions = () => {
+	const { refetch: userRefetch } = useLoadUserQuery();
 	const dispatch = useDispatch();
 	const { socket } = useSocket();
 	const { user } = useSelector((state: any) => state.auth);
 
 	const [isLiveAddBalanceDrawerOpen, setIsLiveAddBalanceDrawerOpen] =
 		useState(false);
+
+	const [isAddedButtonActive, setIsAddedButtonActive] = useState(() => {
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem('isAddedButtonActive') === 'true';
+		}
+		return false;
+	});
 
 	const { data, isLoading, refetch } = useGetUpcomingLiveTradeQuery(undefined);
 	const { liveTrade, alreadyJoined, me } = data || {};
@@ -72,16 +82,30 @@ const LiveTradeOptions = () => {
 		const handleLiveTradeEnded = () => {
 			refetch();
 			toast.success('Live trade has ended!');
+			setIsAddedButtonActive(false);
+			localStorage.removeItem('isAddedButtonActive');
 		};
+
+		// handle added button active
+		const handleAddedButtonActive = (data: any) => {
+			if (data?.userId === user?._id) {
+				setIsAddedButtonActive(true);
+				localStorage.setItem('isAddedButtonActive', 'true');
+				toast.success('Added button is active!');
+			}
+		};
+
 		socket.on('live-trade-started', handleLiveTradeActivated);
 		socket.on('new-live-trade', handleNewLiveTrade);
 		socket.on('live-trade-ended', handleLiveTradeEnded);
+		socket.on('added-button-active', handleAddedButtonActive);
 		return () => {
 			socket.off('live-trade-started', handleLiveTradeActivated);
 			socket.off('new-live-trade', handleNewLiveTrade);
 			socket.off('live-trade-ended', handleLiveTradeEnded);
+			socket.off('added-button-active', handleAddedButtonActive);
 		};
-	}, [socket, refetch]);
+	}, [socket, refetch, userRefetch]);
 
 	// Place Trade
 	const handlePlaceLiveTrade = () => {
@@ -189,7 +213,7 @@ const LiveTradeOptions = () => {
 		if (liveTrade.status === 'active') {
 			return (
 				<div>
-					{user?.is_live_trade && me?.isAddedButton && (
+					{isAddedButtonActive && (
 						<>
 							<Button
 								onClick={() => setIsLiveAddBalanceDrawerOpen(true)}
@@ -245,6 +269,9 @@ const LiveTradeOptions = () => {
 								? 'Completed'
 								: 'Upcoming'}
 						</span>
+						<Link href='/live-trade-history'>
+							<span>📜</span>
+						</Link>
 					</div>
 				</div>
 
@@ -282,35 +309,45 @@ const LiveTradeOptions = () => {
 			</Card>
 
 			{/* End Section */}
-			<Card className='p-2 rounded-md shadow-md space-y-4 mt-2'>
-				<div className='flex items-center justify-between'>
-					<div className='flex items-center gap-2'>
-						<h2 className='text-sm font-semibold'>Main Balance:</h2>
-						<span>{formatBalance(user?.m_balance)}$</span>
-						<Link href='/deposit'>
-							<span>
-								<CirclePlus
-									size={18}
-									className=' text-htx-blue cursor-pointer'
-								/>
-							</span>
-						</Link>
+			{liveTrade?.status !== 'completed' && (
+				<Card className='p-2 rounded-md shadow-md space-y-4 mt-2'>
+					<div className='flex flex-col items-center justify-between'>
+						<div className='flex w-full items-center justify-between gap-2'>
+							<h2 className='text-sm font-semibold'>Main Balance :</h2>
+							<div className='flex items-center'>
+								<span>{formatBalance(user?.m_balance)}$</span>
+								<Link href='/deposit'>
+									<span> ➕</span>
+								</Link>
+							</div>
+						</div>
+						<div className='flex justify-between w-full items-center gap-2'>
+							<h2 className='text-sm font-semibold'>Initial Balance:</h2>
+							<div>
+								{liveTrade?.is_active ? (
+									<span>{formatBalance(me?.initialBalance)}$</span>
+								) : (
+									<span>{formatBalance(user?.live_trade_balance)}$</span>
+								)}{' '}
+								💵
+							</div>
+						</div>
+
+						<div className='flex w-full items-center justify-between gap-2'>
+							<h2 className='text-sm font-semibold'>Added Balance :</h2>
+							<div className='flex items-center'>
+								<span>{formatBalance(me?.addedBalanceAmount)}$ 💰</span>
+							</div>
+						</div>
 					</div>
-					<div className='flex items-center gap-2'>
-						<h2 className='text-sm font-semibold'>Initial Balance:</h2>
-						{liveTrade?.is_active ? (
-							<span>{formatBalance(me?.initialBalance)}$</span>
-						) : (
-							<span>{formatBalance(user?.live_trade_balance)}$</span>
-						)}
-					</div>
-				</div>
-			</Card>
+				</Card>
+			)}
 
 			<LiveTradeDrawer />
 			<AddBalanceToLiveTradeDrawer
 				isLiveAddBalanceDrawerOpen={isLiveAddBalanceDrawerOpen}
 				setIsLiveAddBalanceDrawerOpen={setIsLiveAddBalanceDrawerOpen}
+				setIsAddedButtonActive={setIsAddedButtonActive}
 			/>
 		</div>
 	);

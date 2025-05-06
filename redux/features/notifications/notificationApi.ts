@@ -24,6 +24,12 @@ export const notificationApi = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['Notification'],
 		}),
+
+		//get notification-count
+		getNotificationCount: builder.query<any, void>({
+			query: () => '/notification-count',
+			providesTags: ['Notification'],
+		}),
 	}),
 });
 
@@ -31,4 +37,5 @@ export const {
 	useGetNotificationsQuery,
 	useUpdateNotificationMutation,
 	useDeleteNotificationMutation,
+	useGetNotificationCountQuery,
 } = notificationApi;

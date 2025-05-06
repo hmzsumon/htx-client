@@ -20,11 +20,13 @@ import { useAddBalanceToLiveTradeMutation } from '@/redux/features/trade/tradeAp
 interface DrawerProps {
 	isLiveAddBalanceDrawerOpen: boolean;
 	setIsLiveAddBalanceDrawerOpen: (open: boolean) => void;
+	setIsAddedButtonActive: (active: boolean) => void;
 }
 
 const AddBalanceToLiveTradeDrawer = ({
 	isLiveAddBalanceDrawerOpen,
 	setIsLiveAddBalanceDrawerOpen,
+	setIsAddedButtonActive,
 }: DrawerProps) => {
 	// call the add balance to live trade mutation
 	const [addBalanceToLiveTrade, { isLoading, isError, isSuccess, error }] =
@@ -106,6 +108,9 @@ const AddBalanceToLiveTradeDrawer = ({
 	useEffect(() => {
 		if (isSuccess) {
 			toast.success('Transfer successful');
+			// localStorage.removeItem('isAddedButtonActive')
+			setIsAddedButtonActive(false);
+			localStorage.removeItem('isAddedButtonActive');
 			handleClose();
 		}
 		if (isError) {

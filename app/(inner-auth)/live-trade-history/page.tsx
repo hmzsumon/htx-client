@@ -3,13 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import TradeHistoryCard from '@/components/trade/TradeHistoryCard';
-import { useGetMyTradeRoundHistoryQuery } from '@/redux/features/trade/tradeApi';
 import { ScaleLoader } from 'react-spinners';
 import { useGetTransactionsQuery } from '@/redux/features/transactions/transactionApi';
 import TransactionCard from '@/components/transactions/TransactionCard';
 
-const Transactions = () => {
+const LiveTradeHistory = () => {
 	const { data: transData, isFetching } = useGetTransactionsQuery(undefined, {
 		pollingInterval: 1000 * 60 * 5, // 5 minutes
 		refetchOnFocus: true,
@@ -25,8 +23,13 @@ const Transactions = () => {
 
 	useEffect(() => {
 		if (transactions?.length) {
-			setRecords((prev) => [...prev, ...transactions]);
-			if (transactions < 10) {
+			const filtered = transactions.filter(
+				(tx: any) => tx?.purpose === 'Live Trade Profit'
+			);
+
+			setRecords((prev) => [...prev, ...filtered]);
+
+			if (filtered.length < 10) {
 				setHasMore(false);
 			}
 		} else {
@@ -56,11 +59,11 @@ const Transactions = () => {
 	}, [loadMoreRef.current, isFetching, hasMore]);
 
 	return (
-		<div className='bg-white min-h-[80vh] '>
+		<div className='bg-white min-h-[80vh]'>
 			{records.length > 0 ? (
 				<>
 					{records.map((record: any, index: number) => (
-						<TransactionCard key={index} record={record} />
+						<TransactionCard key={index} record={record} isLiveTrade={true} />
 					))}
 
 					<div ref={loadMoreRef} className='flex justify-center py-4'>
@@ -91,4 +94,4 @@ const Transactions = () => {
 	);
 };
 
-export default Transactions;
+export default LiveTradeHistory;

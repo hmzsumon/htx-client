@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 interface TradeHistoryCardProps {
 	record: any;
+	isLiveTrade: boolean;
 }
 
-const TransactionCard = ({ record }: TradeHistoryCardProps) => {
-	console.log('record', record);
+const TransactionCard = ({ record, isLiveTrade }: TradeHistoryCardProps) => {
 	const [showDetail, setShowDetail] = useState(false);
 
 	const isSuccess = record.isCashIn;
@@ -40,13 +40,25 @@ const TransactionCard = ({ record }: TradeHistoryCardProps) => {
 						</p>
 					</div>
 				</div>
-				<div className='text-right'>
-					<p className={`text-xs ${resultColor} font-bold`}>{record.purpose}</p>
-					<p className={`${resultColor} text-xs font-bold`}>
-						{profitPrefix}
-						{!record.amount ? '---' : Math.abs(record.amount).toFixed(2)} $
-					</p>
-				</div>
+				{isLiveTrade ? (
+					<div className='text-right'>
+						<p className={`text-xs ${resultColor} font-bold`}>
+							{record.purpose}
+						</p>
+						<p className={`${resultColor} text-xs font-bold`}>
+							{!record.amount ? '0.00' : Math.abs(record.amount).toFixed(2)} $
+						</p>
+					</div>
+				) : (
+					<div className='text-right'>
+						<p className={`text-xs ${resultColor} font-bold`}>
+							{record.purpose}
+						</p>
+						<p className={`${resultColor} text-xs font-bold`}>
+							{!record.amount ? '---' : Math.abs(record.amount).toFixed(2)} $
+						</p>
+					</div>
+				)}
 			</div>
 
 			{/* Details */}

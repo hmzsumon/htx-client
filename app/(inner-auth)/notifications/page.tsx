@@ -41,7 +41,7 @@ const Notifications = () => {
 			{notifications?.length > 0 ? (
 				<div className='w-full space-y-1 px-1'>
 					{notifications?.map((notification: any) => (
-						<Card>
+						<Card key={notification._id} className='w-full'>
 							<div
 								key={notification._id}
 								className='p-2 w-full bg-white shadow-md rounded-md flex items-center justify-between '

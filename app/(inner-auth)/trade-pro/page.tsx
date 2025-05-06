@@ -17,11 +17,11 @@ const TradeProPage = () => {
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
-							value: `${team_a}/20 User's`,
+							value: `${team_a}/6 User's`,
 						},
 						{
 							title: 'Joining Team ("B" + "C")',
-							value: `${team_b + team_c}/6 User's`,
+							value: `${team_b + team_c}/20 User's`,
 						},
 						{
 							title: "Total Team Member's",

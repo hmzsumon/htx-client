@@ -1,14 +1,45 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Logo from '@/public/images/logos/logo-blue-01.png';
 import Link from 'next/link';
 import { BellDot, Menu } from 'lucide-react';
 import { UserDropdownMenu } from '../UserDropdownMenu';
+import { useGetNotificationCountQuery } from '@/redux/features/notifications/notificationApi';
+import { useSocket } from '@/context/SocketContext';
+import { useSelector } from 'react-redux';
 
 const AuthNavBar = () => {
 	const router = useRouter();
+	const { socket } = useSocket();
+	const { user } = useSelector((state: any) => state.auth);
+	const { data, refetch } = useGetNotificationCountQuery(undefined);
+	const { notifications } = data || {};
+	const [count, setCount] = useState(notifications);
+
+	// 🟢 update count when notifications data changes
+	useEffect(() => {
+		if (notifications !== undefined) {
+			setCount(notifications);
+		}
+	}, [notifications]);
+
+	// Socket listen for live trade start
+	useEffect(() => {
+		if (!socket) return;
+		const handleRefetch = (data: any) => {
+			if (data?.user_id === user?._id) {
+				refetch();
+			}
+		};
+
+		socket.on('user-notification', handleRefetch);
+
+		return () => {
+			socket.off('user-notification', handleRefetch);
+		};
+	}, [socket, refetch]);
 
 	return (
 		<div className='heder-bg sticky top-0 border-b border-b-primary/10 header z-50 bg-slate-900 shadow-sm'>
@@ -27,8 +58,17 @@ const AuthNavBar = () => {
 
 					<div className=' flex items-center gap-3'>
 						<div className='flex gap-2'>
-							<Link href='/notifications'>
+							<Link href='/notifications' className='relative'>
 								<BellDot className='text-htx-blue' />
+								{count > 0 && (
+									<span
+										className={`bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center p-1 absolute -top-2 -right-2 cursor-pointer ${
+											count > 99 ? 'text-[.6rem]' : 'text-[.7rem]'
+										}`}
+									>
+										{count > 99 ? '99+' : count}
+									</span>
+								)}
 							</Link>
 
 							{/* UserDropdownMenu */}
