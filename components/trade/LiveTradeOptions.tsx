@@ -314,29 +314,30 @@ const LiveTradeOptions = () => {
 					<div className='flex flex-col items-center justify-between'>
 						<div className='flex w-full items-center justify-between gap-2'>
 							<h2 className='text-sm font-semibold'>Main Balance :</h2>
-							<div className='flex items-center'>
+							<div className='flex items-center gap-1'>
 								<span>{formatBalance(user?.m_balance)}$</span>
 								<Link href='/deposit'>
-									<span> ➕</span>
+									<span className='text-xs'>➕</span>
 								</Link>
 							</div>
 						</div>
 						<div className='flex justify-between w-full items-center gap-2'>
 							<h2 className='text-sm font-semibold'>Initial Balance:</h2>
-							<div>
+							<div className='flex items-center gap-1'>
 								{liveTrade?.is_active ? (
 									<span>{formatBalance(me?.initialBalance)}$</span>
 								) : (
 									<span>{formatBalance(user?.live_trade_balance)}$</span>
 								)}{' '}
-								💵
+								<span className='text-xs'>💵</span>
 							</div>
 						</div>
 
 						<div className='flex w-full items-center justify-between gap-2'>
 							<h2 className='text-sm font-semibold'>Added Balance :</h2>
-							<div className='flex items-center'>
-								<span>{formatBalance(me?.addedBalanceAmount)}$ 💰</span>
+							<div className='flex items-center gap-1'>
+								<span>{formatBalance(me?.addedBalanceAmount)}$ </span>
+								<span className='text-xs'>💰</span>
 							</div>
 						</div>
 					</div>
