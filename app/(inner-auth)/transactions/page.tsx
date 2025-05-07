@@ -60,7 +60,7 @@ const Transactions = () => {
 			{records.length > 0 ? (
 				<>
 					{records.map((record: any, index: number) => (
-						<TransactionCard key={index} record={record} />
+						<TransactionCard key={index} record={record} isLiveTrade={false} />
 					))}
 
 					<div ref={loadMoreRef} className='flex justify-center py-4'>

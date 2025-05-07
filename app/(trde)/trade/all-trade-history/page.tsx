@@ -31,11 +31,11 @@ const TradeHistory = () => {
 
 			<div className='mt-8'>
 				<div className='mt-4'>
-					<div className='flex items-center bg-gray-200 justify-between gap-2 text-gray-700 px-2 py-1 '>
+					<div className='flex text-sm items-center bg-gray-200 justify-between gap-2 text-gray-700 px-2 py-1 '>
 						<button
 							onClick={() => handleActiveHistory(1)}
 							className={`${
-								activeHistory === 1 ? 'text-green-500 font-bold' : ''
+								activeHistory === 1 ? 'text-green-500 font-semibold' : ''
 							} `}
 						>
 							Trade Records
@@ -43,7 +43,7 @@ const TradeHistory = () => {
 						<button
 							onClick={() => handleActiveHistory(2)}
 							className={`${
-								activeHistory === 2 ? 'text-green-500 font-bold' : ''
+								activeHistory === 2 ? 'text-green-500 font-semibold' : ''
 							} `}
 						>
 							My Trades Records

@@ -129,7 +129,12 @@ const TransactionCard = ({
 
 						<>
 							<div className='flex justify-between'>
-								<span className='text-gray-500'>Sent Amount </span>
+								{is_receiver ? (
+									<span className='text-gray-500'>Receive Amount </span>
+								) : (
+									<span className='text-gray-500'>Sent Amount </span>
+								)}
+
 								<span className=''>
 									{(record?.amount - record?.fee).toLocaleString() || 0}{' '}
 									{currency}

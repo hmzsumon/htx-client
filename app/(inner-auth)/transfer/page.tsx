@@ -46,6 +46,7 @@ const TransferPage = () => {
 	const [recipient, setRecipient] = useState<any>(null);
 	const [recipientError, setRecipientError] = React.useState('');
 	const [isVerify, setIsVerify] = useState(false);
+	const [isDisable, setIsDisable] = useState(false);
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -104,10 +105,12 @@ const TransferPage = () => {
 		try {
 			const res = await findUserByCustomerId(userId).unwrap();
 			setRecipient(res?.user);
+			setIsDisable(true);
 			// check user id === recipient id
 			if (res?.user?.customer_id === user?.customer_id) {
 				setRecipientError('You cannot send to yourself');
 				setRecipient(null);
+				setIsDisable(false);
 			}
 		} catch (error) {
 			console.log(error);
@@ -134,7 +137,6 @@ const TransferPage = () => {
 			fee: fee,
 			receive_amount: receiveAmount,
 		};
-		console.log(data);
 		send(data);
 	};
 
@@ -147,6 +149,12 @@ const TransferPage = () => {
 			toast.success('Send successfully');
 			setOpenDrawer(false);
 			setUserId('');
+			setAmount('');
+			setFee(0);
+			setReceiveAmount(0);
+			setRecipient(null);
+			setIsDisable(false);
+			setIsVerify(false);
 			router.push('/transactions');
 		}
 	}, [s_isError, s_error, s_isSuccess]);
@@ -176,6 +184,7 @@ const TransferPage = () => {
 								placeholder='Enter User ID'
 								value={userId}
 								onChange={(e) => handleChangeUserId(e)}
+								disabled={isDisable}
 							/>
 							<small>
 								{recipientError && (
@@ -197,6 +206,7 @@ const TransferPage = () => {
 								placeholder='Enter Amount'
 								value={amount}
 								onChange={(e) => handleChangeAmount(e)}
+								disabled={isDisable}
 							/>
 							{/* Show 5% fee */}
 							<div className=' flex flex-col gap-1 mt-1 ml-1'>
