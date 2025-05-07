@@ -4,15 +4,14 @@ import DashboardMenuCard from './DashboardMenuCard';
 import Mail from '@/public/images/icons/mail.png';
 import Telegram from '@/public/images/icons/telegram.png';
 import Inbox from '@/public/images/icons/inbox.png';
-import { link } from 'fs';
 
 const items = [
 	{
 		id: 4,
-		title: 'Support Mail',
+		title: 'Support',
 		icon: null,
 		iconImg: Mail,
-		link: '/contact/support-mail',
+		link: '/contact/support',
 	},
 	{
 		id: 5,
@@ -26,7 +25,7 @@ const items = [
 		title: 'Inbox',
 		icon: null,
 		iconImg: Inbox,
-		link: '/contact/inbox',
+		link: '/notifications',
 	},
 ];
 

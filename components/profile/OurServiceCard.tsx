@@ -50,7 +50,7 @@ const items = [
 const OurServiceCard = () => {
 	return (
 		<div className='px-2 '>
-			<Card className='p-4 bg-[#F7F8FF]'>
+			<Card className='px-2 py-4 bg-[#F7F8FF]'>
 				<h2 className='text-sm font-bold'>Our Service Center</h2>
 				<hr className='my-2' />
 				<div className=' list-none mt-6 grid grid-cols-3 gap-4'>
@@ -60,7 +60,7 @@ const OurServiceCard = () => {
 							className=' flex flex-col items-center gap-2 cursor-pointer  '
 						>
 							<Image src={item.img} alt='settings' className='w-8' />
-							<span className='text-xs font-bold'>{item.title}</span>
+							<span className='text-[0.70rem] font-bold'>{item.title}</span>
 						</li>
 					))}
 				</div>

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import ProfileImg from '@/public/images/profile-avatar/avatar_1.png';
+import ProfileImg from '@/public/images/icons/man.png';
 import { formatDate, maskEmail } from '@/lib/functions';
 import { useSelector } from 'react-redux';
 import CopyToClipboard from '@/lib/CopyToClipboard';

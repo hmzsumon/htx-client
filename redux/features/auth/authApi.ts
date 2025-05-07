@@ -104,6 +104,7 @@ export const authApi = apiSlice.injectEndpoints({
 			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
 				try {
 					const result = await queryFulfilled;
+					localStorage.removeItem('hasSeenDashboardDialog');
 					dispatch(logoutUser());
 					dispatch(setUser(null));
 				} catch (error) {

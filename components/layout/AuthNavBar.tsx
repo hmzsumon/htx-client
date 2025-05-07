@@ -42,7 +42,7 @@ const AuthNavBar = () => {
 	}, [socket, refetch]);
 
 	return (
-		<div className='heder-bg sticky top-0 border-b border-b-primary/10 header z-50 bg-slate-900 shadow-sm'>
+		<div className='heder-bg sticky top-0 border-b border-b-primary/10 header z-50 bg-[#C0F2DC] shadow-sm'>
 			<div className='max-w-[1920px] w-full mx-auto xl:px-20 px-2 py-3'>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>

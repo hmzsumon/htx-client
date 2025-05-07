@@ -1,21 +1,7 @@
 'use client';
-import {
-	Cloud,
-	CreditCard,
-	Github,
-	Keyboard,
-	LifeBuoy,
-	LogOut,
-	Mail,
-	Menu,
-	MessageSquare,
-	Plus,
-	PlusCircle,
-	Settings,
-	User,
-	UserPlus,
-	Users,
-} from 'lucide-react';
+import { CreditCard, LogOut, Menu, User } from 'lucide-react';
+import Image from 'next/image';
+import ProfileImg from '@/public/images/icons/profile.png';
 
 import {
 	DropdownMenu,
@@ -52,7 +38,11 @@ export function UserDropdownMenu() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Menu className='text-htx-blue cursor-pointer' />
+				<Image
+					src={ProfileImg}
+					alt='profile'
+					className='w-6 h-6 rounded-full cursor-pointer'
+				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56 mr-4'>
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>

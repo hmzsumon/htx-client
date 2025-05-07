@@ -1,9 +1,10 @@
 'use client';
 import ContactMenu from '@/components/dashboard/ContactMenu';
+import { DashboardDialog } from '@/components/dashboard/Dialog';
 import GlobalTradeViewMenu from '@/components/dashboard/GlobalTradeViewMenu';
 import GlobalTradeViewMenu2 from '@/components/dashboard/GlobalTradeViewMenu2';
 import SettingsMenu from '@/components/dashboard/SettingsMenu';
-import TradeHistoryMenu from '@/components/dashboard/TradeHistoryMenu';
+
 import TradeMenu from '@/components/dashboard/TradeMenu';
 import AnnouncementBanner from '@/components/home/AnnouncementBanner';
 import SimpleSlider from '@/components/home/Carousel';
@@ -24,6 +25,7 @@ const Dashboard = () => {
 				<GlobalTradeViewMenu2 />
 				<ContactMenu />
 			</div>
+			<DashboardDialog />
 		</div>
 	);
 };
