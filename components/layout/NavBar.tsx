@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Logo from '@/public/images/logos/logo-blue-01.png';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { LogoText } from './AuthNavBar';
 
 const NavBar = () => {
 	const router = useRouter();
@@ -14,14 +15,7 @@ const NavBar = () => {
 			<div className='max-w-[1920px] w-full mx-auto xl:px-20 px-2 py-3'>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>
-						<div>
-							<Image
-								src={Logo}
-								alt='logo'
-								className='w-32'
-								onClick={() => router.push('/')}
-							/>
-						</div>
+						<LogoText />
 					</div>
 
 					<div className=' flex items-center gap-3'>

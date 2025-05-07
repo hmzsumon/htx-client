@@ -2,13 +2,31 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Logo from '@/public/images/logos/logo-blue-01.png';
+import Logo from '@/public/images/logos/icon-htx.png';
 import Link from 'next/link';
 import { BellDot, Menu } from 'lucide-react';
 import { UserDropdownMenu } from '../UserDropdownMenu';
 import { useGetNotificationCountQuery } from '@/redux/features/notifications/notificationApi';
 import { useSocket } from '@/context/SocketContext';
 import { useSelector } from 'react-redux';
+
+export const LogoText = () => {
+	const router = useRouter();
+	return (
+		<div className='flex items-center gap-1'>
+			<Image
+				src={Logo}
+				alt='logo'
+				className='w-4'
+				onClick={() => router.push('/')}
+			/>
+			<h2 className='text-htx-blue text-md flex items-center gap-1 cursor-pointer'>
+				<span className='text-htx-blue font-bold '>HTX</span>
+				<span className='text-slate-600 font-bold '>Trade</span>
+			</h2>
+		</div>
+	);
+};
 
 const AuthNavBar = () => {
 	const router = useRouter();
@@ -46,14 +64,7 @@ const AuthNavBar = () => {
 			<div className='max-w-[1920px] w-full mx-auto xl:px-20 px-2 py-3'>
 				<div className='flex justify-between items-center'>
 					<div className=' flex items-center gap-1 cursor-pointer'>
-						<div>
-							<Image
-								src={Logo}
-								alt='logo'
-								className='w-32'
-								onClick={() => router.push('/')}
-							/>
-						</div>
+						<LogoText />
 					</div>
 
 					<div className=' flex items-center gap-3'>

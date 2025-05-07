@@ -28,11 +28,7 @@ const AuthFooter = () => {
 										isActive('/dashboard') ? 'text-blue-700' : ''
 									}`}
 								>
-									<Image
-										src={Dashboard}
-										alt='icon'
-										className='w-8 h-8 object-contain'
-									/>
+									<span className='text-xl'>📊</span>
 									<span className='text-xs'>Dashboard</span>
 								</span>
 							</Link>
@@ -47,11 +43,7 @@ const AuthFooter = () => {
 										isActive('/rank-reward') ? 'text-blue-700' : ''
 									}`}
 								>
-									<Image
-										src={Award}
-										alt='icon'
-										className='w-8 h-8 object-contain'
-									/>
+									<span className='text-xl'>🎖️</span>
 									<span className='text-xs'>Rank</span>
 								</span>
 							</Link>
@@ -104,11 +96,7 @@ const AuthFooter = () => {
 										isActive('/wallet') ? 'text-blue-700' : ''
 									}`}
 								>
-									<Image
-										src={Wallet2}
-										alt='icon'
-										className='w-8 h-8 object-contain'
-									/>
+									<span className='text-xl'>💳</span>
 									<span className='text-xs'>Wallet</span>
 								</span>
 							</Link>
@@ -123,11 +111,7 @@ const AuthFooter = () => {
 										isActive('/profile') ? 'text-blue-700' : ''
 									}`}
 								>
-									<Image
-										src={User2}
-										alt='icon'
-										className='w-8 h-8 object-contain'
-									/>
+									<span className='text-xl'>🪪</span>
 									<span className='text-xs'>Profile</span>
 								</span>
 							</Link>
