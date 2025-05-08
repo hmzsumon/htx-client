@@ -4,6 +4,7 @@ import { TeamViewCard } from '@/components/promotion/TeamViewCard';
 
 import { Card } from '@/components/ui/card';
 import UserInfo from '@/components/UserInfo';
+import { formatBalance } from '@/lib/functions';
 import { useGetMyPromotionDataQuery } from '@/redux/features/auth/authApi';
 import React from 'react';
 
@@ -49,7 +50,9 @@ const PromotionPage = () => {
 										<span className=' col-span-3'>Deposit Amount</span>
 										<span className=' col-span-1'>:</span>
 										<span className=' col-span-2'>
-											{promotionData?.direct_today_sales_amount || 0}{' '}
+											{formatBalance(
+												promotionData?.direct_today_sales_amount || 0
+											)}{' '}
 											<span>💵</span>
 										</span>
 									</li>
@@ -83,7 +86,9 @@ const PromotionPage = () => {
 										<span className=' col-span-3'>Deposit Amount</span>
 										<span className=' col-span-1'>:</span>
 										<span className=' col-span-2'>
-											{promotionData?.team_today_sales_amount || 0}{' '}
+											{formatBalance(
+												promotionData?.team_today_sales_amount || 0
+											)}{' '}
 											<span>💵</span>
 										</span>
 									</li>

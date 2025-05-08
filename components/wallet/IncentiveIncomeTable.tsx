@@ -42,7 +42,7 @@ export function IncentiveIncomeTable() {
 			</TableHeader>
 			<TableBody>
 				{items.map((item) => (
-					<TableRow key={item.id}>
+					<TableRow key={item.id} className='text-xs'>
 						<TableCell className='font-medium'>{item.purpose}</TableCell>
 						<TableCell className=' text-right'>{item.total_amount}</TableCell>
 					</TableRow>
