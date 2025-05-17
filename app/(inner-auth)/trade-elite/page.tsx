@@ -15,7 +15,7 @@ const TradeElitePage = () => {
 				<GlobalTradeViewTemplate
 					tradeImg={TradeElite}
 					title='Trade Elite'
-					balance={500}
+					balance={200}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
@@ -37,11 +37,11 @@ const TradeElitePage = () => {
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '10%',
+							value: '5%',
 						},
 						{
 							title: 'Profit Team ("B")',
-							value: '3%',
+							value: '2%',
 						},
 						{
 							title: 'Profit Team ("C")',

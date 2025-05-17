@@ -304,6 +304,25 @@ export const authApi = apiSlice.injectEndpoints({
 				method: 'GET',
 			}),
 		}),
+
+		// get my spin prize
+		getMySpinPrize: builder.query<any, any>({
+			query: () => ({
+				url: `/get-my-spin-prize`,
+				method: 'GET',
+			}),
+			providesTags: ['User', 'SpinPrize'],
+		}),
+
+		// claim spin prize
+		claimSpinPrize: builder.mutation<any, any>({
+			query: (body) => ({
+				url: `/claim-spin-prize`,
+				method: 'POST',
+				body,
+			}),
+			invalidatesTags: ['User', 'SpinPrize'],
+		}),
 	}),
 });
 
@@ -340,4 +359,7 @@ export const {
 	useGetActivePromotionDataQuery,
 	useGetMyMembersQuery,
 	useGetMyTeamQuery,
+
+	useGetMySpinPrizeQuery,
+	useClaimSpinPrizeMutation,
 } = authApi;

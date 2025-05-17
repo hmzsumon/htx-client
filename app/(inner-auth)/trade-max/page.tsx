@@ -13,7 +13,7 @@ const TradeMaxPage = () => {
 				<GlobalTradeViewTemplate
 					tradeImg={TradeMax}
 					title='Trade Max'
-					balance={5000}
+					balance={400}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
@@ -35,15 +35,15 @@ const TradeMaxPage = () => {
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '14%',
+							value: '9%',
 						},
 						{
 							title: 'Profit Team ("B")',
-							value: '5%',
+							value: '4%',
 						},
 						{
 							title: 'Profit Team ("C")',
-							value: '3%',
+							value: '2%',
 						},
 					]}
 				/>

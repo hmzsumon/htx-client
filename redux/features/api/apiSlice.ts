@@ -37,6 +37,7 @@ export const apiSlice = createApi({
 		'Trade',
 		'Trades',
 		'Transfer',
+		'SpinPrize',
 	],
 	endpoints: (builder) => ({}),
 });

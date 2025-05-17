@@ -13,6 +13,7 @@ import ImgNodata from '@/public/images/no-data.gif';
 import { Card } from '@/components/ui/card';
 import { Trash2 } from 'lucide-react';
 import { formDateWithTime } from '@/lib/functions';
+import Link from 'next/link';
 
 const Notifications = () => {
 	const { data, isLoading } = useGetNotificationsQuery();
@@ -56,6 +57,15 @@ const Notifications = () => {
 											{formDateWithTime(notification.createdAt)}
 										</p>
 									</div>
+
+									{notification?.category === 'spin_prize' && (
+										<Link
+											href={notification.url}
+											className='text-xs bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 transition-all mt-1'
+										>
+											Go to Spin!
+										</Link>
+									)}
 								</div>
 								<div>
 									<Trash2

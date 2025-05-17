@@ -13,7 +13,7 @@ const TradeProPage = () => {
 				<GlobalTradeViewTemplate
 					tradeImg={TradePro}
 					title='Trade Pro'
-					balance={2000}
+					balance={300}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
@@ -35,15 +35,15 @@ const TradeProPage = () => {
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '12%',
+							value: '7%',
 						},
 						{
 							title: 'Profit Team ("B")',
-							value: '4%',
+							value: '3%',
 						},
 						{
 							title: 'Profit Team ("C")',
-							value: '2%',
+							value: '1%',
 						},
 					]}
 				/>

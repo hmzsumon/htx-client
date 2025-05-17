@@ -14,7 +14,7 @@ const TradeInfinityPage = () => {
 				<GlobalTradeViewTemplate
 					tradeImg={TradeInfinity}
 					title='TradeInfinity'
-					balance={30000}
+					balance={1000}
 					conditions={[
 						{
 							title: 'Direct Joining Team "A"',
@@ -36,15 +36,15 @@ const TradeInfinityPage = () => {
 						},
 						{
 							title: 'Profit Team ("A")',
-							value: '24%',
+							value: '14%',
 						},
 						{
 							title: 'Profit Team ("B")',
-							value: '10%',
+							value: '7%',
 						},
 						{
 							title: 'Profit Team ("C")',
-							value: '8%',
+							value: '3%',
 						},
 					]}
 				/>

@@ -41,17 +41,18 @@ const MenuCard2 = () => {
 						</li>
 					</Link>
 					<hr className='my-4' />
+					<Link href='/free-spin-deposit'>
+						<li className='flex items-center justify-between gap-2'>
+							<div className='flex items-center gap-2 text-xs font-bold'>
+								<Image src={SpinDeposit} alt='gift' className=' w-8' />
 
-					<li className='flex items-center justify-between gap-2'>
-						<div className='flex items-center gap-2 text-xs font-bold'>
-							<Image src={SpinDeposit} alt='gift' className=' w-8' />
-
-							<span>Free Spin on Deposit</span>
-						</div>
-						<div>
-							<ChevronRight className=' hover:scale-150 transition-all cursor-pointer' />
-						</div>
-					</li>
+								<span>Free Spin on Deposit</span>
+							</div>
+							<div>
+								<ChevronRight className=' hover:scale-150 transition-all cursor-pointer' />
+							</div>
+						</li>
+					</Link>
 					<hr className='my-4' />
 
 					<li className='flex items-center justify-between gap-2'>
