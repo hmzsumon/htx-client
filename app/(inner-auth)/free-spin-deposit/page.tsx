@@ -7,6 +7,7 @@ import SpinDeposit from '@/public/images/icons/spin_deposit.png';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { useGetMySpinPrizeQuery } from '@/redux/features/auth/authApi';
+import FreeSpin from '@/components/FreeSpin/FreeSpin';
 
 const FreeSpinPage = () => {
 	const { user } = useSelector((state: any) => state.auth);
@@ -19,9 +20,9 @@ const FreeSpinPage = () => {
 	}, [user]);
 
 	return (
-		<div className='min-h-[85.5vh] bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-start py-10 px-4'>
+		<div className='min-h-[85.5vh] bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white flex flex-col items-center justify-start py-5 px-4'>
 			<div className='w-full max-w-md bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-xl'>
-				<div className='flex items-center justify-between mb-4'>
+				<div className='flex items-center justify-between mb-1'>
 					<div className='flex items-center gap-3'>
 						<Image src={SpinDeposit} alt='Spin Icon' width={40} height={40} />
 						<h1 className='text-xl font-bold text-white'>
@@ -30,12 +31,12 @@ const FreeSpinPage = () => {
 					</div>
 				</div>
 
-				<p className='text-sm text-white/80 mb-6'>
+				<p className='text-xs text-white/80 '>
 					You've unlocked a free spin for making a successful deposit! 🎉 Try
 					your luck to win exciting rewards. Click below to spin the wheel.
 				</p>
 
-				<div className='text-center'>
+				{/* <div className='text-center mb-6'>
 					{spinPrize?.status === 'completed' ? (
 						<p className='text-xl font-bold text-green-400'>
 							🎉 You won: {spinPrize.amount}$
@@ -49,14 +50,14 @@ const FreeSpinPage = () => {
 							🎯 Spin Now
 						</Button>
 					)}
-				</div>
+				</div> */}
 
-				{showDialog && (
-					<FreeSpinDialog
+				<div className=' mt-6'>
+					<FreeSpin
 						forcePrize={spinPrize?.prize || '1$'}
 						spainId={spinPrize?._id}
 					/>
-				)}
+				</div>
 			</div>
 		</div>
 	);

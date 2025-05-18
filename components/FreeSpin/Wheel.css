@@ -1,0 +1,145 @@
+.rotating-wheel {
+	will-change: transform;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	transform-origin: center;
+}
+
+.fire-particle {
+	animation-name: flyOut;
+	animation-timing-function: linear;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes flyOut {
+	from {
+		transform: translate(0, 0) scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: translate(var(--x), var(--y)) scale(0.6);
+		opacity: 0;
+	}
+}
+.glow-border {
+	border-radius: 50%;
+	box-shadow: 0 0 12px 4px rgba(255, 140, 0, 0.6),
+		0 0 24px 8px rgba(255, 100, 0, 0.5), 0 0 36px 14px rgba(255, 80, 0, 0.4);
+	animation: flameGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes flameGlow {
+	0% {
+		box-shadow: 0 0 12px 4px rgba(255, 140, 0, 0.4),
+			0 0 22px 6px rgba(255, 100, 0, 0.4), 0 0 34px 12px rgba(255, 80, 0, 0.3);
+		transform: scale(1);
+	}
+	50% {
+		box-shadow: 0 0 16px 6px rgba(255, 180, 0, 0.8),
+			0 0 28px 10px rgba(255, 120, 0, 0.7), 0 0 40px 16px rgba(255, 90, 0, 0.5);
+		transform: scale(1.03);
+	}
+	100% {
+		box-shadow: 0 0 12px 4px rgba(255, 140, 0, 0.4),
+			0 0 22px 6px rgba(255, 100, 0, 0.4), 0 0 34px 12px rgba(255, 80, 0, 0.3);
+		transform: scale(1);
+	}
+}
+
+.sunburst-img {
+	opacity: 0.5;
+	mix-blend-mode: screen;
+	animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes flyOut {
+	from {
+		transform: translate(0px, 0px) scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: translate(var(--x), var(--y)) scale(0.6);
+		opacity: 0;
+	}
+}
+
+.animate-fly {
+	animation-name: flyOut;
+	animation-timing-function: ease-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	opacity: 1;
+}
+
+@keyframes coinPullIn {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: translate(-50%, -50%) scale(0.4);
+		opacity: 0;
+	}
+}
+
+.animate-pull {
+	animation: coinPullIn 0.8s ease-in forwards;
+	position: absolute;
+}
+
+@keyframes blastOut {
+	0% {
+		transform: translate(0, 0) scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(var(--x), var(--y)) scale(0.5);
+		opacity: 0;
+	}
+}
+
+.animate-blast {
+	animation-name: blastOut;
+	animation-timing-function: ease-out;
+	animation-fill-mode: forwards;
+	animation-iteration-count: 1;
+	opacity: 1;
+	position: absolute;
+}
+
+.fire-ring {
+	position: absolute;
+	width: 118%;
+	height: 118%;
+	background: url('/spin/fire_ring.png') no-repeat center center;
+	background-size: contain;
+	animation: spinFire 30s linear infinite;
+	pointer-events: none;
+	z-index: 20;
+	-webkit-animation: spinFire 30s linear infinite;
+}
+
+@keyframes spinFire {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.wrapper {
+	background: url('/spin/bg-2.png') no-repeat center center;
+	background-size: cover;
+}
