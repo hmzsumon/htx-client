@@ -40,6 +40,7 @@ export function FreeSpinDialog({ forcePrize, spainId }: DialogProps) {
 			await claimSpinPrize({ spinPrizeId: spainId });
 		}
 	};
+	
 
 	const wheelRef = useRef<HTMLDivElement | null>(null);
 	const angleMap: Record<string, number> = {
