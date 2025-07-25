@@ -1,16 +1,25 @@
+import { useGetActiveTradeRoundBySymbolQuery } from '@/redux/features/trade/tradeApi';
 import {
+	setCurrentRoundByTimeAndSymbol,
 	setKline,
 	setTradeDuration,
 	setTradeLoading,
 } from '@/redux/features/trade/tradeSlice';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineLineChart } from 'react-icons/ai';
 import { MdCandlestickChart } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 
 const TradeDuration = () => {
 	const dispatch = useDispatch();
-	const { tradeDuration, kline } = useSelector((state: any) => state.trade);
+	const { tradeDuration, kline, symbol } = useSelector(
+		(state: any) => state.trade
+	);
+
+	const { data } = useGetActiveTradeRoundBySymbolQuery({
+		symbol,
+		timePeriod: tradeDuration,
+	});
 
 	// handle kline change
 	const handleKlineChange = () => {
@@ -23,7 +32,23 @@ const TradeDuration = () => {
 	const handleSetTime = (e: any) => {
 		dispatch(setTradeDuration(e)); // Close the trade drawer
 		dispatch(setTradeLoading(true)); // Set loading state to true
+		// Refetch the active round data
 	};
+
+	const { activeRound: initialRound } = data || {};
+	console.log('Active Round:', initialRound);
+
+	useEffect(() => {
+		if (initialRound) {
+			dispatch(
+				setCurrentRoundByTimeAndSymbol({
+					timePeriod: tradeDuration,
+					symbol,
+					round: initialRound,
+				})
+			);
+		}
+	}, [initialRound, dispatch, tradeDuration, symbol]);
 	return (
 		<div className=''>
 			<div className='flex items-center justify-around p-1 text-xs list-none text-blue-gray-300 bg-blue-gray-900 md:text-md bg-slate-300'>

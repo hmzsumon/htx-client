@@ -48,5 +48,7 @@ export const config = {
 		'/partnership',
 		'/send',
 		'/transfer',
+		'/trade/live-trade',
+		'/trade/signal-trade',
 	],
 };

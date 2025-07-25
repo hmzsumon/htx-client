@@ -1,7 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Countdown from './Countdown';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetActiveTradeRoundBySymbolQuery } from '@/redux/features/trade/tradeApi';
+import { setCurrentRoundByTimeAndSymbol } from '@/redux/features/trade/tradeSlice';
 
 interface RoundData {
 	endTime: string;
@@ -9,7 +11,10 @@ interface RoundData {
 }
 
 const ActiveRound = () => {
+	const dispatch = useDispatch();
+
 	const [activeRound, setActiveRound] = useState<RoundData | null>(null);
+	console.log('ActiveRound component rendered', activeRound);
 
 	const { symbol, tradeDuration, currentRounds } = useSelector(
 		(state: any) => state.trade

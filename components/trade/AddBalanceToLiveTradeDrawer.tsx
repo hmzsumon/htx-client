@@ -151,7 +151,7 @@ const AddBalanceToLiveTradeDrawer = ({
 							<p>Main Balance :</p>
 							<div className='flex items-center gap-2'>
 								<span className='text-green-600 font-semibold'>
-									{formatBalance(user.m_balance)} USDT
+									{formatBalance(user?.m_balance)} USDT
 								</span>
 								<span>
 									<CirclePlus

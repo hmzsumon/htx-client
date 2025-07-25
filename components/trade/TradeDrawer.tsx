@@ -60,8 +60,8 @@ const TradeDrawer = () => {
 	};
 
 	const handleAllAmount = () => {
-		if (user.m_balance >= 0.1) {
-			setAmount(user.m_balance.toString());
+		if (user?.m_balance >= 0.1) {
+			setAmount(user?.m_balance.toString());
 			setAmountError('');
 		} else {
 			setAmount('');
@@ -139,7 +139,7 @@ const TradeDrawer = () => {
 							<p>Available:</p>
 							<div className='flex items-center gap-2'>
 								<span className='text-green-600 font-semibold'>
-									{formatBalance(user.m_balance)} USDT
+									{formatBalance(user?.m_balance)} USDT
 								</span>
 								<Link href='/deposit'>
 									<CirclePlus

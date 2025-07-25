@@ -28,12 +28,12 @@ const WithdrawPage = () => {
 		useCreateWithdrawRequestMutation();
 
 	const withdrawInstructions = [
-		<>
-			You must reach a trade volume of{' '}
-			<span className='text-red-500 font-bold'>{user?.trade_volume}$</span> to
-			be eligible for withdrawal. (This value reflects your personal trade
-			volume).
-		</>,
+		// <>
+		// 	You must reach a trade volume of{' '}
+		// 	<span className='text-red-500 font-bold'>{user?.trade_volume}$</span> to
+		// 	be eligible for withdrawal. (This value reflects your personal trade
+		// 	volume).
+		// </>,
 
 		'Withdrawals are available 24 hours a day.',
 		'Withdrawals are typically processed between 1 minute to 24 hours after submission.',
@@ -53,7 +53,7 @@ const WithdrawPage = () => {
 	const [network, setNetwork] = useState('trc20');
 	const [openDrawer, setOpenDrawer] = useState(false);
 
-	const availableBalance = user?.m_balance - user?.trade_volume;
+	const availableBalance = user?.m_balance;
 
 	const handleNetworkChange = (value: string) => {
 		setNetwork(value);
@@ -121,7 +121,6 @@ const WithdrawPage = () => {
 			receiptAmount: actualReceipt,
 		};
 
-		console.log('Withdrawal data:', data);
 		createWithdrawRequest(data);
 	};
 

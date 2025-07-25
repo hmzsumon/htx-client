@@ -62,7 +62,7 @@ const DepositForm = () => {
 		if (!socket) return;
 
 		socket.on('deposit-update', (data) => {
-			console.log('📦 Deposit update via socket:', data);
+			// console.log('📦 Deposit update via socket:', data);
 			toast.success(data.message || 'Deposit received!');
 			setDeposit(data.deposit);
 

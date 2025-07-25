@@ -21,12 +21,12 @@ const TransferPage = () => {
 	const { user } = useSelector((state: any) => state.auth);
 
 	const transferData = [
-		<>
-			You must reach a trade volume of{' '}
-			<span className='text-red-500 font-bold'>{user?.trade_volume}$</span> to
-			be eligible for transfer. (This value reflects your personal trade
-			volume).
-		</>,
+		// <>
+		// 	You must reach a trade volume of{' '}
+		// 	<span className='text-red-500 font-bold'>{user?.trade_volume}$</span> to
+		// 	be eligible for transfer. (This value reflects your personal trade
+		// 	volume).
+		// </>,
 		'Minimum transfer amount is $10.',
 		'You can transfer balance only to valid registered users of this platform.',
 		'Once transferred, the balance cannot be reversed or refunded.',
@@ -50,7 +50,7 @@ const TransferPage = () => {
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
-	const availableBalance = user?.m_balance - user?.trade_volume;
+	const availableBalance = user?.m_balance;
 
 	const [findUserByCustomerId, { data, isLoading, isError, error, isSuccess }] =
 		useFindUserByCustomerIdMutation();
