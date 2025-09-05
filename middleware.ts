@@ -1,54 +1,55 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-	const path = request.nextUrl.pathname;
-	const isPublicPath =
-		path === '/login' ||
-		path === '/signup' ||
-		path === '/forgot-password' ||
-		path === '/reset-password' ||
-		path === '/email-verify' ||
-		path === '/404' ||
-		path === '/500' ||
-		path === '/';
-	const token = request.cookies.get('htx-token')?.value || '';
-	// const token = true;
+  const path = request.nextUrl.pathname;
+  const isPublicPath =
+    path === "/login" ||
+    path === "/signup" ||
+    path === "/forgot-password" ||
+    path === "/reset-password" ||
+    path === "/email-verify" ||
+    path === "/404" ||
+    path === "/500" ||
+    path === "/";
+  const token = request.cookies.get("htx-token")?.value || "";
+  // const token = true;
 
-	if (isPublicPath && token) {
-		return NextResponse.redirect(
-			new URL('/dashboard', request.nextUrl).toString()
-		);
-	}
+  if (isPublicPath && token) {
+    return NextResponse.redirect(
+      new URL("/dashboard", request.nextUrl).toString()
+    );
+  }
 
-	if (!isPublicPath && !token) {
-		return NextResponse.redirect(new URL('/', request.nextUrl).toString());
-	}
+  if (!isPublicPath && !token) {
+    return NextResponse.redirect(new URL("/", request.nextUrl).toString());
+  }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-	matcher: [
-		'/',
-		'/dashboard',
-		'/security',
-		'/deposit',
-		'/withdraw',
-		'/deposit/[depositId]',
-		'/withdraw/[withdrawId]',
-		'/deposit/deposit-methods',
-		'/withdraw/withdraw-methods',
-		'/team/my-team',
-		'/profile',
-		'/partner-program',
-		'/generation-program',
-		'/global-program',
-		'/investment',
-		'/partnership',
-		'/send',
-		'/transfer',
-		'/trade/live-trade',
-		'/trade/signal-trade',
-	],
+  matcher: [
+    "/",
+    "/dashboard",
+    "/security",
+    "/deposit",
+    "/withdraw",
+    "/deposit/[depositId]",
+    "/withdraw/[withdrawId]",
+    "/deposit/deposit-methods",
+    "/withdraw/withdraw-methods",
+    "/team/my-team",
+    "/profile",
+    "/partner-program",
+    "/generation-program",
+    "/global-program",
+    "/investment",
+    "/partnership",
+    "/send",
+    "/transfer",
+    "/trade/live-trade",
+    "/trade/signal-trade",
+    "/booster-history",
+  ],
 };

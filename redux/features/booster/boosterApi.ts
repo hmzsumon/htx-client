@@ -1,31 +1,27 @@
-/* ── কমেন্ট ───────────────────────────────── */
-/** RTK Query endpoints for "Monthly Booster".
- *  - reserveBooster: lock an amount for the current cycle
- *  - getMyBoosterSummary: read current cycle, total locked, next payout
- */
-
 import { apiSlice } from "../api/apiSlice";
 
 export const boosterApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    reserveBooster: builder.mutation<
-      { success: boolean; data: any },
-      { amount: number; autoRollover?: boolean }
-    >({
-      /* ── কমেন্ট ───────────────────────────────── */
-      // POST to backend; invalidates "User" (balance) and "Booster" cache
-      query: (body) => ({ url: "/booster/reserve", method: "POST", body }),
+    getMyBoosterSummary: builder.query<any, void>({
+      query: () => ({ url: "/booster/summary" }),
+      providesTags: ["Booster"],
+    }),
+    /* ── create ne booster ───────────────────────────────── */
+    createBooster: builder.mutation<any, any>({
+      query: (body) => ({ url: "/booster/new", method: "POST", body }),
       invalidatesTags: ["User", "Booster"],
     }),
 
-    getMyBoosterSummary: builder.query<any, void>({
-      /* ── কমেন্ট ───────────────────────────────── */
-      // GET the user's active reservations and computed totals
-      query: () => ({ url: "/booster/me/summary" }),
+    /* ── Get user booster ───────────────────────────────── */
+    getUserBooster: builder.query<any, any>({
+      query: () => `/booster/me`,
       providesTags: ["Booster"],
     }),
   }),
 });
 
-export const { useReserveBoosterMutation, useGetMyBoosterSummaryQuery } =
-  boosterApi;
+export const {
+  useGetMyBoosterSummaryQuery,
+  useCreateBoosterMutation,
+  useGetUserBoosterQuery,
+} = boosterApi;

@@ -18,9 +18,7 @@ export default function Banner({ message, tone = "info" }: Props) {
 
   /* ── Centered pill with medium emphasis for inline notices ─────────────── */
   return (
-    <div
-      className={`w-full rounded-2xl px-4 py-3 border ${clr} text-center font-semibold`}
-    >
+    <div className="w-full box-top text-white rounded-lg px-4 py-3   text-center font-semibold">
       {message}
     </div>
   );

@@ -22,7 +22,7 @@ export default function BoosterBackground({
                    [background:radial-gradient(900px_circle_at_-10%_-10%,rgba(255,255,255,0.03),transparent_40%),radial-gradient(900px_circle_at_110%_110%,rgba(255,255,255,0.03),transparent_40%)]"
       />
       {/* ── Your page content goes here ───────────────────────────────────── */}
-      <div className="relative">{children}</div>
+      <div className="relative pb-24">{children}</div>
     </div>
   );
 }

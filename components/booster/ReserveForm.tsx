@@ -1,4 +1,4 @@
-/* ── Minimal form composing AmountInput, Switch, and submit button ───────── */
+/* ── ReserveForm: Amount + Auto-rollover + Submit ────────── */
 
 "use client";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import AmountInput from "./AmountInput";
 import AutoRolloverSwitch from "./AutoRolloverSwitch";
 import ReserveButton from "./ReserveButton";
 
+/* ── Props ────────── */
 type Props = {
   onSubmit: (payload: {
     amount: number;
@@ -14,28 +15,53 @@ type Props = {
   busy?: boolean;
 };
 
+/* ── Validation: minimum threshold ────────── */
+const MIN_AMOUNT = 50;
+
+/* ── Component ────────── */
 export default function ReserveForm({ onSubmit, busy }: Props) {
-  /* ── Local UI state only; network handled by parent via onSubmit ───────── */
+  /* ── Local state ────────── */
   const [amount, setAmount] = useState<number>(0);
   const [rollover, setRollover] = useState<boolean>(true);
 
-  /* ── Prevent invalid submissions; backend still validates strictly ─────── */
+  /* ── Derived flags ────────── */
+  const isInvalid = amount > 0 && amount < MIN_AMOUNT;
+
+  /* ── Submit handler ────────── */
   const handle = async () => {
-    if (!amount || amount <= 0) return;
+    if (!amount || amount < MIN_AMOUNT) return;
     await onSubmit({ amount, autoRollover: rollover });
-    setAmount(0); // optional reset after success
+    setAmount(0); // optional reset
   };
 
-  /* ── Simple vertical stack with link to historical reservations ────────── */
+  /* ── Layout ────────── */
   return (
     <div className="grid gap-3">
-      <AmountInput value={amount} onChange={setAmount} />
+      {/* ── Amount input + inline error ────────── */}
+      <div>
+        <AmountInput value={amount} onChange={setAmount} />
+        {isInvalid && (
+          <p
+            className="mt-1 text-sm text-red-400"
+            role="alert"
+            aria-live="polite"
+          >
+            Minimum amount is {MIN_AMOUNT}.
+          </p>
+        )}
+      </div>
+
+      {/* ── Auto-rollover switch ────────── */}
       <AutoRolloverSwitch checked={rollover} onChange={setRollover} />
+
+      {/* ── Submit button ────────── */}
       <ReserveButton
-        disabled={busy || amount <= 0}
+        disabled={busy || amount < MIN_AMOUNT}
         loading={busy}
         onClick={handle}
       />
+
+      {/* ── Link to history ────────── */}
       <div className="text-center">
         <a className="text-white/80 hover:underline" href="/booster/history">
           View History

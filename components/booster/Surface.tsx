@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 export default function Surface({ children }: PropsWithChildren) {
   /* ── Rounded, blurred, subtle bordered container ───────────────────────── */
   return (
-    <div className="rounded-2xl bg-white/5 backdrop-blur-md border border-white/15 shadow-xl">
+    <div className="rounded-lg bg-white/5 backdrop-blur-md border border-white/15 shadow-xl">
       {children}
     </div>
   );

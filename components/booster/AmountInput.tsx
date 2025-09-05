@@ -15,14 +15,14 @@ export default function AmountInput({
 }: Props) {
   /* ── Minimal styling with transparent background to blend with Surface ─── */
   return (
-    <div className="rounded-xl bg-black/25 border border-white/15 px-3 py-2 text-white">
+    <div className="rounded-lg bg-black/25 border border-white/15 px-3 py-1 text-white">
       <input
         type="number"
         min={1}
         value={value || ""}
         placeholder={placeholder}
         onChange={(e) => onChange(parseFloat(e.target.value || "0"))}
-        className="bg-transparent outline-none w-full placeholder:text-white/50"
+        className="bg-transparent outline-none w-full placeholder:text-white/50 border-none"
       />
     </div>
   );

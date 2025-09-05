@@ -1,3 +1,5 @@
+/* ── BoosterHistory — show only purpose === "Create Booster" ────────── */
+
 "use client";
 
 import TransactionCard from "@/components/transactions/TransactionCard";
@@ -6,13 +8,16 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ScaleLoader } from "react-spinners";
 
-const Transactions = () => {
+/* ── Component ────────── */
+const BoosterHistory = () => {
   const { data: transData, isFetching } = useGetTransactionsQuery(undefined, {
-    pollingInterval: 1000 * 60 * 5, // 5 minutes
+    pollingInterval: 1000 * 60 * 5,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+
   const { transactions } = transData || [];
+  console.log("All Transactions:", transactions);
 
   const [page, setPage] = useState(1);
   const [records, setRecords] = useState<any[]>([]);
@@ -20,17 +25,21 @@ const Transactions = () => {
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
+  /* ── Accumulate only "Create Booster" items ────────── */
   useEffect(() => {
     if (transactions?.length) {
-      setRecords((prev) => [...prev, ...transactions]);
-      if (transactions < 10) {
-        setHasMore(false);
-      }
+      const onlyBooster = transactions.filter(
+        (t: any) =>
+          t?.purpose === "Booster Profit" || t?.purpose === "Create Booster"
+      );
+      setRecords((prev) => [...prev, ...onlyBooster]);
+      if (onlyBooster.length < 10) setHasMore(false); // page-size heuristic
     } else {
       setHasMore(false);
     }
   }, [transactions]);
 
+  /* ── Infinite scroll trigger ────────── */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -41,20 +50,18 @@ const Transactions = () => {
       { threshold: 1 }
     );
 
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
-    }
-
+    if (loadMoreRef.current) observer.observe(loadMoreRef.current);
     return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
-      }
+      if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
     };
-  }, [loadMoreRef.current, isFetching, hasMore]);
+  }, [isFetching, hasMore]);
 
+  const hasRecords = records.length > 0;
+
+  /* ── Render ────────── */
   return (
-    <div className="bg-white min-h-[80vh] ">
-      {records.length > 0 ? (
+    <div className="bg-white min-h-[80vh]">
+      {hasRecords ? (
         <>
           {records.map((record: any, index: number) => (
             <TransactionCard key={index} record={record} isLiveTrade={false} />
@@ -88,4 +95,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default BoosterHistory;
