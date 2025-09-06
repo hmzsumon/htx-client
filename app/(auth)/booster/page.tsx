@@ -2,8 +2,8 @@
 
 /* ── Page shell wrapped by BoosterBackground ─────────────────────────────── */
 import BoosterBackground from "@/components/booster/BoosterBackground";
+import BoosterChart from "@/components/booster/BoosterChart";
 import MonthlyBoosterPanel from "@/components/booster/MonthlyBoosterPanel";
-import RealtimeEmulation2 from "@/components/trade/RealtimeEmulation2";
 
 import InsetCircleParent from "@/components/ui-buttons/InsetCircleParent";
 import SubmitButton from "@/components/ui-buttons/SubmitButton";
@@ -58,7 +58,7 @@ export default function Page() {
               </div>
               {/* End Logo */}
               <div className="w-full mx-auto md:h-[300px]">
-                <RealtimeEmulation2 />
+                <BoosterChart />
               </div>
             </div>
           </div>

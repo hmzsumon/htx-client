@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 
-const RealtimeEmulation2 = () => {
+const BoosterChart = () => {
   const dispatch = useDispatch();
   const { symbol, tradeDuration, tradeLoading, kline } = useSelector(
     (state: any) => state.trade
@@ -23,21 +23,21 @@ const RealtimeEmulation2 = () => {
 
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
-      height: 280,
+      height: 230,
       layout: {
         background: { color: "transparent" },
         textColor: "#c2bcbc",
       },
       grid: {
-        vertLines: { color: "#eee" },
-        horzLines: { color: "#eee" },
+        vertLines: { color: "#212548" },
+        horzLines: { color: "#212548" },
       },
       timeScale: {
         timeVisible: true,
         secondsVisible: false,
         barSpacing: 10,
         rightOffset: 2,
-        borderColor: "#f2f0f0",
+        borderColor: "#0a1c25",
         tickMarkFormatter: (time: number) => {
           const date = new Date(time * 1000);
           return `${String(date.getHours()).padStart(2, "0")}:${String(
@@ -46,7 +46,7 @@ const RealtimeEmulation2 = () => {
         },
       },
       rightPriceScale: {
-        borderColor: "#f2f0f0",
+        borderColor: "#0a1c25",
       },
       crosshair: {
         horzLine: { color: "#888", style: 1, visible: true },
@@ -154,4 +154,4 @@ const RealtimeEmulation2 = () => {
   );
 };
 
-export default RealtimeEmulation2;
+export default BoosterChart;
