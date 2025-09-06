@@ -23,7 +23,7 @@ const RealtimeEmulation2 = () => {
 
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
-      height: 280,
+      height: 230,
       layout: {
         background: { color: "transparent" },
         textColor: "#c2bcbc",

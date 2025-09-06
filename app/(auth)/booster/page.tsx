@@ -53,7 +53,7 @@ export default function Page() {
           <div className="w-full  mx-auto ">
             <div className="relative flex flex-col items-center justify-between z-40 space-y-3 ">
               {/* Start Logo */}
-              <div className="absolute top-[50%] md:top-[50%]">
+              <div className="absolute top-[35%] md:top-[50%]">
                 <Image src={Logo} alt="logo" className="w-40 md:w-72" />
               </div>
               {/* End Logo */}
