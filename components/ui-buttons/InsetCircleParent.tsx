@@ -20,7 +20,7 @@ export default function InsetCircleParent({
       {/* outer inset panel (exactly your design) */}
       <div
         className={clsx(
-          "p-6 rounded-xl",
+          "p-10 rounded-full",
           // inset-shadow (bg + two inset shadows)
           "bg-[#0c1e28]",
           "shadow-[inset_-12px_-12px_30px_5px_rgba(255,255,255,0.08),_inset_12px_12px_30px_5px_rgba(0,0,0,0.55)]"
@@ -33,7 +33,7 @@ export default function InsetCircleParent({
             className={clsx(
               "rounded-full grid place-items-center",
               "bg-[#102533]",
-              "shadow-[-12px_-12px_30px_5px_rgba(255,255,255,0.08),_12px_12px_30px_5px_rgba(0,0,0,0.55)]"
+              "shadow-[-12px_-12px_30px_5px_rgba(255,255,255,0.08),_12px_12px_30px_5px_rgba(0,0,0,0.55)] glow-border"
             )}
           >
             {children}

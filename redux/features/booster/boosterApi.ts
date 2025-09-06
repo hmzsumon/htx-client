@@ -17,6 +17,11 @@ export const boosterApi = apiSlice.injectEndpoints({
       query: () => `/booster/me`,
       providesTags: ["Booster"],
     }),
+    /* ── cancel user booster ───────────────────────────────── */
+    cancelBooster: builder.mutation<any, any>({
+      query: (body) => ({ url: "/booster/cancel", method: "POST", body }),
+      invalidatesTags: ["User", "Booster"],
+    }),
   }),
 });
 
@@ -24,4 +29,5 @@ export const {
   useGetMyBoosterSummaryQuery,
   useCreateBoosterMutation,
   useGetUserBoosterQuery,
+  useCancelBoosterMutation,
 } = boosterApi;
