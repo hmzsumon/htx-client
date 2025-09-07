@@ -51,5 +51,6 @@ export const config = {
     "/trade/live-trade",
     "/trade/signal-trade",
     "/booster-history",
+    "/booster",
   ],
 };
