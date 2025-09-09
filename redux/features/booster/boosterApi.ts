@@ -22,6 +22,12 @@ export const boosterApi = apiSlice.injectEndpoints({
       query: (body) => ({ url: "/booster/cancel", method: "POST", body }),
       invalidatesTags: ["User", "Booster"],
     }),
+
+    /* ── get logged in user booster logs ───────────────────────────────── */
+    getBoosterLogs: builder.query<any, any>({
+      query: () => `/booster/profit/logs`,
+      providesTags: ["Booster"],
+    }),
   }),
 });
 
@@ -30,4 +36,5 @@ export const {
   useCreateBoosterMutation,
   useGetUserBoosterQuery,
   useCancelBoosterMutation,
+  useGetBoosterLogsQuery,
 } = boosterApi;
