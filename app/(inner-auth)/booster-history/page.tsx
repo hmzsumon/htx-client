@@ -29,7 +29,10 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
-import { useGetBoosterLogsQuery } from "@/redux/features/booster/boosterApi";
+import {
+  useGetBoosterLogsQuery,
+  useGetMyBoosterSummaryQuery,
+} from "@/redux/features/booster/boosterApi";
 
 // ────────────────────────────────────────────────────────────────────────────────
 // Types returned from API
@@ -92,6 +95,15 @@ export default function BoosterHistoryPage() {
     (data as GetBoosterLogsResponse | undefined)?.logs ?? [];
 
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const {
+    data: summaryData,
+    isLoading: summaryDataLoading,
+    isError: summaryDataError,
+  } = useGetMyBoosterSummaryQuery(undefined);
+
+  const { boosterSummary } = summaryData || {};
+  console.log("boosterSummary", boosterSummary);
 
   // filters & paging
   const [q, setQ] = useState<string>("");
@@ -321,7 +333,7 @@ export default function BoosterHistoryPage() {
           <CardHeader className="pb-2">
             <CardDescription>Total Amount</CardDescription>
             <CardTitle className="text-2xl">
-              {formatCurrency(totalAmount)}
+              {formatCurrency(boosterSummary?.total_amount ?? 0)}
             </CardTitle>
           </CardHeader>
         </Card>
