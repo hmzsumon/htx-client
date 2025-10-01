@@ -28,6 +28,16 @@ export const boosterApi = apiSlice.injectEndpoints({
       query: () => `/booster/profit/logs`,
       providesTags: ["Booster"],
     }),
+
+    /* ── profit transfer mutation ───────────────────────────────── */
+    boosterProfitTransfer: builder.mutation<any, any>({
+      query: (body) => ({
+        url: "/booster/profit/transfer",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["User", "Booster"],
+    }),
   }),
 });
 
@@ -37,4 +47,5 @@ export const {
   useGetUserBoosterQuery,
   useCancelBoosterMutation,
   useGetBoosterLogsQuery,
+  useBoosterProfitTransferMutation,
 } = boosterApi;

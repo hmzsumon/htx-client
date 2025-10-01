@@ -10,8 +10,10 @@ import BoosterDrawer from "@/components/booster/BoosterDrawer"; // ← import th
 import InsetCircleParent from "@/components/ui-buttons/InsetCircleParent";
 import SubmitButton from "@/components/ui-buttons/SubmitButton";
 
+import { formatBalance } from "@/lib/functions";
 import Logo from "@/public/images/logos/logo_black.png";
 import {
+  useBoosterProfitTransferMutation,
   useCancelBoosterMutation,
   useGetUserBoosterQuery,
 } from "@/redux/features/booster/boosterApi";
@@ -32,8 +34,22 @@ export default function Page() {
   const [cancelBooster, { isLoading: busy, isError, isSuccess, error }] =
     useCancelBoosterMutation();
 
+  const [
+    profitTransfer,
+    {
+      isLoading: busyTransfer,
+      isError: isErrorTransfer,
+      isSuccess: isSuccessTransfer,
+      error: errorTransfer,
+    },
+  ] = useBoosterProfitTransferMutation();
+
   const handleSubmit = async () => {
     await cancelBooster({}).unwrap();
+  };
+
+  const handleProfitTransfer = async () => {
+    await profitTransfer({}).unwrap();
   };
 
   useEffect(() => {
@@ -45,6 +61,17 @@ export default function Page() {
       toast.success("Booster canceled successfully");
     }
   }, [isError, isSuccess, error]);
+
+  useEffect(() => {
+    if (isErrorTransfer)
+      toast.error(
+        (errorTransfer as fetchBaseQueryError)?.data?.message ??
+          "Something went wrong"
+      );
+    if (isSuccessTransfer) {
+      toast.success("Profit transferred successfully");
+    }
+  }, [isErrorTransfer, isSuccessTransfer, errorTransfer]);
 
   /* ── NEW: control the drawer ────────── */
   const [openCancelDrawer, setOpenCancelDrawer] = useState(false);
@@ -66,20 +93,38 @@ export default function Page() {
           </div>
 
           <InsetCircleParent size={200} className="mx-auto">
-            <span className="text-white/90 font-semibold">
-              {booster?.amount} / {booster?.profit} USDT
-            </span>
+            <div className="flex text-xs gap-2 flex-col  place-items-start justify-center">
+              <span className="text-white/90 font-semibold ">
+                Amount: {formatBalance(booster?.amount || 0)} USDT
+              </span>
+              <span className="text-white/90 font-semibold">
+                Profit: {formatBalance(booster?.profit || 0)} USDT
+              </span>
+            </div>
           </InsetCircleParent>
 
           <div className="flex flex-col gap-2 items-center w-full">
             {/* Open drawer instead of cancelling directly */}
-            <SubmitButton
-              onClick={() => setOpenCancelDrawer(true)}
-              size="sm"
-              className="w-full"
-            >
-              Cancel Booster
-            </SubmitButton>
+
+            {booster?.is_active && (
+              <SubmitButton
+                onClick={() => setOpenCancelDrawer(true)}
+                size="sm"
+                className="w-full"
+              >
+                Cancel Booster
+              </SubmitButton>
+            )}
+
+            {booster?.isPermitToTransfer && (
+              <SubmitButton
+                onClick={handleProfitTransfer}
+                size="sm"
+                className="w-full"
+              >
+                Transfer Profit {formatBalance(booster?.profit || 0)} USDT
+              </SubmitButton>
+            )}
 
             <Link href="/booster-history" className="w-full">
               <SubmitButton size="sm" className="w-full">
