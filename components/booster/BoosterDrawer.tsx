@@ -39,7 +39,7 @@ export default function BoosterDrawer({
   amount = 0,
   busy = false,
   onConfirm,
-  feeRate = 0.1,
+  feeRate = 0.15,
 }: BoosterDrawerProps) {
   const fee = Math.max(0, amount * feeRate);
   const credit = Math.max(0, amount - fee);

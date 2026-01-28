@@ -35,7 +35,7 @@ export default function BoosterTradeInfoCard() {
           </h4>
           <ul className="space-y-1">
             <li>✅ Minimum Join Amount: $50 to Unlimited</li>
-            <li>✅ Trading Fee: Only 1%</li>
+            <li>✅ Trading Fee: Only 2%</li>
             <li>✅ Daily Income: 0% up to 15%</li>
             <li>✅ Trading Starts: 3rd of every month</li>
             <li>✅ Trading Ends: 1st of every month</li>
