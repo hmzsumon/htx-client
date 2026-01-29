@@ -19,8 +19,7 @@ const depositInstructions = [
 
   " Sign-up bonus: $4, usable only if you're on the Minimum Trade Lite package.",
 
-  "KYC Bonus: Once you successfully complete your KYC verification, you will receive a $2 bonus. However, to use this bonus, you must be on at least the 'Trade Lite'package.",
-  "Trade Lite Package: Trade Lite is our minimum trading package. To qualify for it, your account balance must be at least $30. Once your balance reaches $30 or more, you'll be automatically eligible for the Trade Lite package, and your $2 bonus will be available for use.",
+  "Trade Lite Package: Trade Lite is our minimum trading package. To qualify for it, your account balance must be at least $50. Once your balance reaches $50 or more, you'll be automatically eligible for the Trade Lite package, and your $4 bonus will be available for use.",
 
   "Do not deposit non-currency assets to the above address — such assets cannot be recovered.",
 

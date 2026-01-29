@@ -61,8 +61,7 @@ export function DashboardDialog() {
               <li>⚡ Live & Signal-Based Trading Support</li>
               <li>📦 Flexible Earning Packages Based on Ranks</li>
               <li>⬆ Rank Up & Earn Massive Rewards</li>
-              <li>🎁 Sign-Up Bonus: $2 for Every New User</li>
-              <li>✅ Additional $2 Bonus Upon KYC Verification (Optional)</li>
+              <li>🎁 Sign-Up Bonus: $4 for Every New User</li>
             </ul>
           </div>
 

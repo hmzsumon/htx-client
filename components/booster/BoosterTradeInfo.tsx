@@ -39,7 +39,7 @@ export default function BoosterTradeInfoCard() {
             <li>✅ Daily Income: 0% up to 15%</li>
             <li>✅ Trading Starts: 3rd of every month</li>
             <li>✅ Trading Ends: 1st of every month</li>
-            <li>✅ Referral Commission: 7% (Only Direct Refer)</li>
+            <li>✅ Booster bonus: 5%, 2% & 1% for 1st, 2nd & 3rd level</li>
           </ul>
         </div>
 
@@ -47,14 +47,24 @@ export default function BoosterTradeInfoCard() {
 
         <div className="space-y-2">
           <h4 className="font-semibold tracking-tight">📅 Joining Rules</h4>
+
           <p>
-            You can join Booster Trade any day starting from the 3rd of every
-            month.
+            You can join <strong>Booster Trade</strong> on any day starting from
+            the <strong>3rd</strong> of every month.
           </p>
-          <p>However, if you refer someone after the 22nd of the month:</p>
+          <p>
+            However, if someone activates Booster{" "}
+            <strong>after the 20th</strong> of the month:
+          </p>
           <ul className="space-y-1">
-            <li>🔸 7% referral commission will NOT be applicable</li>
-            <li>🔸 But they can still participate in Booster Trade</li>
+            <li>
+              🔸 They will <strong>NOT</strong> be eligible for the{" "}
+              <strong>Booster Bonus</strong>
+            </li>
+            <li>
+              🔸 But they can still participate in{" "}
+              <strong>Booster Trade</strong>
+            </li>
           </ul>
         </div>
 

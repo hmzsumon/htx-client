@@ -80,7 +80,7 @@ export default function BoosterDrawer({
           {/* ── Highlight: 10% deduction note ────────── */}
           <div className="rounded-lg border border-amber-400/40 bg-amber-400/10 p-3 text-xs text-amber-300">
             <span className="font-semibold">Note:</span> A{" "}
-            <span className="font-semibold">10% deduction</span> will be applied
+            <span className="font-semibold">15% deduction</span> will be applied
             from your booster amount.
             <div className="mt-1">
               Deduction:{" "}
